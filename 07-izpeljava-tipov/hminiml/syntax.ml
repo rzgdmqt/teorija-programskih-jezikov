@@ -6,15 +6,15 @@ let fresh_param () =
   incr counter;
   Param !counter
 
-type ty = IntTy | BoolTy | ArrowTy of ty * ty | ParamTy of param
+type ty = IntTy | BoolTy | ArrowTy of ty * ty | ParamTy of param | UnitTy
 
 let rec occurs p = function
-  | IntTy | BoolTy -> false
+  | IntTy | BoolTy | UnitTy -> false
   | ArrowTy (ty1, ty2) -> occurs p ty1 || occurs p ty2
   | ParamTy p' -> p = p'
 
 let rec subst_ty sbst = function
-  | (IntTy | BoolTy) as ty -> ty
+  | (IntTy | BoolTy | UnitTy) as ty -> ty
   | ArrowTy (ty1, ty2) -> ArrowTy (subst_ty sbst ty1, subst_ty sbst ty2)
   | ParamTy p as ty -> List.assoc_opt p sbst |> Option.value ~default:ty
 
@@ -25,6 +25,7 @@ let string_of_param (Param p) = "'a" ^ string_of_int p
 let rec string_of_ty = function
   | IntTy -> "int"
   | BoolTy -> "bool"
+  | UnitTy -> "unit"
   | ArrowTy (ty1, ty2) ->
       "(" ^ string_of_ty ty1 ^ " -> " ^ string_of_ty ty2 ^ ")"
   | ParamTy p -> string_of_param p
@@ -47,6 +48,9 @@ type exp =
   | Apply of exp * exp
   | Raise of ident
   | Try of exp * exp
+  | Assign of ident * exp
+  | Read of ident
+  | Unit
 
 let let_in (x, e1, e2) = Apply (Lambda (x, e2), e1)
 
@@ -55,7 +59,7 @@ let let_rec_in (f, x, e1, e2) = let_in (f, RecLambda (f, x, e1), e2)
 let rec subst_exp sbst = function
   | Var x as e -> (
       match List.assoc_opt x sbst with None -> e | Some e' -> e')
-  | (Int _ | Bool _ | Raise _) as e -> e
+  | (Int _ | Bool _ | Raise _ | Unit) as e -> e
   | Plus (e1, e2) -> Plus (subst_exp sbst e1, subst_exp sbst e2)
   | Minus (e1, e2) -> Minus (subst_exp sbst e1, subst_exp sbst e2)
   | Times (e1, e2) -> Times (subst_exp sbst e1, subst_exp sbst e2)
@@ -72,6 +76,8 @@ let rec subst_exp sbst = function
       RecLambda (f, x, subst_exp sbst' e)
   | Apply (e1, e2) -> Apply (subst_exp sbst e1, subst_exp sbst e2)
   | Try (e1, e2) -> Try (subst_exp sbst e1, subst_exp sbst e2)
+  | Assign (x, e) -> Assign (x, subst_exp sbst e)
+  | Read x -> Read x
 
 let string_of_ident (Ident x) = x
 
@@ -104,6 +110,9 @@ and string_of_exp0 = function
   | Bool b -> if b then "TRUE" else "FALSE"
   | Var x -> string_of_ident x
   | Raise (Ident s) -> "(RAISE " ^ s ^ ")"
+  | Read x -> "(READ " ^ string_of_ident x ^ ")"
+  | Assign (x, e) -> "" ^ string_of_ident x ^ " := " ^ string_of_exp0 e ^ ""
+  | Unit -> "UNIT"
   | e -> "(" ^ string_of_exp3 e ^ ")"
 
 let string_of_exp = string_of_exp3

@@ -131,8 +131,12 @@ and exp1 chrs =
     return (List.fold_left (fun e1 e2 -> Syntax.Apply (e1, e2)) e es)
   and raise =
     word "RAISE" >> spaces1 >> ident >>= fun e -> return (Syntax.Raise e)
-  in
-  one_of [ apply; raise; exp0 ] chrs
+  and assign =
+    ident >>= fun x ->
+    spaces1 >> word ":=" >> spaces1 >> exp0 >>= fun e ->
+    return (Syntax.Assign (x, e))
+  and read = word "!" >> ident >>= fun x -> return (Syntax.Read x) in
+  one_of [ apply; raise; assign; read; exp0 ] chrs
 
 and exp0 chrs =
   one_of

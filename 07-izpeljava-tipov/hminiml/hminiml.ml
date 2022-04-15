@@ -30,8 +30,8 @@ let main () =
     print_string "SUBSTITUIRANI TIP:";
     print_endline (Syntax.string_of_ty (Syntax.subst_ty subst ty));
     print_endline "MALI KORAKI:";
-    Interpreter.small_step e;
+    Interpreter.small_step Interpreter.empty_state e;
     print_endline "VELIKI KORAKI:";
-    Interpreter.big_step e
+    Interpreter.big_step Interpreter.empty_state e
 
 let _ = main ()
