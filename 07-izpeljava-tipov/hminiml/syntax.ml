@@ -19,6 +19,7 @@ let rec subst_ty sbst = function
   | ParamTy p as ty -> List.assoc_opt p sbst |> Option.value ~default:ty
 
 let fresh_ty () = ParamTy (fresh_param ())
+
 let string_of_param (Param p) = "'a" ^ string_of_int p
 
 let rec string_of_ty = function
@@ -44,14 +45,17 @@ type exp =
   | Lambda of ident * exp
   | RecLambda of ident * ident * exp
   | Apply of exp * exp
+  | Raise of ident
+  | Try of exp * exp
 
 let let_in (x, e1, e2) = Apply (Lambda (x, e2), e1)
+
 let let_rec_in (f, x, e1, e2) = let_in (f, RecLambda (f, x, e1), e2)
 
 let rec subst_exp sbst = function
   | Var x as e -> (
       match List.assoc_opt x sbst with None -> e | Some e' -> e')
-  | (Int _ | Bool _) as e -> e
+  | (Int _ | Bool _ | Raise _) as e -> e
   | Plus (e1, e2) -> Plus (subst_exp sbst e1, subst_exp sbst e2)
   | Minus (e1, e2) -> Minus (subst_exp sbst e1, subst_exp sbst e2)
   | Times (e1, e2) -> Times (subst_exp sbst e1, subst_exp sbst e2)
@@ -67,6 +71,7 @@ let rec subst_exp sbst = function
       let sbst' = List.remove_assoc f (List.remove_assoc x sbst) in
       RecLambda (f, x, subst_exp sbst' e)
   | Apply (e1, e2) -> Apply (subst_exp sbst e1, subst_exp sbst e2)
+  | Try (e1, e2) -> Try (subst_exp sbst e1, subst_exp sbst e2)
 
 let string_of_ident (Ident x) = x
 
@@ -75,6 +80,7 @@ let rec string_of_exp3 = function
       "IF " ^ string_of_exp2 e ^ " THEN " ^ string_of_exp2 e1 ^ " ELSE "
       ^ string_of_exp3 e2
   | Lambda (x, e) -> "FUN " ^ string_of_ident x ^ " -> " ^ string_of_exp3 e
+  | Try (e1, e2) -> "TRY " ^ string_of_exp3 e1 ^ " WITH " ^ string_of_exp3 e2
   | RecLambda (f, x, e) ->
       "REC " ^ string_of_ident f ^ " " ^ string_of_ident x ^ " -> "
       ^ string_of_exp3 e
@@ -97,6 +103,7 @@ and string_of_exp0 = function
   | Int n -> string_of_int n
   | Bool b -> if b then "TRUE" else "FALSE"
   | Var x -> string_of_ident x
+  | Raise (Ident s) -> "(RAISE " ^ s ^ ")"
   | e -> "(" ^ string_of_exp3 e ^ ")"
 
 let string_of_exp = string_of_exp3

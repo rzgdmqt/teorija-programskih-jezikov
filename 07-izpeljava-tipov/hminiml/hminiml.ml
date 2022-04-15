@@ -28,11 +28,10 @@ let main () =
           ("- " ^ Syntax.string_of_param p ^ " -> " ^ Syntax.string_of_ty ty))
       subst;
     print_string "SUBSTITUIRANI TIP:";
-    print_endline (Syntax.string_of_ty (Syntax.subst_ty subst ty))
-
-(* print_endline "MALI KORAKI:";
-   Interpreter.small_step e;
-   print_endline "VELIKI KORAKI:";
-   Interpreter.big_step e *)
+    print_endline (Syntax.string_of_ty (Syntax.subst_ty subst ty));
+    print_endline "MALI KORAKI:";
+    Interpreter.small_step e;
+    print_endline "VELIKI KORAKI:";
+    Interpreter.big_step e
 
 let _ = main ()

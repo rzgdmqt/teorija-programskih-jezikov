@@ -1,4 +1,5 @@
 let explode str = List.init (String.length str) (String.get str)
+
 let implode chrs = String.init (List.length chrs) (List.nth chrs)
 
 type 'value parser = char list -> ('value * char list) option
@@ -6,7 +7,9 @@ type 'value parser = char list -> ('value * char list) option
 (* BASIC PARSERS *)
 
 let fail _ = None
+
 let return v chrs = Some (v, chrs)
+
 let character = function [] -> None | chr :: chrs -> Some (chr, chrs)
 
 let ( || ) parser1 parser2 chrs =
@@ -38,6 +41,7 @@ let space =
   character |> satisfy is_space
 
 let exactly chr = character |> satisfy (( = ) chr)
+
 let one_of parsers = List.fold_right ( || ) parsers fail
 
 let word str =
@@ -54,6 +58,7 @@ let integer =
   many1 digit >>= fun digits -> return (int_of_string (implode digits))
 
 let spaces = many space >> return ()
+
 let spaces1 = many1 space >> return ()
 
 let parens parser =
@@ -96,8 +101,15 @@ let rec exp3 chrs =
     spaces >> word "=" >> spaces >> exp3 >>= fun e1 ->
     spaces1 >> word "IN" >> spaces1 >> exp3 >>= fun e2 ->
     return (Syntax.let_rec_in (f, x, e1, e2))
+  and try_catch =
+    word "TRY" >> spaces1 >> exp3 >>= fun e1 ->
+    spaces1 >> word "WITH" >> spaces1 >> exp3 >>= fun e2 ->
+    return (Syntax.Try (e1, e2))
   in
-  one_of [ if_then_else; lambda; rec_lambda; let_in; let_rec_in; exp2 ] chrs
+
+  one_of
+    [ if_then_else; lambda; rec_lambda; let_in; let_rec_in; try_catch; exp2 ]
+    chrs
 
 and exp2 chrs =
   one_of
@@ -117,8 +129,10 @@ and exp1 chrs =
     exp0 >>= fun e ->
     many1 (spaces1 >> exp0) >>= fun es ->
     return (List.fold_left (fun e1 e2 -> Syntax.Apply (e1, e2)) e es)
+  and raise =
+    word "RAISE" >> spaces1 >> ident >>= fun e -> return (Syntax.Raise e)
   in
-  one_of [ apply; exp0 ] chrs
+  one_of [ apply; raise; exp0 ] chrs
 
 and exp0 chrs =
   one_of
