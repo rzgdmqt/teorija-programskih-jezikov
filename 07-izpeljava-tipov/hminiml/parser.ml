@@ -135,8 +135,12 @@ and exp1 chrs =
     ident >>= fun x ->
     spaces1 >> word ":=" >> spaces1 >> exp0 >>= fun e ->
     return (Syntax.Assign (x, e))
-  and read = word "!" >> ident >>= fun x -> return (Syntax.Read x) in
-  one_of [ apply; raise; assign; read; exp0 ] chrs
+  and read = word "!" >> ident >>= fun x -> return (Syntax.Read x)
+  and print_out =
+    word "PRINT_INT" >> spaces1 >> exp0 >>= fun e -> return (Syntax.Print e)
+  in
+
+  one_of [ apply; raise; assign; read; print_out; exp0 ] chrs
 
 and exp0 chrs =
   one_of

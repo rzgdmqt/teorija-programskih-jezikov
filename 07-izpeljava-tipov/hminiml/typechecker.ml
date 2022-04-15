@@ -45,6 +45,9 @@ let rec infer_exp ctx = function
       let ty, eqs = infer_exp ctx e in
       (UnitTy, (IntTy, ty) :: eqs)
   | Unit -> (UnitTy, [])
+  | Print e ->
+      let ty, eqs = infer_exp ctx e in
+      (UnitTy, (IntTy, ty) :: eqs)
 
 let subst_eqs sbst eqs =
   List.map (fun (ty1, ty2) -> (subst_ty sbst ty1, subst_ty sbst ty2)) eqs

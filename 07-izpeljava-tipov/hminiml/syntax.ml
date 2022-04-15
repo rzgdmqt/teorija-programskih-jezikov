@@ -51,6 +51,7 @@ type exp =
   | Assign of ident * exp
   | Read of ident
   | Unit
+  | Print of exp
 
 let let_in (x, e1, e2) = Apply (Lambda (x, e2), e1)
 
@@ -78,6 +79,7 @@ let rec subst_exp sbst = function
   | Try (e1, e2) -> Try (subst_exp sbst e1, subst_exp sbst e2)
   | Assign (x, e) -> Assign (x, subst_exp sbst e)
   | Read x -> Read x
+  | Print e -> Print (subst_exp sbst e)
 
 let string_of_ident (Ident x) = x
 
@@ -113,6 +115,7 @@ and string_of_exp0 = function
   | Read x -> "(READ " ^ string_of_ident x ^ ")"
   | Assign (x, e) -> "" ^ string_of_ident x ^ " := " ^ string_of_exp0 e ^ ""
   | Unit -> "UNIT"
+  | Print e -> "(PRINT " ^ string_of_exp0 e ^ ")"
   | e -> "(" ^ string_of_exp3 e ^ ")"
 
 let string_of_exp = string_of_exp3
