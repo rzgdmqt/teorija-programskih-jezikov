@@ -1,0 +1,681 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Metateorija programskih jezikov &#8212; Teorija programskih jezikov</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"intsym": ["\\underline{#1}", 1], "kwd": ["\\mathbf{#1}", 1], "kwdpre": ["\\kwd{#1}\\;", 1], "kwdmid": ["\\;\\kwd{#1}\\;", 1], "kwdpost": ["\\;\\kwd{#1}", 1], "true": "\\kwd{true}", "false": "\\kwd{false}", "ifthenelse": ["\\kwdpre{if} #1 \\kwdmid{then} #2 \\kwdmid{else} #3", 3], "whiledo": ["\\kwdpre{while} #1 \\kwdmid{do} #2", 2], "skip": "\\kwd{skip}", "ttt": "t\\!t", "fff": "f\\!\\!f", "infer": ["\\displaystyle{\\frac{#1}{#2}}", 2]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="λ-račun" href="05-lambda-racun.html" />
+    <link rel="prev" title="Indukcija" href="03-indukcija.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Teorija programskih jezikov</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="00-uvod.html">
+   Teorija programskih jezikov
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Osnove
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-praksa-programskih-jezikov.html">
+   Praksa programskih jezikov
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-uvod-v-agdo.agda.html">
+   Uvod v Agdo
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-indukcija.html">
+   Indukcija
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Metateorija
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Metateorija programskih jezikov
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-lambda-racun.html">
+   λ-račun
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-tipi.html">
+   Tipi
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-izpeljava-tipov.html">
+   Izpeljava tipov
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="_sources/04-metateorija-programskih-jezikov.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/04-metateorija-programskih-jezikov.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/matijapretnar/teorija-programskih-jezikov/zapiski?urlpath=tree/04-metateorija-programskih-jezikov.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#teorija">
+   Teorija
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sintaksa">
+     Sintaksa
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#operacijska-semantika">
+     Operacijska semantika
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dolocanje-veljavnih-programov">
+     Določanje veljavnih programov
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#izrek-o-varnosti">
+   Izrek o varnosti
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#napredek">
+     Napredek
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dokaz">
+       Dokaz
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#varnost">
+     Varnost
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vaje">
+   Vaje
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-1">
+     Naloga 1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-2">
+     Naloga 2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-3">
+     Naloga 3
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Metateorija programskih jezikov</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#teorija">
+   Teorija
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sintaksa">
+     Sintaksa
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#operacijska-semantika">
+     Operacijska semantika
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dolocanje-veljavnih-programov">
+     Določanje veljavnih programov
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#izrek-o-varnosti">
+   Izrek o varnosti
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#napredek">
+     Napredek
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dokaz">
+       Dokaz
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#varnost">
+     Varnost
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vaje">
+   Vaje
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-1">
+     Naloga 1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-2">
+     Naloga 2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-3">
+     Naloga 3
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="metateorija-programskih-jezikov">
+<h1>Metateorija programskih jezikov<a class="headerlink" href="#metateorija-programskih-jezikov" title="Permalink to this headline">¶</a></h1>
+<p>Vsak programski jezik ima svojo <em>teorijo</em>, torej pravila, ki formalno opisujejo kako se programi izvajajo ali določajo, katere programe smatramo za veljavne. Od teorije so odvisne lastnosti programskega jezika, na primer to, da se veljavni programi lahko vedno uspešno izvedejo, ali pa to, da je rezultat enolično določen. Lastnostim programskega jezika, ki sledijo iz dane teorije, pravimo <em>metateorija</em>. Za primer si oglejmo že znani programski jezik IMP.</p>
+<section id="teorija">
+<h2>Teorija<a class="headerlink" href="#teorija" title="Permalink to this headline">¶</a></h2>
+<section id="sintaksa">
+<h3>Sintaksa<a class="headerlink" href="#sintaksa" title="Permalink to this headline">¶</a></h3>
+<p>Del teorije IMPa smo že srečali, in sicer njegovo abstraktno sintakso, ki jo tu le ponovimo:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \begin{aligned}
+    \text{aritmetični izraz } e &amp;::=
+      \ell \mid
+      \intsym{n} \mid
+      e_1 + e_2 \mid
+      e_1 - e_2 \mid
+      e_1 * e_2 \\
+    \text{logični izraz } b &amp;::=
+      \true \mid
+      \false \mid
+      e_1 = e_2 \mid
+      e_1 &lt; e_2 \mid
+      e_1 &gt; e_2 \\
+    \text{ukaz } c &amp;::=
+      \ifthenelse{b}{c_1}{c_2} \mid
+      \whiledo{b}{c} \mid
+      c_1 ; c_2 \mid
+      \ell := e \mid
+      \skip
+  \end{aligned}
+\end{split}\]</div>
+</section>
+<section id="operacijska-semantika">
+<h3>Operacijska semantika<a class="headerlink" href="#operacijska-semantika" title="Permalink to this headline">¶</a></h3>
+<p>V sintaksi uporabljamo besede in simbole, ki nakazujejo na pomen posameznih izrazov in ukazov, ampak to pomena formalno ne podaja. Najprej podajmo <em>dinamično</em> oziroma <em>operacijsko semantiko</em>, ki določa, kako se programi izvajajo. To smo enkrat že storili prek programa v OCamlu, zdaj pa to storimo še v jeziku matematike.</p>
+<p>Začnimo z aritmetičnimi izrazi, ki naj bi predstavljali cela števila. Ker v aritmetičnih izrazih lahko dostopamo do lokacij <span class="math notranslate nohighlight">\(\ell\)</span>, moramo pomen podati relativno na neko stanje, ki ga predstavimo z množico parov lokacij in prirejenih vrednosti <span class="math notranslate nohighlight">\(\{ \ell_1 \mapsto n_1, \dots, \ell_k \mapsto n_k \}\)</span>. Tromestno relacijo <span class="math notranslate nohighlight">\(s, e \Downarrow n\)</span>, ki pove, da izraz <span class="math notranslate nohighlight">\(e\)</span> v stanju <span class="math notranslate nohighlight">\(s\)</span> predstavlja število <span class="math notranslate nohighlight">\(n\)</span>, podamo kot najmanjšo relacijo, zaprto za sledeča pravila:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \infer{(\ell \mapsto n) \in s}{s, \ell \Downarrow n} \qquad
+  \infer{}{s, \intsym{n} \Downarrow n} \\[2em]
+  \infer{s, e_1 \Downarrow n_1 \qquad s, e_2 \Downarrow n_2}{s, (e_1 + e_2) \Downarrow (n_1 + n_2)} \qquad
+  \infer{s, e_1 \Downarrow n_1 \qquad s, e_2 \Downarrow n_2}{s, (e_1 - e_2) \Downarrow (n_1 - n_2)} \qquad
+  \infer{s, e_1 \Downarrow n_1 \qquad s, e_2 \Downarrow n_2}{s, (e_1 * e_2) \Downarrow (n_1 \cdot n_2)}
+\end{split}\]</div>
+<p>Na primer, za stanje <span class="math notranslate nohighlight">\(s = \{ \ell \mapsto 6, m \mapsto -5 \}\)</span> velja <span class="math notranslate nohighlight">\(s, \ell * (\underline{3} + \underline{4}) \Downarrow 42\)</span>, saj imamo sledeče drevo izpeljave:</p>
+<div class="math notranslate nohighlight">
+\[
+  \infer{
+    \infer{(\ell \mapsto 6) \in s}{s, \ell \Downarrow 6} \qquad
+    \infer{
+      \infer{}{s, \intsym{3} \Downarrow 3} \qquad
+      \infer{}{s, \intsym{4} \Downarrow 4}
+    }{
+      s, (\intsym{3} + \intsym{4}) \Downarrow 7
+    }
+  }{
+    s, \ell * (\intsym{3} + \intsym{4}) \Downarrow 42
+  }
+\]</div>
+<p>Če aritmetični izraz <span class="math notranslate nohighlight">\(e\)</span> vsebuje dostop do lokacije <span class="math notranslate nohighlight">\(\ell\)</span>, ki v stanju <span class="math notranslate nohighlight">\(s\)</span> ni nastavljena, to v implementaciji sprožilo napako ob izvajanju, v matematični formulaciji pa preprosto pomeni, da za nobeno število <span class="math notranslate nohighlight">\(n\)</span> ne velja <span class="math notranslate nohighlight">\(s, e \Downarrow n\)</span>.</p>
+<p>Podobno podamo relacijo <span class="math notranslate nohighlight">\(s, b \Downarrow r\)</span>, ki pove, kdaj logični izraz <span class="math notranslate nohighlight">\(b\)</span> v danem stanju <span class="math notranslate nohighlight">\(s\)</span> predstavlja resničnostno vrednost <span class="math notranslate nohighlight">\(r \in \mathbb{B} = \{ t\!t, f\!\!f \}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \infer{}{s, \true \Downarrow \ttt} \qquad
+  \infer{}{s, \false \Downarrow \fff} \\[2em]
+  \infer{s, e_1 \Downarrow n_1 \qquad s, e_2 \Downarrow n_2 \qquad n_1 = n_2}{s, (e_1 = e_2) \Downarrow \ttt} \qquad
+  \infer{s, e_1 \Downarrow n_1 \qquad s, e_2 \Downarrow n_2 \qquad n_1 \ne n_2}{s, (e_1 = e_2) \Downarrow \fff} \\[2em]
+  \infer{s, e_1 \Downarrow n_1 \qquad s, e_2 \Downarrow n_2 \qquad n_1 &lt; n_2}{s, (e_1 &lt; e_2) \Downarrow \ttt} \qquad
+  \infer{s, e_1 \Downarrow n_1 \qquad s, e_2 \Downarrow n_2 \qquad n_1 \ge n_2}{s, (e_1 &lt; e_2) \Downarrow \fff} \\[2em]
+  \infer{s, e_1 \Downarrow n_1 \qquad s, e_2 \Downarrow n_2 \qquad n_1 &gt; n_2}{s, (e_1 &gt; e_2) \Downarrow \ttt} \qquad
+  \infer{s, e_1 \Downarrow n_1 \qquad s, e_2 \Downarrow n_2 \qquad n_1 \le n_2}{s, (e_1 &gt; e_2) \Downarrow \fff}
+\end{split}\]</div>
+<p>Pri ukazih so pravila malo drugačna, saj za razliko od izrazov ne predstavljajo nobenih vrednosti, temveč je njihov končni rezultat spremenjeno stanje. Poleg tega se zaradi morebitnih neskončnih zank izvajanje ukazov ne konča vedno. Zaradi slednjega bomo pomen ukazov podali prek semantike <em>malih korakov</em> <span class="math notranslate nohighlight">\(s, c \leadsto s', c'\)</span>, ki ukaza <span class="math notranslate nohighlight">\(c\)</span> v stanju <span class="math notranslate nohighlight">\(s\)</span> ne bo povezala s končnim rezultatom, temveč z novim ukazom <span class="math notranslate nohighlight">\(c'\)</span> in novim stanjem <span class="math notranslate nohighlight">\(s'\)</span>, ki predstavljata spremembe, ki so se zgodile v enem računskem koraku.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \infer{s, b \Downarrow \ttt}{s, \ifthenelse{b}{c_1}{c_2} \leadsto s, c_1} \qquad
+  \infer{s, b \Downarrow \fff}{s, \ifthenelse{b}{c_1}{c_2} \leadsto s, c_2} \\[2em]
+  \infer{s, b \Downarrow \ttt}{s, \whiledo{b}{c} \leadsto s, (c; \whiledo{b}{c})} \qquad
+  \infer{s, b \Downarrow \fff}{s, \whiledo{b}{c} \leadsto s, \skip}  \\[2em]
+  \infer{s, c_1 \leadsto s', c_1'}{s, (c_1 ; c_2) \leadsto s', (c_1' ; c_2)} \qquad
+  \infer{}{s, (\skip ; c_2) \leadsto s, c_2}  \\[2em]
+  \infer{s, e \Downarrow n}{s, \ell := e \leadsto s[\ell \mapsto n], \skip}
+\end{split}\]</div>
+<p>Vidimo, da takrat, kadar pogoj v logičnem ukazu predstavlja resnico, v naslednjem računskem koraku začnemo izvajati prvo, sicer pa drugo vejo, obe v nespremenjenem stanju. Podobno ločimo dva primera pri zankah. Če je pogoj resničen, izvedemo telo, ki mu sledi še ena ponovitev zanke, sicer pa zaključimo izvajanje. Pri zaporednem izvajanju korak naredimo v prvem ukazu in ustrezno spremenimo stanje. Če je prvi ukaz končal z izvajanjem, začnemo izvajati drugi ukaz. Pri prirejanju spremenimo stanje in zaključimo izvajanje. Ukaz <span class="math notranslate nohighlight">\(\mathbf{skip}\)</span> predstavlja zaključeno izvajanje, zato pravila zanj nimamo.</p>
+<p>S tako podanimi pravili lahko pokažemo, da je semantika ukazov deterministična. Če velja tako <span class="math notranslate nohighlight">\(s, c \leadsto s', c'\)</span> kot <span class="math notranslate nohighlight">\(s, c \leadsto s'', c''\)</span>, tedaj je <span class="math notranslate nohighlight">\(s' = s''\)</span> in <span class="math notranslate nohighlight">\(c' = c''\)</span>. Dokaz poteka z indukcijo, pri tem pa si pomagamo s pomožnima trditvama, da sta tudi semantiki aritmetičnih in logičnih izrazov deterministični.</p>
+</section>
+<section id="dolocanje-veljavnih-programov">
+<h3>Določanje veljavnih programov<a class="headerlink" href="#dolocanje-veljavnih-programov" title="Permalink to this headline">¶</a></h3>
+<p>Želeli bi pokazati, da se vsak program lahko vedno naredi korak izvede, vendar to ni res, saj lahko nekateri programi dostopajo do lokacij, ki v stanju niso nastavljene. Da bi se tem primerom izognili, smo v implementaciji napisali funkcijo <code class="docutils literal notranslate"><span class="pre">check</span></code>, ki je program preverila, preden ga je začela izvajati. Matematično pa bomo to zopet podali z induktivnimi relacijami. Relacijo <span class="math notranslate nohighlight">\(L \vdash e\)</span>, ki podaja, kdaj aritmetični izraz <span class="math notranslate nohighlight">\(e\)</span> dostopa le do lokacij iz množice <span class="math notranslate nohighlight">\(L\)</span>, podamo s sledečimi pravili:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \infer{\ell \in L}{L \vdash \ell} \qquad
+  \infer{}{L \vdash \intsym{n}} \\[2em]
+  \infer{L \vdash e_1 \qquad L \vdash e_2}{L \vdash (e_1 + e_2)} \qquad
+  \infer{L \vdash e_1 \qquad L \vdash e_2}{L \vdash (e_1 - e_2)} \qquad
+  \infer{L \vdash e_1 \qquad L \vdash e_2}{L \vdash (e_1 * e_2)}
+\end{split}\]</div>
+<p>Podobno to storimo za logične izraze:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \infer{}{L \vdash \true} \qquad
+  \infer{}{L \vdash \false} \\[2em]
+  \infer{L \vdash e_1 \qquad L \vdash e_2}{L \vdash (e_1 = e_2)} \qquad
+  \infer{L \vdash e_1 \qquad L \vdash e_2}{L \vdash (e_1 &lt; e_2)} \qquad
+  \infer{L \vdash e_1 \qquad L \vdash e_2}{L \vdash (e_1 &gt; e_2)}
+\end{split}\]</div>
+<p>Pri ukazih je situacija malenkostno drugačna, saj spreminjajo stanje in s tem tudi množico veljavnih lokacij. Tako podamo relacijo <span class="math notranslate nohighlight">\(L \vdash c, L'\)</span>, ki pove, da ukaz <span class="math notranslate nohighlight">\(c\)</span> dostopa le do lokacij iz množice <span class="math notranslate nohighlight">\(L\)</span>, po izvajanju pa bodo definirane vse lokacije iz množice <span class="math notranslate nohighlight">\(L'\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  \infer{L \vdash b \qquad L \vdash c_1, L_1 \qquad L \vdash c_2, L_2}{L \vdash \ifthenelse{b}{c_1}{c_2}, L_1 \cap L_2} \qquad
+  \infer{L \vdash b \qquad L \vdash c, L'}{L \vdash \whiledo{b}{c}, L'} \\[2em]
+  \infer{L \vdash c_1, L' \qquad L' \vdash c_2, L''}{L \vdash (c_1 ; c_2), L''} \qquad
+  \infer{L \vdash e}{L \vdash \ell := e, L \cup \{ \ell \}} \qquad
+  \infer{}{L \vdash \skip, L}
+\end{split}\]</div>
+</section>
+</section>
+<section id="izrek-o-varnosti">
+<h2>Izrek o varnosti<a class="headerlink" href="#izrek-o-varnosti" title="Permalink to this headline">¶</a></h2>
+<p>Eden glavnih izrekov, ki jih običajno dokažemo, ko obravnavamo metateorijo programskega jezika, je izrek o varnosti. Ta govori o tem, da se veljavni programi lahko uspešno izvedejo. Razdeljen je na dva dela:</p>
+<ol class="simple">
+<li><p>napredek, ki pove, da veljaven program bodisi lahko naredi še en računski korak bodisi je uspešno zaključil izvajanje,</p></li>
+<li><p>ohranitev, ki pove, da veljaven program po enem računskem koraku ostane veljaven.</p></li>
+</ol>
+<p>Oba skupaj povesta, da vsak veljaven program izvaja računske korake do točke, ko zaključi izvajanje, ali pa teče v neskončnost. Oglejmo si vsakega posebej.</p>
+<section id="napredek">
+<h3>Napredek<a class="headerlink" href="#napredek" title="Permalink to this headline">¶</a></h3>
+<p>Naj bo <span class="math notranslate nohighlight">\(s\)</span> stanje, definirano na vseh lokacijah iz množice <span class="math notranslate nohighlight">\(L\)</span>. Tedaj:</p>
+<ul class="simple">
+<li><p>Za vsak aritmetični izraz <span class="math notranslate nohighlight">\(e\)</span>, za katerega velja <span class="math notranslate nohighlight">\(L \vdash e\)</span>, obstaja <span class="math notranslate nohighlight">\(n \in \mathbb{Z}\)</span>, da velja <span class="math notranslate nohighlight">\(s, e \Downarrow n\)</span>.</p></li>
+<li><p>Za vsak logični izraz <span class="math notranslate nohighlight">\(b\)</span>, za katerega velja <span class="math notranslate nohighlight">\(L \vdash b\)</span>, obstaja <span class="math notranslate nohighlight">\(r \in \mathbb{B}\)</span>, da velja <span class="math notranslate nohighlight">\(s, b \Downarrow r\)</span>.</p></li>
+<li><p>Za vsak ukaz <span class="math notranslate nohighlight">\(c\)</span> in množico lokacij <span class="math notranslate nohighlight">\(L'\)</span>, za kateri velja <span class="math notranslate nohighlight">\(L \vdash c, L'\)</span>:</p>
+<ol class="simple">
+<li><p>bodisi obstajata ukaz <span class="math notranslate nohighlight">\(c'\)</span> in stanje <span class="math notranslate nohighlight">\(s'\)</span>, da velja <span class="math notranslate nohighlight">\(s, c \leadsto s', c'\)</span>,</p></li>
+<li><p>bodisi velja <span class="math notranslate nohighlight">\(c = \skip\)</span>.</p></li>
+</ol>
+</li>
+</ul>
+<section id="dokaz">
+<h4>Dokaz<a class="headerlink" href="#dokaz" title="Permalink to this headline">¶</a></h4>
+<p>Vsak del dokažemo z indukcijo.</p>
+<ul>
+<li><p>Obravnavajmo vsa pravila, po katerih smo lahko prišli do zaključka <span class="math notranslate nohighlight">\(L \vdash e\)</span>.</p>
+<ul class="simple">
+<li><p>Če smo uporabili pravilo <span class="math notranslate nohighlight">\(\infer{\ell \in L}{L \vdash \ell}\)</span>, potem je <span class="math notranslate nohighlight">\(\ell \in L\)</span>, torej po predpostavki obstaja <span class="math notranslate nohighlight">\(n\)</span>, da velja <span class="math notranslate nohighlight">\((\ell \mapsto n) \in s\)</span>, zato velja tudi <span class="math notranslate nohighlight">\(s, \ell \Downarrow n\)</span>.</p></li>
+<li><p>Če smo uporabili pravilo <span class="math notranslate nohighlight">\(\infer{}{L \vdash \intsym{n}}\)</span>, potem velja <span class="math notranslate nohighlight">\(s, \intsym{n} \Downarrow n\)</span>.</p></li>
+<li><p>Če smo uporabili pravilo <span class="math notranslate nohighlight">\(\infer{L \vdash e_1 \qquad L \vdash e_2}{L \vdash (e_1 + e_2)}\)</span>, potem po indukcijski predpostavki obstajata <span class="math notranslate nohighlight">\(n_1\)</span> in <span class="math notranslate nohighlight">\(n_2\)</span>, da velja <span class="math notranslate nohighlight">\(s, e_1 \Downarrow n_1\)</span> in <span class="math notranslate nohighlight">\(s, e_2 \Downarrow n_2\)</span>. Tedaj velja tudi <span class="math notranslate nohighlight">\(s, (e_1 + e_2) \Downarrow (n_1 + n_2)\)</span>. Podoben dokaz uporabimo še v primerih <span class="math notranslate nohighlight">\(L \vdash (e_1 - e_2)\)</span> in <span class="math notranslate nohighlight">\(L \vdash (e_1 * e_2)\)</span>.</p></li>
+</ul>
+</li>
+<li><p>Obravnavajmo vsa pravila, po katerih smo lahko prišli do zaključka <span class="math notranslate nohighlight">\(L \vdash b\)</span>.</p>
+<ul class="simple">
+<li><p>Če smo uporabili pravilo <span class="math notranslate nohighlight">\(\infer{}{L \vdash \true}\)</span>, potem velja <span class="math notranslate nohighlight">\(s, \true \Downarrow \ttt\)</span>. Podoben dokaz uporabimo še v primeru <span class="math notranslate nohighlight">\(L \vdash \false\)</span>.</p></li>
+<li><p>Če smo uporabili pravilo <span class="math notranslate nohighlight">\(\infer{L \vdash e_1 \qquad L \vdash e_2}{L \vdash (e_1 = e_2)}\)</span>, potem po poprej dokazani trditvi obstajata <span class="math notranslate nohighlight">\(n_1\)</span> in <span class="math notranslate nohighlight">\(n_2\)</span>, da velja <span class="math notranslate nohighlight">\(s, e_1 \Downarrow n_1\)</span> in <span class="math notranslate nohighlight">\(s, e_2 \Downarrow n_2\)</span>. Ker velja bodisi <span class="math notranslate nohighlight">\(n_1 = n_2\)</span> bodisi <span class="math notranslate nohighlight">\(n_1 \ne n_2\)</span>, vedno obstaja <span class="math notranslate nohighlight">\(r \in \mathbb{B}\)</span>, da velja <span class="math notranslate nohighlight">\(s, (e_1 = e_2) \Downarrow r\)</span>. Podoben dokaz uporabimo še v primerih <span class="math notranslate nohighlight">\(L \vdash (e_1 &lt; e_2)\)</span> in <span class="math notranslate nohighlight">\(L \vdash (e_1 &gt; e_2)\)</span>.</p></li>
+</ul>
+</li>
+<li><p>Obravnavajmo vsa pravila, po katerih smo lahko prišli do zaključka <span class="math notranslate nohighlight">\(L \vdash c, L'\)</span>.</p>
+<ul>
+<li><p>Če smo uporabili pravilo <span class="math notranslate nohighlight">\(\infer{L \vdash b \qquad L \vdash c_1, L_1 \qquad L \vdash c_2, L_2}{L \vdash \ifthenelse{b}{c_1}{c_2}, L_1 \cap L_2}\)</span>, potem po prejšnji trditvi obstaja <span class="math notranslate nohighlight">\(r \in \mathbb{B}\)</span>, da velja <span class="math notranslate nohighlight">\(s, b \Downarrow r\)</span>. Če je <span class="math notranslate nohighlight">\(r = \ttt\)</span>, potem velja <span class="math notranslate nohighlight">\(c, s \leadsto c_1, s\)</span>, če pa je <span class="math notranslate nohighlight">\(r = \fff\)</span>, pa velja <span class="math notranslate nohighlight">\(c, s \leadsto c_2, s\)</span>. V obeh primerih torej lahko naredimo korak.</p></li>
+<li><p>Podoben dokaz lahko naredimo v primeru <span class="math notranslate nohighlight">\(L \vdash \whiledo{b}{c}, L'\)</span>.</p></li>
+<li><p>Če smo uporabili pravilo <span class="math notranslate nohighlight">\(\infer{L \vdash c_1, L' \qquad L' \vdash c_2, L''}{L \vdash (c_1 ; c_2), L''}\)</span>, po indukcijski predpostavki za <span class="math notranslate nohighlight">\(L \vdash c_1\)</span> velja:</p>
+<ol class="simple">
+<li><p>bodisi obstajata ukaz <span class="math notranslate nohighlight">\(c_1'\)</span> in stanje <span class="math notranslate nohighlight">\(s'\)</span>, da velja <span class="math notranslate nohighlight">\(s, c_1 \leadsto s', c_1'\)</span>, zaradi česar velja tudi <span class="math notranslate nohighlight">\(s, (c_1; c_2) \leadsto s, (c_1'; c_2)\)</span>,</p></li>
+<li><p>bodisi je <span class="math notranslate nohighlight">\(c_1 = \skip\)</span>, zaradi česar velja <span class="math notranslate nohighlight">\(s, (\skip; c_2) \leadsto s, c_2\)</span>.</p></li>
+</ol>
+<p>V obeh primerih torej lahko naredimo korak.</p>
+</li>
+<li><p>Če smo uporabili pravilo <span class="math notranslate nohighlight">\(\infer{L \vdash e}{L \vdash \ell := e, L \cup \{ \ell \}}\)</span>, potem po prejšnji trditvi obstaja <span class="math notranslate nohighlight">\(n\)</span>, da velja <span class="math notranslate nohighlight">\(s, e \Downarrow n\)</span>, zato velja tudi <span class="math notranslate nohighlight">\(s, (\ell := e) \leadsto s[\ell \mapsto n], \skip\)</span>.</p></li>
+<li><p>Če smo uporabili pravilo <span class="math notranslate nohighlight">\(\infer{}{L \vdash \skip, L}\)</span>, potem velja <span class="math notranslate nohighlight">\(c = \skip\)</span>.</p></li>
+</ul>
+</li>
+</ul>
+<p>Opazimo lahko, da v dokazu napredka za ukaze ne uporabimo druge množice lokacij <span class="math notranslate nohighlight">\(L'\)</span>. Ta pride v poštev, če želimo narediti več kot en korak.</p>
+</section>
+</section>
+<section id="varnost">
+<h3>Varnost<a class="headerlink" href="#varnost" title="Permalink to this headline">¶</a></h3>
+<p>Vzemimo ukaza <span class="math notranslate nohighlight">\(c, c'\)</span>, množici lokacij <span class="math notranslate nohighlight">\(L, L'\)</span> ter stanji <span class="math notranslate nohighlight">\(s, s'\)</span>, tako da:</p>
+<ol class="simple">
+<li><p>je stanje <span class="math notranslate nohighlight">\(s\)</span> definirano na vseh lokacijah iz množice <span class="math notranslate nohighlight">\(L\)</span>,</p></li>
+<li><p>velja <span class="math notranslate nohighlight">\(L \vdash c, L'\)</span>, ter</p></li>
+<li><p>velja <span class="math notranslate nohighlight">\(s, c \leadsto s', c'\)</span>.</p></li>
+</ol>
+<p>Tedaj obstaja množica lokacij <span class="math notranslate nohighlight">\(L''\)</span>, da velja <span class="math notranslate nohighlight">\(L'' \vdash c', L'\)</span> in je <span class="math notranslate nohighlight">\(s'\)</span> definirano na vseh lokacijah iz množice <span class="math notranslate nohighlight">\(L''\)</span>.</p>
+<p>Pozorni bodimo na dejstvo, da množica lokacij <span class="math notranslate nohighlight">\(L'\)</span> ne ustreza stanju <span class="math notranslate nohighlight">\(s'\)</span>, saj gre za množico lokacij po koncu izvajanja ukaza <span class="math notranslate nohighlight">\(c\)</span>, med tem ko se je v <span class="math notranslate nohighlight">\(s'\)</span> lahko v enem samem koraku spremenila le ena. Na primer, velja <span class="math notranslate nohighlight">\(\emptyset \vdash (\ell := \intsym{3}; m := \intsym{4}), \{ \ell, m \}\)</span> in <span class="math notranslate nohighlight">\(\emptyset, (\ell := \intsym{3}; m := \intsym{4}) \leadsto \{ \ell \mapsto 3 \}, (\skip; m := \intsym{4})\)</span>. V tem primeru je <span class="math notranslate nohighlight">\(L = \emptyset\)</span>, <span class="math notranslate nohighlight">\(L' = \{ \ell, m \}\)</span> ter <span class="math notranslate nohighlight">\(L'' = \{ \ell \}\)</span>.</p>
+</section>
+</section>
+<section id="vaje">
+<h2>Vaje<a class="headerlink" href="#vaje" title="Permalink to this headline">¶</a></h2>
+<section id="naloga-1">
+<h3>Naloga 1<a class="headerlink" href="#naloga-1" title="Permalink to this headline">¶</a></h3>
+<p>Preverite primere, izpuščene v zgornjih dokazih.</p>
+</section>
+<section id="naloga-2">
+<h3>Naloga 2<a class="headerlink" href="#naloga-2" title="Permalink to this headline">¶</a></h3>
+<p>Vpeljite relacijo <span class="math notranslate nohighlight">\(\leadsto^*\)</span>, ki je tranzitivna in refleksivna ovojnica relacije malih korakov <span class="math notranslate nohighlight">\(\leadsto\)</span>. Razložite, kakšen je njen intuitivni pomen relacije ter pokažite, da je res tranzitivna.</p>
+</section>
+<section id="naloga-3">
+<h3>Naloga 3<a class="headerlink" href="#naloga-3" title="Permalink to this headline">¶</a></h3>
+<p>Definirajte <em>vrednosti</em> <code class="docutils literal notranslate"><span class="pre">v</span></code> za posamezne družine izrazov.</p>
+<p>Pokažite pomožno lemo oblike:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>s , c1 ~~&gt; s&#39; , c1&#39; 
+=&gt; 
+s&#39; , c1&#39; --&gt; s&#39;&#39; 
+=&gt; 
+s , c1 --&gt; s&#39;&#39;
+</pre></div>
+</div>
+<p>Pokažite ujemanje <code class="docutils literal notranslate"><span class="pre">~~*&gt;</span></code> in <code class="docutils literal notranslate"><span class="pre">--&gt;</span></code> (semantika velikih korakov):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>s , e --&gt; s&#39;, v 
+&lt;=&gt; 
+s , e ~~*&gt; s&#39; , v
+</pre></div>
+</div>
+<p>Ujemanje je potrebno pokazati za vsako družino izrazov.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "ocaml-jupyter"
+        },
+        kernelOptions: {
+            kernelName: "ocaml-jupyter",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ocaml-jupyter'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="03-indukcija.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Indukcija</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="05-lambda-racun.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">λ-račun</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Matija Pretnar<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

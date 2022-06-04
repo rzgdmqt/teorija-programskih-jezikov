@@ -1,0 +1,715 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Indukcija &#8212; Teorija programskih jezikov</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"intsym": ["\\underline{#1}", 1], "kwd": ["\\mathbf{#1}", 1], "kwdpre": ["\\kwd{#1}\\;", 1], "kwdmid": ["\\;\\kwd{#1}\\;", 1], "kwdpost": ["\\;\\kwd{#1}", 1], "true": "\\kwd{true}", "false": "\\kwd{false}", "ifthenelse": ["\\kwdpre{if} #1 \\kwdmid{then} #2 \\kwdmid{else} #3", 3], "whiledo": ["\\kwdpre{while} #1 \\kwdmid{do} #2", 2], "skip": "\\kwd{skip}", "ttt": "t\\!t", "fff": "f\\!\\!f", "infer": ["\\displaystyle{\\frac{#1}{#2}}", 2]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Metateorija programskih jezikov" href="04-metateorija-programskih-jezikov.html" />
+    <link rel="prev" title="Uvod v Agdo" href="02-uvod-v-agdo.agda.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Teorija programskih jezikov</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="00-uvod.html">
+   Teorija programskih jezikov
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Osnove
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-praksa-programskih-jezikov.html">
+   Praksa programskih jezikov
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-uvod-v-agdo.agda.html">
+   Uvod v Agdo
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Indukcija
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Metateorija
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-metateorija-programskih-jezikov.html">
+   Metateorija programskih jezikov
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-lambda-racun.html">
+   λ-račun
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-tipi.html">
+   Tipi
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-izpeljava-tipov.html">
+   Izpeljava tipov
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/03-indukcija.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#induktivne-mnozice">
+   Induktivne množice
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naravna-stevila">
+     Naravna števila
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#aritmeticni-izrazi">
+     Aritmetični izrazi
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#induktivno-podane-relacije">
+     Induktivno podane relacije
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#konstrukcija-induktivnih-mnozic">
+   Konstrukcija induktivnih množic
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#predstavitev-mnozice-pravil-s-preslikavo">
+     Predstavitev množice pravil s preslikavo
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#konstrukcija-mnozice-iz-preslikave">
+     Konstrukcija množice iz preslikave
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dokazovanje-z-indukcijo">
+     Dokazovanje z indukcijo
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vaje">
+   Vaje
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-1">
+     Naloga 1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-2">
+     Naloga 2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-3">
+     Naloga 3
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-4">
+     Naloga 4
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-5">
+     Naloga 5
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-6">
+     Naloga 6
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Indukcija</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#induktivne-mnozice">
+   Induktivne množice
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naravna-stevila">
+     Naravna števila
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#aritmeticni-izrazi">
+     Aritmetični izrazi
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#induktivno-podane-relacije">
+     Induktivno podane relacije
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#konstrukcija-induktivnih-mnozic">
+   Konstrukcija induktivnih množic
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#predstavitev-mnozice-pravil-s-preslikavo">
+     Predstavitev množice pravil s preslikavo
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#konstrukcija-mnozice-iz-preslikave">
+     Konstrukcija množice iz preslikave
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dokazovanje-z-indukcijo">
+     Dokazovanje z indukcijo
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vaje">
+   Vaje
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-1">
+     Naloga 1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-2">
+     Naloga 2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-3">
+     Naloga 3
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-4">
+     Naloga 4
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-5">
+     Naloga 5
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#naloga-6">
+     Naloga 6
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="indukcija">
+<h1>Indukcija<a class="headerlink" href="#indukcija" title="Permalink to this headline">¶</a></h1>
+<section id="induktivne-mnozice">
+<h2>Induktivne množice<a class="headerlink" href="#induktivne-mnozice" title="Permalink to this headline">¶</a></h2>
+<section id="naravna-stevila">
+<h3>Naravna števila<a class="headerlink" href="#naravna-stevila" title="Permalink to this headline">¶</a></h3>
+<p>Na primer, množico naravnih števil <span class="math notranslate nohighlight">\(\mathbb{N}\)</span> lahko definiramo kot <strong>najmanjšo</strong> množico, ki:</p>
+<p>vsebuje <span class="math notranslate nohighlight">\(0\)</span> in
+za poljuben <span class="math notranslate nohighlight">\(n\)</span> vsebuje tudi njegovega naslednika <span class="math notranslate nohighlight">\(n^+\)</span>.</p>
+<p>Pravili dostikrat zapišemo tudi v obliki:</p>
+<div class="math notranslate nohighlight">
+\[
+  \infer{}{0 \in \mathbb{N}} \qquad \infer{n \in \mathbb{N}}{n^+ \in \mathbb{N}}
+\]</div>
+<p>V splošnem bomo uporabljali pravila oblike</p>
+<div class="math notranslate nohighlight">
+\[
+  \infer{h_1 \quad h_2 \quad \cdots \quad h_n}{c},
+\]</div>
+<p>kjer nad črto pišemo <em>predpostavke</em> <span class="math notranslate nohighlight">\(h_1, \dots, h_n\)</span>, pod črto pa <em>zaključek</em> <span class="math notranslate nohighlight">\(c\)</span>. Pravilom oblike</p>
+<div class="math notranslate nohighlight">
+\[
+  \infer{}{\quad c \quad},
+\]</div>
+<p>ki nad črto nimajo predpostavk, pravimo <em>aksiomi</em>.</p>
+<p>Katere elemente vsebuje <span class="math notranslate nohighlight">\(\mathbb{N}\)</span>?</p>
+<ol class="simple">
+<li><p>Zaradi prvega pogoja mora veljati <span class="math notranslate nohighlight">\(0 \in \mathbb{N}\)</span>.</p></li>
+<li><p>Sedaj mora zaradi drugega pogoja <span class="math notranslate nohighlight">\(\mathbb{N}\)</span> vsebovati tudi <span class="math notranslate nohighlight">\(0^+\)</span>, ki ga označimo z <span class="math notranslate nohighlight">\(1\)</span>.</p></li>
+<li><p>Podobno nadaljujemo in vidimo, da <span class="math notranslate nohighlight">\(\mathbb{N}\)</span> vsebuje tudi <span class="math notranslate nohighlight">\(1^+ = 2\)</span>.</p></li>
+</ol>
+<p>Na vsakem koraku dobimo novo naravno število in obratno, vsak element <span class="math notranslate nohighlight">\(\mathbb{N}\)</span> dobimo tako, da končno mnogokrat uporabimo eno od zgoraj naštetih pravil (čeprav resda prav veliko izbire nimamo).</p>
+</section>
+<section id="aritmeticni-izrazi">
+<h3>Aritmetični izrazi<a class="headerlink" href="#aritmeticni-izrazi" title="Permalink to this headline">¶</a></h3>
+<p>Podobno lahko mnnožico aritmetičnih izrazov <span class="math notranslate nohighlight">\(\mathbb{E}\)</span>, ki smo jo definirali že z BNF sintakso</p>
+<div class="math notranslate nohighlight">
+\[
+  e ::= n \ |\ e_1 + e_2 \ |\ e_1 * e_2 \ |\ -e,
+\]</div>
+<p>definiramo tudi kot najmanjšo množico, ki:</p>
+<ul class="simple">
+<li><p>vsebuje vsako celo število <span class="math notranslate nohighlight">\(n\)</span>,</p></li>
+<li><p>za poljubna izraza <span class="math notranslate nohighlight">\(e_1, e_2 \in \mathbb{E}\)</span> vsebuje tudi izraz <span class="math notranslate nohighlight">\(e_1 + e_2\)</span>,</p></li>
+<li><p>za poljubna izraza <span class="math notranslate nohighlight">\(e_1, e_2 \in \mathbb{E}\)</span> vsebuje tudi izraz <span class="math notranslate nohighlight">\(e_1 * e_2\)</span> in</p></li>
+<li><p>za poljuben izraz <span class="math notranslate nohighlight">\(e \in \mathbb{E}\)</span> vsebuje tudi izraz <span class="math notranslate nohighlight">\(-e\)</span>;</p></li>
+</ul>
+<p>oziroma s pravili</p>
+<div class="math notranslate nohighlight">
+\[
+  \infer{}{n \in \mathbb{E}}(n \in \mathbb{N})
+  \quad
+  \infer{e_1 \in \mathbb{E}\quad e_2 \in \mathbb{E}}{e_1 + e_2 \in \mathbb{E}}
+  \quad
+  \infer{e_1 \in \mathbb{E}\quad e_2 \in \mathbb{E}}{e_1 * e_2 \in \mathbb{E}}
+  \quad
+  \infer{e \in \mathbb{E}}{-e \in \mathbb{E}}
+\]</div>
+<p>Opazimo, da smo pri prvem pravilu <span class="math notranslate nohighlight">\(n \in \mathbb{N}\)</span> zapisali kot stranski pogoj, saj je množica <span class="math notranslate nohighlight">\(\mathbb{N}\)</span> že definirana in ni podana z napisanimi pravili.</p>
+<p>Tudi tu vse elemente <span class="math notranslate nohighlight">\(\mathbb{E}\)</span> dobimo tako, da končno mnogokrat uporabljamo pravila.</p>
+<ol class="simple">
+<li><p>Najprej vidimo, da <span class="math notranslate nohighlight">\(\mathbb{E}\)</span> vsebuje vsa števila <span class="math notranslate nohighlight">\(\dots, -2, -1, 0, 1, 2, \dots\)</span>.</p></li>
+<li><p>Sedaj iz preostalih treh pravil sledi, da mora <span class="math notranslate nohighlight">\(\mathbb{E}\)</span> tega mora vsebovati tudi vse njihove vsote <span class="math notranslate nohighlight">\((0 + 0), (0 + 1), (1 + 0), (-2 + 3), \dots\)</span>, njihove produkte <span class="math notranslate nohighlight">\((0 \ast 0), (0 \ast 1), (1 \ast 0), (-2 \ast 3), \dots\)</span> ter njihove negacije <span class="math notranslate nohighlight">\(-0, -1, -(-42), \dots\)</span></p></li>
+<li><p>Nato vidimo, da mora <span class="math notranslate nohighlight">\(\mathbb{E}\)</span> vsebovati tudi vse kombinacije elementov, ki smo jih obili v prejšnjih korakih, na primer <span class="math notranslate nohighlight">\((-2 + 3) \ast (0 \ast 1)\)</span> ali <span class="math notranslate nohighlight">\(-(-42) + (6 \ast 7)\)</span>.</p></li>
+</ol>
+<p>Če postopek nadaljujemo, dobimo vse elemente množice <span class="math notranslate nohighlight">\(\mathbb{E}\)</span>, vsakega v končno mnogo korakih. Vsakemu elementu <span class="math notranslate nohighlight">\(e \in \mathbb{E}\)</span> pripada tudi natanko določeno <em>drevo izpeljave</em>, iz katerega se vidi, kako smo prišli do dejstva, da <span class="math notranslate nohighlight">\(\mathbb{E}\)</span> vsebuje <span class="math notranslate nohighlight">\(e\)</span>. V tem drevesu je <span class="math notranslate nohighlight">\(e\)</span> koren, pravila so vozlišča, aksiomi pa listi. Na primer, elementu <span class="math notranslate nohighlight">\(42 + (6 \ast 7)\)</span> pripada drevo</p>
+<div class="math notranslate nohighlight">
+\[
+  \infer
+    {
+      \infer
+        {}
+        {42 \in \mathbb{E}}
+      \quad
+      \infer
+        {\infer{}{6 \in \mathbb{E}} \quad \infer{}{7 \in \mathbb{E}}}
+      {6 \ast 7 \in \mathbb{E}}
+    }
+    {42 + (6 \ast 7) \in \mathbb{E}}
+\]</div>
+<p>Vidimo, da na <span class="math notranslate nohighlight">\(n\)</span>-tem koraku dobimo ravno tiste elemente z drevesom izpeljave višine <span class="math notranslate nohighlight">\(n\)</span>.</p>
+</section>
+<section id="induktivno-podane-relacije">
+<h3>Induktivno podane relacije<a class="headerlink" href="#induktivno-podane-relacije" title="Permalink to this headline">¶</a></h3>
+<p>Pri teoriji programskih jezikov bomo pogosto uporabljali induktivno podane relacije, s katerimi bomo na primer definirali, kdaj se en izraz evalvira v drugega ali pa kdaj ima dani izraz veljaven tip. V preostanku tega razdelka pa si bomo izbrali bolj enostaven primer in sicer soda naravna števila.</p>
+<p>Ker so relacije definirane kot podmnožice domene, bi lahko induktivno podane relacije podali kot najmanjše podmnožice, zaprte za dana pravila. Tako bi množico sodih naravnih števil definirali kot najmanjšo podmnožico <span class="math notranslate nohighlight">\(S \subseteq \mathbb{N}\)</span>, zaprto za pravili:</p>
+<div class="math notranslate nohighlight">
+\[
+  \infer{}{0 \in S}
+  \quad
+  \infer{n \in S}{n + 2 \in S}
+\]</div>
+<p>Da pa bomo vse spravili pod eno samo definicijo, hkrati pa še bolj zvesto sledili pristopu, ki ga uporablja Agda, bomo raje definirali družino množic <span class="math notranslate nohighlight">\(\mathsf{sodo}_n\)</span>, ki bodo predstavljale dokaze, da je <span class="math notranslate nohighlight">\(n\)</span> sodo število. Množica <span class="math notranslate nohighlight">\(\mathsf{sodo}_n\)</span> bo torej neprazna, kadar bo <span class="math notranslate nohighlight">\(n\)</span> sodo, in prazna, kadar bo <span class="math notranslate nohighlight">\(n\)</span> liho. Zgornji pravili bi tako lahko napisali kot:</p>
+<div class="math notranslate nohighlight">
+\[
+  \infer{}{\mathsf{nicJeSodo} \in \mathsf{sodo}_0}
+  \quad
+  \infer{p \in \mathsf{sodo}_n}{\mathsf{sodoPlusDvaJeSodo} \, p \in \mathsf{sodo}_{n + 2}}
+\]</div>
+<p>Za množice <span class="math notranslate nohighlight">\(\mathsf{sodo}_n\)</span> imamo torej dva konstruktorja. Konstanto <span class="math notranslate nohighlight">\(\mathsf{nicJeSodo}\)</span> ter konstruktor <span class="math notranslate nohighlight">\(\mathsf{sodoPlusDvaJeSodo}\)</span>, ki dokaže, da je <span class="math notranslate nohighlight">\(n + 2\)</span> sodo, kadar obstaja dokaz <span class="math notranslate nohighlight">\(p\)</span>, da je <span class="math notranslate nohighlight">\(n\)</span> sodo. Preverimo lahko, da je množica <span class="math notranslate nohighlight">\(\mathsf{sodo}_n\)</span> neprazna natanko tedaj, kadar je <span class="math notranslate nohighlight">\(n \in S\)</span>.</p>
+<p>Pri relacijah bomo pravila za konstrukcijo množic pisali malo drugače, da bomo bolj poudarili njihovo vsebino:</p>
+<div class="math notranslate nohighlight">
+\[
+\def\sc#1{\small\dosc#1\csod} \def\dosc#1#2\csod{{\rm #1{\scriptsize #2}}}
+  \infer{}{0 \, \mathsf{sodo}} \sc{NIC}\sc{JE}\sc{SODO}
+  \quad
+  \infer{n \, \mathsf{sodo}}{n + 2 \, \mathsf{sodo}} \sc{SODO}\sc{PLUS}\sc{DVA}\sc{JE}\sc{SODO}
+\]</div>
+<p>Če nas imena pravil (torej konstruktorjev) ne bodo zanimala, jih bomo izpustili.</p>
+</section>
+</section>
+<section id="konstrukcija-induktivnih-mnozic">
+<h2>Konstrukcija induktivnih množic<a class="headerlink" href="#konstrukcija-induktivnih-mnozic" title="Permalink to this headline">¶</a></h2>
+<section id="predstavitev-mnozice-pravil-s-preslikavo">
+<h3>Predstavitev množice pravil s preslikavo<a class="headerlink" href="#predstavitev-mnozice-pravil-s-preslikavo" title="Permalink to this headline">¶</a></h3>
+<p>Induktivne množice bomo gradili po korakih: v prvem koraku bomo dodali vse elemente, ki sledijo iz aksiomov, nato tiste, ki imajo drevesa izpeljave z globino 1, tiste z globino 2 in tako naprej. Pri tem bomo vsako množico pravil predstavili s preslikavo <span class="math notranslate nohighlight">\(F\)</span>, ki množico <span class="math notranslate nohighlight">\(X\)</span> slika v množico <span class="math notranslate nohighlight">\(F X\)</span>, sestavljeno iz vseh zaključkov pravil, katerih predpostavke so vsebovane v <span class="math notranslate nohighlight">\(X\)</span>. Množica <span class="math notranslate nohighlight">\(X\)</span> bo torej zaprta za pravila natanko tedaj, kadar bo <span class="math notranslate nohighlight">\(F X \subseteq X\)</span>. “Ulomke”, kot smo jih pisali doslej, bomo uporabljali še naprej, vendar nam bodo le služili kot krajši zapis preslikave <span class="math notranslate nohighlight">\(F\)</span>.</p>
+<p>Za primer si oglejmo množico naravnih števil. Spomnimo se na pravili:</p>
+<div class="math notranslate nohighlight">
+\[
+  \infer{}{0 \in \mathbb{N}}
+  \quad
+  \infer{n \in \mathbb{N}}{n^+ \in \mathbb{N}}
+\]</div>
+<p>Ker so naravna števila dveh različnih oblik (nič oz. naslednik), bomo v konstrukciji množice <span class="math notranslate nohighlight">\(F X\)</span> nastopala disjunktna vsota. Ničla nima nobenega dodatnega argumenta, zato jo bomo predstavili z <span class="math notranslate nohighlight">\(\iota_1(\ast)\)</span>, kjer je <span class="math notranslate nohighlight">\(\ast\)</span> edini element singletona <span class="math notranslate nohighlight">\(1\)</span>. Naslednik pa ima en argument, ki mora priti iz množice predpostavk, zato ga bomo predstavili z <span class="math notranslate nohighlight">\(\iota_2(x)\)</span>, kjer je <span class="math notranslate nohighlight">\(x \in X\)</span>. Zato bomo množico pravil za naravna števila predstavili s preslikavo <span class="math notranslate nohighlight">\(F X = 1 + X\)</span>. Število <span class="math notranslate nohighlight">\(2\)</span> bi predstavljal element <span class="math notranslate nohighlight">\(\iota_2(\iota_2(\iota_1(\ast))\)</span></p>
+<p>V splošnem vsakemu pravilu ustreza en sumand v disjunktni vsoti, sestavljen iz množic, ki ustrezajo predpostavkam pravil. Recimo, pravilom za aritmetične izraze</p>
+<div class="math notranslate nohighlight">
+\[
+  \infer{}{n \in \mathbb{E}}(n \in \mathbb{N})
+  \quad
+  \infer{e_1 \in \mathbb{E}\quad e_2 \in \mathbb{E}}{e_1 + e_2 \in \mathbb{E}}
+  \quad
+  \infer{e_1 \in \mathbb{E}\quad e_2 \in \mathbb{E}}{e_1 * e_2 \in \mathbb{E}}
+  \quad
+  \infer{e \in \mathbb{E}}{-e \in \mathbb{E}}
+\]</div>
+<p>ustreza preslikava</p>
+<div class="math notranslate nohighlight">
+\[
+  F X = \mathbb{N} + (X \times X) + (X \times X) + X
+\]</div>
+</section>
+<section id="konstrukcija-mnozice-iz-preslikave">
+<h3>Konstrukcija množice iz preslikave<a class="headerlink" href="#konstrukcija-mnozice-iz-preslikave" title="Permalink to this headline">¶</a></h3>
+<p>Predpostavimo, da je preslikava <span class="math notranslate nohighlight">\(F\)</span>:</p>
+<ul class="simple">
+<li><p>monotona, torej da iz <span class="math notranslate nohighlight">\(X \subseteq Y\)</span> velja <span class="math notranslate nohighlight">\(F X \subseteq F Y\)</span>, in</p></li>
+<li><p>definirana z vrednostmi na končnih podmnožicah, torej da je <span class="math notranslate nohighlight">\(F X = \bigcup_{A \subseteq^{\text{končna}} X} F A\)</span></p></li>
+</ul>
+<p>Naj bo <span class="math notranslate nohighlight">\(A\)</span> poljubna množica ter naj bosta <span class="math notranslate nohighlight">\(F\)</span> in <span class="math notranslate nohighlight">\(G\)</span> preslikavi, ki zadoščata zgornjima dvema pogojema. Tedaj zgornjima dvema pogojema zadoščajo tudi preslikave</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(X \mapsto A\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(X \mapsto F X + G X\)</span> in</p></li>
+<li><p><span class="math notranslate nohighlight">\(X \mapsto F X \times G X\)</span></p></li>
+</ul>
+<p>ter s tem tudi preslikavi, s katerima smo definirali naravna števila in aritmetične izraze. Primer preslikave, ki ne zadošča drugemu pogoju je potenciranje <span class="math notranslate nohighlight">\(X \mapsto \mathcal{P} X\)</span>.</p>
+<p>Definirajmo zaporedje</p>
+<div class="math notranslate nohighlight">
+\[
+  I_0 = \emptyset \qquad I_{n + 1} = F I_n
+\]</div>
+<p>ter pokažimo, da je <span class="math notranslate nohighlight">\(I = \bigcup_{n = 0}^{\infty} I_n\)</span> najmanjša množica, zaprta za <span class="math notranslate nohighlight">\(F\)</span>. Preverimo lahko, da <span class="math notranslate nohighlight">\(I_n\)</span> vsebuje natanko tiste elemente, katerih drevo izpeljave ima globino kvečjemu <span class="math notranslate nohighlight">\(n\)</span>.</p>
+<p>Pokažimo najprej, da je <span class="math notranslate nohighlight">\(F I \subseteq I\)</span>. Ker je <span class="math notranslate nohighlight">\(F\)</span> definirana z vrednostmi na končnih podmnožicah, velja</p>
+<div class="math notranslate nohighlight">
+\[
+  F I = \bigcup_{A \subseteq^{\text{končna}} I} F A
+\]</div>
+<p>Ker je <span class="math notranslate nohighlight">\(I = \bigcup_{n = 0}^{\infty} I_n\)</span>, za vsako končno <span class="math notranslate nohighlight">\(A \subseteq I\)</span> obstaja tak <span class="math notranslate nohighlight">\(n\)</span>, da je <span class="math notranslate nohighlight">\(A \subseteq I_n\)</span>. Ker je <span class="math notranslate nohighlight">\(F\)</span> monotona, je <span class="math notranslate nohighlight">\(F A \subseteq F I_n = I_{n + 1} \subseteq I\)</span>. Torej je tudi <span class="math notranslate nohighlight">\(\bigcup_{A \subseteq^{\text{končna}} I} F A \subseteq I\)</span>.</p>
+<p>Vzemimo še množico <span class="math notranslate nohighlight">\(X\)</span>, da velja <span class="math notranslate nohighlight">\(F X \subseteq X\)</span> ter pokažimo, da je <span class="math notranslate nohighlight">\(I \subseteq X\)</span>. Z indukcijo najprej pokažimo, da je <span class="math notranslate nohighlight">\(I_n \subseteq X\)</span>. Ker je <span class="math notranslate nohighlight">\(I_0 = \emptyset \subseteq X\)</span>, je osnovni korak trivialen. Sedaj predpostavimo, da velja <span class="math notranslate nohighlight">\(I_n \subseteq X\)</span>. Tedaj velja tudi <span class="math notranslate nohighlight">\(I_{n + 1} = F I_n \subseteq F X \subseteq X\)</span>, saj je preslikava <span class="math notranslate nohighlight">\(F\)</span> monotona. Ker so vsi členi <span class="math notranslate nohighlight">\(I_n \subseteq X\)</span>, velja tudi <span class="math notranslate nohighlight">\(I = \bigcup_{n = 0}^{\infty} I_n \subseteq X\)</span>.</p>
+</section>
+<section id="dokazovanje-z-indukcijo">
+<h3>Dokazovanje z indukcijo<a class="headerlink" href="#dokazovanje-z-indukcijo" title="Permalink to this headline">¶</a></h3>
+<p>To lastnost lahko uporabimo za <em>dokazovanje z indukcijo</em>. Vsak predikat <span class="math notranslate nohighlight">\(P\)</span> na <span class="math notranslate nohighlight">\(I\)</span> lahko predstavimo z množico <span class="math notranslate nohighlight">\(Q = \{ x \in I \mid P(x) \}\)</span>. Če velja <span class="math notranslate nohighlight">\(F Q \subseteq Q\)</span>, mora biti <span class="math notranslate nohighlight">\(Q = I\)</span>, saj je <span class="math notranslate nohighlight">\(I\)</span> najmanjša množica, zaprta za <span class="math notranslate nohighlight">\(F\)</span>. Na primer, za <span class="math notranslate nohighlight">\(F X = 1 + X\)</span> in <span class="math notranslate nohighlight">\(I = \mathbb{N}\)</span> se trditev <span class="math notranslate nohighlight">\(F Q \subseteq Q\)</span> prevede na <span class="math notranslate nohighlight">\(1 + Q \subseteq Q\)</span>. To pomeni, da mora veljati <span class="math notranslate nohighlight">\(\iota_1(\ast) \in Q\)</span> ter <span class="math notranslate nohighlight">\(\iota_2(n) \in Q\)</span> za vsak <span class="math notranslate nohighlight">\(n \in Q\)</span>. Prvi pogoj nam pove, da je <span class="math notranslate nohighlight">\(0 \in Q\)</span>, drugi pogoj pa, da iz <span class="math notranslate nohighlight">\(n \in Q\)</span> sledi <span class="math notranslate nohighlight">\(n^+ \in Q\)</span>, kar je skupaj ravno običajno načelo indukcije</p>
+<div class="math notranslate nohighlight">
+\[
+  P(0) \land (\forall n \in \mathbb{N}. P(n) \Rightarrow P(n^+)) \implies \forall m \in \mathbb{N}. P(m)
+\]</div>
+<p>Za aritmetične izraze in <span class="math notranslate nohighlight">\(F X = \mathbb{N} + (X \times X) + (X \times X) + X\)</span> podobno dobimo načelo indukcije</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+  &amp;(\forall n \in \mathbb{N} . P(n)) \\
+  &amp;\land (\forall e_1, e_2 \in \mathbb{E}. P(e_1) \land P(e_2) \Rightarrow P(e_1 + e_2)) \\
+  &amp;\land (\forall e_1, e_2 \in \mathbb{E}. P(e_1) \land P(e_2) \Rightarrow P(e_1 \ast e_2)) \\
+  &amp;\land (\forall e \in \mathbb{E}. P(e) \Rightarrow P(-e)) \\
+  &amp;\implies \forall e \in \mathbb{E}. P(e)
+\end{aligned}\end{split}\]</div>
+</section>
+</section>
+<section id="vaje">
+<h2>Vaje<a class="headerlink" href="#vaje" title="Permalink to this headline">¶</a></h2>
+<section id="naloga-1">
+<h3>Naloga 1<a class="headerlink" href="#naloga-1" title="Permalink to this headline">¶</a></h3>
+<p>Zapišite evaluacijsko drevo za naslednja ukaza v jeziku IMP:</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">#a</span> <span class="pre">:=</span> <span class="pre">1;</span> <span class="pre">if</span> <span class="pre">#a</span> <span class="pre">&lt;</span> <span class="pre">2</span> <span class="pre">then</span> <span class="pre">#b</span> <span class="pre">:=</span> <span class="pre">2</span> <span class="pre">*</span> <span class="pre">#a</span> <span class="pre">else</span> <span class="pre">#b</span> <span class="pre">:=</span> <span class="pre">0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">#a</span> <span class="pre">:=</span> <span class="pre">0;</span> <span class="pre">while</span> <span class="pre">#a</span> <span class="pre">&lt;</span> <span class="pre">2</span> <span class="pre">do</span> <span class="pre">#a</span> <span class="pre">:=</span> <span class="pre">#a</span> <span class="pre">+</span> <span class="pre">1</span></code></p></li>
+</ol>
+</section>
+<section id="naloga-2">
+<h3>Naloga 2<a class="headerlink" href="#naloga-2" title="Permalink to this headline">¶</a></h3>
+<p>Dopolnite operacijsko semantiko jezika IMP z:</p>
+<ol class="simple">
+<li><p>Logičnima operacijama <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> in <code class="docutils literal notranslate"><span class="pre">||</span></code>. Primerjajte pravila kjer izračunamo vrednosti obeh argumentov in t.i. ‘short-circuit evaluation’, ki vrednost drugega argumenta izračuna zgolj če je to potrebno.</p></li>
+<li><p>Operacijo CAS (compare and swap), kjer <code class="docutils literal notranslate"><span class="pre">cas</span> <span class="pre">loc</span> <span class="pre">n</span> <span class="pre">m</span></code> preveri, ali ima lokacija <code class="docutils literal notranslate"><span class="pre">loc</span></code> vrednost <code class="docutils literal notranslate"><span class="pre">n</span></code>. V primeru ujemanja vrednost lokacije posodobi na <code class="docutils literal notranslate"><span class="pre">m</span></code>, sicer ne spremeni ničesar.</p></li>
+</ol>
+</section>
+<section id="naloga-3">
+<h3>Naloga 3<a class="headerlink" href="#naloga-3" title="Permalink to this headline">¶</a></h3>
+<p>Zapišite induktivno definicijo seznamov z elementi iz množice A in nato izpeljite pravila za dokaz z indukcijo.</p>
+<p>V nadaljevanju bomo uporabljali OCaml notacijo za sezname, torej <code class="docutils literal notranslate"><span class="pre">[]</span></code> in <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">::</span> <span class="pre">xs</span></code> za konstruktorja in <code class="docutils literal notranslate"><span class="pre">l1</span> <span class="pre">&#64;</span> <span class="pre">l2</span></code> za lepljenje seznamov.</p>
+<p>Definirajte manjkajoče funkcije in z indukcijo pokažite enakosti:</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">xs</span> <span class="pre">&#64;</span> <span class="pre">[]</span> <span class="pre">=</span> <span class="pre">xs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reverse</span> <span class="pre">(xs</span> <span class="pre">&#64;</span> <span class="pre">ys)</span> <span class="pre">=</span> <span class="pre">reverse</span> <span class="pre">ys</span> <span class="pre">&#64;</span> <span class="pre">reverse</span> <span class="pre">xs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reverse</span> <span class="pre">(reverse</span> <span class="pre">xs)</span> <span class="pre">=</span> <span class="pre">xs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map</span> <span class="pre">f</span> <span class="pre">(map</span> <span class="pre">g</span> <span class="pre">xs)</span> <span class="pre">=</span> <span class="pre">map</span> <span class="pre">(fun</span> <span class="pre">x</span> <span class="pre">-&gt;</span> <span class="pre">f</span> <span class="pre">(g</span> <span class="pre">x))</span> <span class="pre">xs</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">map</span> <span class="pre">f</span> <span class="pre">(reverse</span> <span class="pre">xs)</span> <span class="pre">=</span> <span class="pre">reverse</span> <span class="pre">(map</span> <span class="pre">f</span> <span class="pre">xs)</span></code></p></li>
+</ol>
+</section>
+<section id="naloga-4">
+<h3>Naloga 4<a class="headerlink" href="#naloga-4" title="Permalink to this headline">¶</a></h3>
+<p>Pokažite, da lahko podmnožico naraščajočih seznamov podamo z induktivno relacijo.</p>
+</section>
+<section id="naloga-5">
+<h3>Naloga 5<a class="headerlink" href="#naloga-5" title="Permalink to this headline">¶</a></h3>
+<p>Zapišite induktivno definicijo dvojiških dreves z vrednostmi iz množice A in nato izpeljite pravila za dokaz z indukcijo.</p>
+<p>Za funkciji</p>
+<div class="highlight-ocaml notranslate"><div class="highlight"><pre><span></span><span class="k">let</span> <span class="k">rec</span> <span class="n">mirror</span> <span class="o">=</span> <span class="k">function</span>
+  <span class="o">|</span> <span class="nc">Empty</span> <span class="o">-&gt;</span> <span class="nc">Empty</span>
+  <span class="o">|</span> <span class="nc">Node</span> <span class="o">(</span><span class="n">lt</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="n">rt</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="nc">Node</span> <span class="o">(</span><span class="n">mirror</span> <span class="n">rt</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="n">mirror</span> <span class="n">lt</span><span class="o">)</span>
+
+<span class="k">let</span> <span class="k">rec</span> <span class="n">depth</span> <span class="o">=</span> <span class="k">function</span>
+  <span class="o">|</span> <span class="nc">Empty</span> <span class="o">-&gt;</span> <span class="mi">0</span>
+  <span class="o">|</span> <span class="nc">Node</span> <span class="o">(</span><span class="n">lt</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="n">rt</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">max</span> <span class="o">(</span><span class="n">depth</span> <span class="n">lt</span><span class="o">)</span> <span class="o">(</span><span class="n">depth</span> <span class="n">rt</span><span class="o">)</span>
+</pre></div>
+</div>
+<p>pokažite <code class="docutils literal notranslate"><span class="pre">depth</span> <span class="pre">tree</span> <span class="pre">=</span> <span class="pre">depth</span> <span class="pre">(mirror</span> <span class="pre">tree)</span></code>. Katero lastnost funkcije <code class="docutils literal notranslate"><span class="pre">max</span></code> je  potrebno privzeti?</p>
+<p>Nato napišite funkciji <code class="docutils literal notranslate"><span class="pre">tree_map</span></code> in <code class="docutils literal notranslate"><span class="pre">tree_to_list</span></code> in dokažite enakost</p>
+<p><code class="docutils literal notranslate"><span class="pre">tree_to_list</span> <span class="pre">(tree_map</span> <span class="pre">f</span> <span class="pre">tree)</span> <span class="pre">=</span> <span class="pre">list_map</span> <span class="pre">f</span> <span class="pre">(tree_to_list</span> <span class="pre">tree)</span></code></p>
+</section>
+<section id="naloga-6">
+<h3>Naloga 6<a class="headerlink" href="#naloga-6" title="Permalink to this headline">¶</a></h3>
+<p>Razširite izrek o varnosti za jezik IMP za konstrukciji iz Naloge 1.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="02-uvod-v-agdo.agda.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Uvod v Agdo</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="04-metateorija-programskih-jezikov.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Metateorija programskih jezikov</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Matija Pretnar<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
