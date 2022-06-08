@@ -1,312 +1,387 @@
 # Tipi
 
+Videli smo, da lahko v λ-računu zakodiramo vse običajne programske konstrukte, vendar to ni najbolj praktično. Običajno vzamemo λ-račun, v katerem te dodatne konstrukte vzamemo kot osnovne in ne izpeljane. Za primer razširitve vzemimo cela števila in logične vrednosti.
+
 ## Definicija jezika
 
-### Sintaksa izrazov
+## Sintaksa
 
-Vzemimo λ-račun, kot smo ga spoznali na predavanjih:
-
-    M ::= x
-        | true
-        | false
-        | if M then M₁ else M₂
-        | ⟨n⟩
-        | M₁ + M₂
-        | M₁ * M₂
-        | M₁ < M₂
-        | λx. M
-        | M₁ M₂
+$$
+    \begin{align*}
+    \text{izraz } M &::= x
+        \mid \true
+        \mid \false
+        \mid \ifthenelse{M}{M_1}{M_2} \\
+        &\mid \intsym{n}
+        \mid M_1 + M_2
+        \mid M_1 * M_2
+        \mid M_1 < M_2 \\
+        &\mid \lambda x. M
+        \mid M_1 \, M_2
+\end{align*}
+$$
 
 ### Operacijska semantika
 
-Za vrednosti vzamemo:
+Podobno se spremeni operacijska semantika, kjer vrednosti razširimo s konstantami:
 
-    V ::= true
-        | false
-        | ⟨n⟩
-        | λx. M
+$$
+    \begin{align*}
+    \text{vrednost } V ::= \true
+        \mid \false
+        \mid \intsym{n}
+        \mid \lambda x. M
+    \end{align*}
+$$
 
-Operacijsko semantiko podamo z malimi koraki:
+Operacijsko semantiko malih korakov pa podamo s pravili:
 
-    M  ↝  M'
-    ----------------------------------------------
-    if M then M₁ else M₂  ↝  if M' then M₁ else M₂
+$$
+\infer{
+    M  \leadsto  M'
+}{
+    \ifthenelse{M}{M_1}{M_2}  \leadsto  \ifthenelse{M'}{M_1}{M_2}
+} \\[2em]
 
-    ------------------------------
-    if true then M₁ else M₂  ↝  M₁
+\infer{}{
+    \ifthenelse{\true}{M_1}{M_2}  \leadsto  M_1
+} \qquad
 
-    -------------------------------
-    if false then M₁ else M₂  ↝  M₂
+\infer{}{
+    \ifthenelse{\false}{M_1}{M_2}  \leadsto  M_2
+} \\[2em]
 
-    M₁  ↝  M₁'
-    --------------------
-    M₁ + M₂  ↝  M₁' + M₂
+\infer{
+    M_1  \leadsto  M_1'
+}{
+    M_1 + M_2  \leadsto  M_1' + M_2
+} \qquad
 
-    M₂  ↝  M₂'
-    --------------------
-    V₁ + M₂  ↝  V₁ + M₂'
+\infer{
+    M_2  \leadsto  M_2'
+}{
+    V_1 + M_2  \leadsto  V_1 + M_2'
+} \qquad
 
-    ---------------------------
-    ⟨n₁⟩ + ⟨n₂⟩  ↝  ⟨n₁ + n₂⟩
+\infer{}{
+    \intsym{n_1} + \intsym{n_2}  \leadsto  \intsym{n_1 + n_2}
+} \\[2em]
 
-    M₁  ↝  M₁'
-    --------------------
-    M₁ * M₂  ↝  M₁' * M₂
+\infer{
+    M_1  \leadsto  M_1'
+}{
+    M_1 * M_2  \leadsto  M_1' * M_2
+} \qquad
 
-    M₂  ↝  M₂'
-    --------------------
-    V₁ * M₂  ↝  V₁ * M₂'
+\infer{
+    M_2  \leadsto  M_2'
+}{
+    V_1 * M_2  \leadsto  V_1 * M_2'
+} \qquad
 
-    ---------------------------
-    ⟨n₁⟩ * ⟨n₂⟩  ↝  ⟨n₁ · n₂⟩
+\infer{}{
+    \intsym{n_1} * \intsym{n_2}  \leadsto  \intsym{n_1 · n_2}
+} \\[2em]
 
-    M₁  ↝  M₁'
-    --------------------
-    M₁ < M₂  ↝  M₁' < M₂
+\infer{
+    M_1  \leadsto  M_1'
+}{
+    M_1 < M_2  \leadsto  M_1' < M_2
+} \qquad
 
-    M₂  ↝  M₂'
-    --------------------
-    V₁ < M₂  ↝  V₁ < M₂'
+\infer{
+    M_2  \leadsto  M_2'
+}{
+    V_1 < M_2  \leadsto  V_1 < M_2'
+} \\[2em]
 
-    n₁ < n₂
-    --------------------
-    ⟨n₁⟩ < ⟨n₂⟩  ↝  true
+\infer{
+    n_1 < n_2
+}{
+    \intsym{n_1} < \intsym{n_2}  \leadsto  \true
+} \qquad
 
-    n₁ ≮ n₂
-    ---------------------
-    ⟨n₁⟩ < ⟨n₂⟩  ↝  false
+\infer{
+    n_1 ≮ n_2
+}{
+    \intsym{n_1} < \intsym{n_2}  \leadsto  \false
+} \\[2em]
 
-    M₁  ↝  M₁'
-    ----------------
-    M₁ M₂  ↝  M₁' M₂
+\infer{
+    M_1  \leadsto  M_1'
+}{
+    M_1 \, M_2  \leadsto  M_1' \, M_2
+} \qquad
 
-    M₂  ↝  M₂'
-    ----------------
-    V₁ M₂  ↝  V₁ M₂'
+\infer{
+    M_2  \leadsto  M_2'
+}{
+    V_1 \, M_2  \leadsto  V_1 \, M_2'
+} \qquad
 
-    ----------------------
-    (λx. M) V  ↝  M[V / x]
+\infer{}{
+    (\lambda x. M) \, V  \leadsto  M[V / x]
+}
+$$
 
-### Sintaksa tipov
+### Določanje tipov
 
-Tipi so:
+Prej so vsi izrazi predstavljali funkcije, z novimi razširitvami pa temu ni več tako, zato si za razločevanje pomagamo s tipi, ki jih bomo priredili vsem veljavnim izrazom. Sintakso tipov podamo z:
 
-    A, B ::= bool
-           | int
-           | A → B
+$$
+\begin{align*}
+A, B &::= \boolty
+        \mid \intty
+        \mid A → B
+\end{align*}
+$$
 
-### Pravila za določanje tipov
+Vidimo, da funkcijski tip ne pove le tega, da imamo opravka s funkcijo, temveč tudi to, od kod in kam ta funkcija slika.
 
-Pravila za določanje tipov pa so:
+Tako kot smo pri preverjanju veljavnih izrazov v IMPu morali vedeti, katera množica lokacij $L$ je definirana, moramo v kakšne spremenljivke imamo in kakšni so njihovi tipi. S tem namenom uvedemo _kontekste_ $\Gamma = x_1 : A_1, \ldots, x_n : A_n$, ki povedo, da za spremenljivko $x_i$ predpostavimo tip $A_i$. Tedaj definiramo relacijo $\Gamma \vdash M : A$, ki pove, da ima izraz $M$ tip $A$, če predpostavimo, da imajo spremenljivke tipe, določene s kontekstom $\Gamma$. Relacijo podamo s pravili:
 
-    (x : A) ∈ Γ
-    -----------
-    Γ ⊢ x : A
+$$
+\infer{
+    (x : A) ∈ \Gamma
+}{
+    \Gamma \vdash x : A
+} \qquad
 
-    ---------------
-    Γ ⊢ true : bool
+\infer{}{
+    \Gamma \vdash \true : \boolty
+} \qquad
 
-    ----------------
-    Γ ⊢ false : bool
+\infer{}{
+    \Gamma \vdash \false : \boolty
+} \\[2em]
 
-    Γ ⊢ M : bool   Γ ⊢ M₁ : A   Γ ⊢ M₂ : A
-    ---------------------------------------
-    Γ ⊢ if M then M₁ else M₂ : A
+\infer{
+    \Gamma \vdash M : \boolty \qquad
+    \Gamma \vdash M_1 : A \qquad
+    \Gamma \vdash M_2 : A
+}{
+    \Gamma \vdash \ifthenelse{M}{M_1}{M_2} : A
+} \\[2em]
 
-    -------------
-    Γ ⊢ ⟨n⟩ : int
+\infer{}{
+    \Gamma \vdash \intsym{n} : \intty
+} \qquad
 
-    Γ ⊢ M₁ : int   Γ ⊢ M₂ : int
-    ----------------------------
-    Γ ⊢ M₁ + M₂ : int
+\infer{
+    \Gamma \vdash M_1 : \intty \qquad
+    \Gamma \vdash M_2 : \intty
+}{
+    \Gamma \vdash M_1 + M_2 : \intty
+} \\[2em]
 
-    Γ ⊢ M₁ : int   Γ ⊢ M₂ : int
-    ----------------------------
-    Γ ⊢ M₁ * M₂ : int
+\infer{
+    \Gamma \vdash M_1 : \intty \qquad
+    \Gamma \vdash M_2 : \intty
+}{
+    \Gamma \vdash M_1 * M_2 : \intty
+} \qquad
 
-    Γ ⊢ M₁ : int   Γ ⊢ M₂ : int
-    ----------------------------
-    Γ ⊢ M₁ < M₂ : bool
+\infer{
+    \Gamma \vdash M_1 : \intty \qquad
+    \Gamma \vdash M_2 : \intty
+}{
+    \Gamma \vdash M_1 < M_2 : \boolty
+} \\[2em]
 
-    Γ, x : A ⊢ M : B
-    -----------------
-    Γ ⊢ λx. M : A → B
+\infer{
+    \Gamma, x : A \vdash M : B
+}{
+    \Gamma \vdash \lambda x. M : A → B
+} \qquad
 
-    Γ ⊢ M₁ : A → B   Γ ⊢ M₂ : A
-    ----------------------------
-    Γ ⊢ M₁ M₂ : B
+\infer{
+    \Gamma \vdash M_1 : A → B \qquad
+    \Gamma \vdash M_2 : A
+}{
+    \Gamma \vdash M_1 \, M_2 : B
+}
+$$
+
+Vsak izraz nima tipa, na primer $\true + \intsym{2}$ ga nima. Za tiste izraze, ki pa tip imajo, pa velja podoben izrek o varnosti, kot smo ga spoznali za IMP.
 
 ## Izrek o varnosti
 
+Izrek o varnosti tako kot prej razdelimo na dva dela:
+
+1. napredek, ki pove, da je vsak izraz, ki ima tip, bodisi vrednost bodisi lahko naredi korak, ter
+2. ohranitev, ki pove, da izraz v vsakem koraku ohrani prvotni tip.
+
+Ker v operacijski semantiki nastopa substitucija, moramo najprej dokazati, da ima pričakovani tip.
+
 ### Lema (o substituciji)
 
-Če velja `Γ, x : A, Γ' ⊢ M : B` in `Γ, Γ' ⊢ N : A`, tedaj velja `Γ, Γ' ⊢ M[N / x] : B`.
+Če velja $\Gamma, x : A, \Gamma' \vdash M : B$ in $\Gamma, \Gamma' \vdash N : A$, tedaj velja $\Gamma, \Gamma' \vdash M[N / x] : B$.
 
 #### Dokaz
 
-Z indukcijo na izpeljavo `Γ, x : A, Γ' ⊢ M : B`.
+Z indukcijo na izpeljavo $\Gamma, x : A, \Gamma' \vdash M : B$.
 Če je zaključek zadnjega uporabljenega pravila:
 
-* `Γ, x : A, Γ' ⊢ x : A`, je `M = x`, zato velja `M[N / x] = N`,
-    torej velja `Γ, Γ' ⊢ M[N / x] : B` po drugi predpostavki.
+* $\Gamma, x : A, \Gamma' \vdash x : A$, je $M = x$, zato velja $M[N / x] = N$,
+    torej velja $\Gamma, \Gamma' \vdash M[N / x] : B$ po drugi predpostavki.
 
-* `Γ, x : A, Γ' ⊢ y : B` za `y ≠ x`, iz prvi predpostavke sledi `(y : B) ∈ Γ, Γ'`.
-    Iz tega sledi `Γ, Γ' ⊢ M[N / x] : B`, saj je `M[N / x] = y`.
+* $\Gamma, x : A, \Gamma' \vdash y : B$ za $y ≠ x$, iz prvi predpostavke sledi $(y : B) ∈ \Gamma, \Gamma'$.
+    Iz tega sledi $\Gamma, \Gamma' \vdash M[N / x] : B$, saj je $M[N / x] = y$.
 
-* `Γ, x : A, Γ' ⊢ true : bool`, velja tudi `Γ, Γ' ⊢ true : bool`
+* $\Gamma, x : A, \Gamma' \vdash \true : \boolty$, velja tudi $\Gamma, \Gamma' \vdash \true : \boolty$
 
-* `Γ, x : A, Γ' ⊢ false : bool`, velja tudi `Γ, Γ' ⊢ false : bool`
+* $\Gamma, x : A, \Gamma' \vdash \false : \boolty$, velja tudi $\Gamma, \Gamma' \vdash \false : \boolty$
 
-* `Γ, x : A, Γ' ⊢ if M then M₁ else M₂ : A`, mora veljati
-    `Γ, x : A, Γ' ⊢ M : bool`, `Γ, x : A, Γ' ⊢ M₁ : A` in `Γ, x : A, Γ' ⊢ M₂ : A`.
+* $\Gamma, x : A, \Gamma' \vdash \ifthenelse{M}{M_1}{M_2} : A$, mora veljati
+    $\Gamma, x : A, \Gamma' \vdash M : \boolty$, $\Gamma, x : A, \Gamma' \vdash M_1 : A$ in $\Gamma, x : A, \Gamma' \vdash M_2 : A$.
     Po indukcijski predpostavki zato velja
-    `Γ, Γ' ⊢ M[N / x] : bool`, `Γ, Γ' ⊢ M₁[N / x] : A` in `Γ, Γ' ⊢ M₂[N / x] : A`,
-    iz česar sledi `Γ, Γ' ⊢ (if M then M₁ else M₂)[N / x] : A`, saj je
-    `(if M then M₁ else M₂)[N / x] = if M[N / x] then M₁[N / x] else M₂[N / x]`.
+    $\Gamma, \Gamma' \vdash M[N / x] : \boolty$, $\Gamma, \Gamma' \vdash M_1[N / x] : A$ in $\Gamma, \Gamma' \vdash M_2[N / x] : A$,
+    iz česar sledi $\Gamma, \Gamma' \vdash (\ifthenelse{M}{M_1}{M_2})[N / x] : A$, saj je
+    $(\ifthenelse{M}{M_1}{M_2})[N / x] = \ifthenelse{M[N / x]}{M_1[N / x]}{M_2}[N / x]$.
 
-* `Γ, x : A, Γ' ⊢ ⟨n⟩ : int`, velja tudi `Γ, Γ' ⊢ ⟨n⟩ : int`
+* $\Gamma, x : A, \Gamma' \vdash \intsym{n} : \intty$, velja tudi $\Gamma, \Gamma' \vdash \intsym{n} : \intty$
 
-* `Γ, x : A, Γ' ⊢ M₁ + M₂ : int`, mora veljati
-    `Γ, x : A, Γ' ⊢ M₁ : int` in `Γ, x : A, Γ' ⊢ M₂ : int`.
+* $\Gamma, x : A, \Gamma' \vdash M_1 + M_2 : \intty$, mora veljati
+    $\Gamma, x : A, \Gamma' \vdash M_1 : \intty$ in $\Gamma, x : A, \Gamma' \vdash M_2 : \intty$.
     Po indukcijski predpostavki zato velja
-    `Γ, Γ' ⊢ M₁[N / x] : int` in `Γ, Γ' ⊢ M₂[N / x] : int`
-    iz česar sledi `Γ, Γ' ⊢ (M₁ + M₂)[N / x] : int`, saj je
-    `(M₁ + M₂)[N / x] = M₁[N / x] + M₂[N / x]`.
+    $\Gamma, \Gamma' \vdash M_1[N / x] : \intty$ in $\Gamma, \Gamma' \vdash M_2[N / x] : \intty$
+    iz česar sledi $\Gamma, \Gamma' \vdash (M_1 + M_2)[N / x] : \intty$, saj je
+    $(M_1 + M_2)[N / x] = M_1[N / x] + M_2[N / x]$.
 
-* `Γ, x : A, Γ' ⊢ M₁ * M₂ : int`, mora veljati
-    `Γ, x : A, Γ' ⊢ M₁ : int` in `Γ, x : A, Γ' ⊢ M₂ : int`.
+* $\Gamma, x : A, \Gamma' \vdash M_1 * M_2 : \intty$, mora veljati
+    $\Gamma, x : A, \Gamma' \vdash M_1 : \intty$ in $\Gamma, x : A, \Gamma' \vdash M_2 : \intty$.
     Po indukcijski predpostavki zato velja
-    `Γ, Γ' ⊢ M₁[N / x] : int` in `Γ, Γ' ⊢ M₂[N / x] : int`
-    iz česar sledi `Γ, Γ' ⊢ (M₁ * M₂)[N / x] : int`, saj je
-    `(M₁ * M₂)[N / x] = M₁[N / x] * M₂[N / x]`.
+    $\Gamma, \Gamma' \vdash M_1[N / x] : \intty$ in $\Gamma, \Gamma' \vdash M_2[N / x] : \intty$
+    iz česar sledi $\Gamma, \Gamma' \vdash (M_1 * M_2)[N / x] : \intty$, saj je
+    $(M_1 * M_2)[N / x] = M_1[N / x] * M_2[N / x]$.
 
-* `Γ, x : A, Γ' ⊢ M₁ < M₂ : int`, mora veljati
-    `Γ, x : A, Γ' ⊢ M₁ : int` in `Γ, x : A, Γ' ⊢ M₂ : int`.
+* $\Gamma, x : A, \Gamma' \vdash M_1 < M_2 : \intty$, mora veljati
+    $\Gamma, x : A, \Gamma' \vdash M_1 : \intty$ in $\Gamma, x : A, \Gamma' \vdash M_2 : \intty$.
     Po indukcijski predpostavki zato velja
-    `Γ, Γ' ⊢ M₁[N / x] : int` in `Γ, Γ' ⊢ M₂[N / x] : int`
-    iz česar sledi `Γ, Γ' ⊢ (M₁ < M₂)[N / x] : int`, saj je
-    `(M₁ < M₂)[N / x] = M₁[N / x] < M₂[N / x]`.
+    $\Gamma, \Gamma' \vdash M_1[N / x] : \intty$ in $\Gamma, \Gamma' \vdash M_2[N / x] : \intty$
+    iz česar sledi $\Gamma, \Gamma' \vdash (M_1 < M_2)[N / x] : \intty$, saj je
+    $(M_1 < M_2)[N / x] = M_1[N / x] < M_2[N / x]$.
 
-* `Γ, x : A, Γ' ⊢ λy. M' : A' → B'`, mora veljati
-    `Γ, x : A, Γ', y : A' ⊢ M' : B'`.
+* $\Gamma, x : A, \Gamma' \vdash \lambda y. M' : A' → B'$, mora veljati
+    $\Gamma, x : A, \Gamma', y : A' \vdash M' : B'$.
     Po indukcijski predpostavki zato velja
-    `Γ, Γ', y : A' ⊢ M'[N / x] : B'`
-    iz česar sledi `Γ, Γ' ⊢ (λy. M')[N / x] : A' → B'`, saj je
-    `(λy. M')[N / x] = λy. M'[N / x]`.
+    $\Gamma, \Gamma', y : A' \vdash M'[N / x] : B'$
+    iz česar sledi $\Gamma, \Gamma' \vdash (\lambda y. M')[N / x] : A' → B'$, saj je
+    $(\lambda y. M')[N / x] = \lambda y. M'[N / x]$.
 
-* `Γ, x : A, Γ' ⊢ M₁ M₂ : B`, mora veljati
-    `Γ, x : A, Γ' ⊢ M₁ : A' → B` in `Γ, x : A, Γ' ⊢ M₂ : A'`.
+* $\Gamma, x : A, \Gamma' \vdash M_1 \, M_2 : B$, mora veljati
+    $\Gamma, x : A, \Gamma' \vdash M_1 : A' → B$ in $\Gamma, x : A, \Gamma' \vdash M_2 : A'$.
     Po indukcijski predpostavki zato velja
-    `Γ, Γ' ⊢ M₁[N / x] : A' → B` in `Γ, Γ' ⊢ M₂[N / x] : A'`
-    iz česar sledi `Γ, Γ' ⊢ (M₁ M₂)[N / x] : int`, saj je
-    `(M₁ M₂)[N / x] = M₁[N / x] M₂[N / x]`.
+    $\Gamma, \Gamma' \vdash M_1[N / x] : A' → B$ in $\Gamma, \Gamma' \vdash M_2[N / x] : A'$
+    iz česar sledi $\Gamma, \Gamma' \vdash (M_1 \, M_2)[N / x] : \intty$, saj je
+    $(M_1 \, M_2)[N / x] = M_1[N / x] \, M_2[N / x]$.
 
 ### Trditev (napredek)
 
-Če velja `⊢ M : A`, tedaj:
+Če velja $\vdash M : A$, tedaj:
 
-1. je `M` vrednost ali
-2. obstaja `M'`, da velja `M ↝ M'`.
+1. je $M$ vrednost ali
+2. obstaja $M'$, da velja $M \leadsto M'$.
 
 **Dokaz.**
 Z indukcijo na predpostavko o določenem tipu.
 Če je zaključek zadnjega uporabljenega pravila:
 
-* `⊢ x : A`, imamo protislovje, saj je kontekst prazen.
+* $\vdash x : A$, imamo protislovje, saj je kontekst prazen.
 
-* `⊢ true : bool`, imamo vrednost (1).
+* $\vdash \true : \boolty$, imamo vrednost (1).
 
-* `⊢ false : bool`, imamo vrednost (1).
+* $\vdash \false : \boolty$, imamo vrednost (1).
 
-* `⊢ if M then M₁ else M₂ : A`, mora veljati `⊢ M : bool`.
+* $\vdash \ifthenelse{M}{M_1}{M_2} : A$, mora veljati $\vdash M : \boolty$.
     Po indukciji dobimo dva primera:
-    1. `M` je vrednost, torej `true`, `false`, `⟨n⟩` ali `λx. M`.
-    Ker velja `⊢ M : bool`, zadnji dve možnosti odpadeta.
-    Če je `M = true`, velja `if M then M₁ else M₂ ↝ M₁`,
-    če je `M = false`, velja `if M then M₁ else M₂ ↝ M₂`.
-    2. Obstaja `M'`, da velja `M ↝ M'`, zato velja tudi `if M then M₁ else M₂ ↝ if M' then M₁ else M₂`.
+    1. $M$ je vrednost, torej $\true$, $\false$, $\intsym{n}$ ali $\lambda x. M$.
+    Ker velja $\vdash M : \boolty$, zadnji dve možnosti odpadeta.
+    Če je $M = \true$, velja $\ifthenelse{M}{M_1}{M_2} \leadsto M_1$,
+    če je $M = \false$, velja $\ifthenelse{M}{M_1}{M_2} \leadsto M_2$.
+    2. Obstaja $M'$, da velja $M \leadsto M'$, zato velja tudi $\ifthenelse{M}{M_1}{M_2} \leadsto \ifthenelse{M'}{M_1}{M_2}$.
 
     V vseh primerih izraz torej lahko naredi korak (2).
 
-* `⊢ ⟨n⟩ : int`, imamo vrednost (1).
+* $\vdash \intsym{n} : \intty$, imamo vrednost (1).
 
-* `⊢ M₁ + M₂ : int`, mora veljati `⊢ M₁ : int` in `⊢ M₂ : int`.
-    Po indukciji za `M₁` dobimo dva primera:
-    1. `M₁` je vrednost tipa `int`, torej število `⟨n₁⟩`. V tem primeru po indukciji za `M₂` dobimo dva primera:
-        1. Tudi `M₂` je vrednost tipa `int`, torej število `⟨n₂⟩`. Tedaj velja `M₁ + M₂ = ⟨n₁⟩ + ⟨n₂⟩ ↝ ⟨n₁ + n₂⟩`.
-        2. Obstaja `M₂'`, da velja `M₂ ↝ M₂'`, zato velja tudi `M₁ M₂ = V₁ M₂ ↝ V₁ M₂'`.
-    2. Obstaja `M₁'`, da velja `M₁ ↝ M₁'`, zato velja tudi `M₁ M₂ ↝ M₁' M₂`.
+* $\vdash M_1 + M_2 : \intty$, mora veljati $\vdash M_1 : \intty$ in $\vdash M_2 : \intty$.
+    Po indukciji za $M_1$ dobimo dva primera:
+    1. $M_1$ je vrednost tipa $\intty$, torej število $\intsym{n_1}$. V tem primeru po indukciji za $M_2$ dobimo dva primera:
+        1. Tudi $M_2$ je vrednost tipa $ \intty$, torej število $\intsym{n_2}$. Tedaj velja $M_1 + M_2 = \intsym{n_1} + \intsym{n_2} \leadsto \intsym{n_1 + n_2}$.
+        2. Obstaja $M_2'$, da velja $M_2 \leadsto M_2'$, zato velja tudi $M_1 \, M_2 = V_1 \, M_2 \leadsto V_1 \, M_2'$.
+    2. Obstaja $M_1'$, da velja $M_1 \leadsto M_1'$, zato velja tudi $M_1 \, M_2 \leadsto M_1' \, M_2$.
 
     V vseh primerih izraz torej lahko naredi korak (2).
 
-* `⊢ M₁ * M₂ : int`, je dokaz podoben kot za vsoto.
+* $\vdash M_1 * M_2 : \intty$, je dokaz podoben kot za vsoto.
 
-* `⊢ M₁ < M₂ : bool`, je dokaz podoben kot za vsoto.
+* $\vdash M_1 < M_2 : \boolty$, je dokaz podoben kot za vsoto.
 
-* `⊢ λx. M : A → B`, imamo vrednost (1).
+* $\vdash \lambda x. M : A → B$, imamo vrednost (1).
 
-* `⊢ M₁ M₂ : B`, mora veljati `⊢ M₁ : A → B` in `⊢ M₂ : A` za nek `A`.
-    Po indukciji za `M₁` dobimo dva primera:
-    1. `M₁` je vrednost `V₁`. V tem primeru po indukciji za `M₂` dobimo dva primera:
-        1. Tudi `M₂` je vrednost `V₂`. Ker velja `⊢ M₁ : A → B`, mora veljati `M₁ = λx. M` za neka `x` in `M`. Tedaj velja `M₁ M₂ = (λx. M) V₂ ↝ M[V₂ / x]`.
-        2. Obstaja `M₂'`, da velja `M₂ ↝ M₂'`, zato velja tudi `M₁ M₂ = V₁ M₂ ↝ V₁ M₂'`.
-    2. Obstaja `M₁'`, da velja `M₁ ↝ M₁'`, zato velja tudi `M₁ M₂ ↝ M₁' M₂`.
+* $\vdash M_1 \, M_2 : B$, mora veljati $\vdash M_1 : A → B$ in $\vdash M_2 : A$ za nek $A$.
+    Po indukciji za $M_1$ dobimo dva primera:
+    1. $M_1$ je vrednost $V_1$. V tem primeru po indukciji za $M_2$ dobimo dva primera:
+        1. Tudi $M_2$ je vrednost $V_2$. Ker velja $\vdash M_1 : A → B$, mora veljati $M_1 = \lambda x. M$ za neka $x$ in $M$. Tedaj velja $M_1 \, M_2 = (\lambda x. M) V_2 \leadsto M[V_2 / x]$.
+        2. Obstaja $M_2'$, da velja $M_2 \leadsto M_2'$, zato velja tudi $M_1 \, M_2 = V_1 \, M_2 \leadsto V_1 M_2'$.
+    2. Obstaja $M_1'$, da velja $M_1 \leadsto M_1'$, zato velja tudi $M_1 \, M_2 \leadsto M_1' M_2$.
 
     V vseh primerih izraz torej lahko naredi korak (2).
 
 ### Trditev (ohranitev)
 
-Če velja `Γ ⊢ M : A` in `M ↝ M'`, tedaj velja tudi `Γ ⊢ M' : A`.
+Če velja $\Gamma \vdash M : A$ in $M \leadsto M'$, tedaj velja tudi $\Gamma \vdash M' : A$.
 
 **Dokaz.**
 Z indukcijo na predpostavko o koraku.
 Če je zaključek zadnjega uporabljenega pravila:
 
-* `if M then M₁ else M₂ ↝ if M' then M₁ else M₂`, mora veljati `M ↝ M'`,
-  iz `Γ ⊢ if M then M₁ else M₂ : A` pa sledi
-  `Γ ⊢ M : bool`, `Γ ⊢ M₁ : A` in `Γ ⊢ M₂ : A`.
-  Po indukcijski predpostavki velja `Γ ⊢ M' : bool`, iz česar sledi tudi
-  `Γ ⊢ if M' then M₁ else M₂ : A`.
+* $\ifthenelse{M}{M_1}{M_2} \leadsto \ifthenelse{M'}{M_1}{M_2}$, mora veljati $M \leadsto M'$,
+  iz $\Gamma \vdash \ifthenelse{M}{M_1}{M_2} : A$ pa sledi
+  $\Gamma \vdash M : \boolty$, $\Gamma \vdash M_1 : A$ in $\Gamma \vdash M_2 : A$.
+  Po indukcijski predpostavki velja $\Gamma \vdash M' : \boolty$, iz česar sledi tudi
+  $\Gamma \vdash \ifthenelse{M'}{M_1}{M_2} : A$.
 
-* `if true then M₁ else M₂ ↝ M₁`,
-  iz `Γ ⊢ if M then M₁ else M₂ : A` sledi `Γ ⊢ M₁ : A`, kar želimo.
+* $\ifthenelse{\true}{M_1}{M_2} \leadsto M_1$,
+  iz $\Gamma \vdash \ifthenelse{M}{M_1}{M_2} : A$ sledi $\Gamma \vdash M_1 : A$, kar želimo.
 
-* `if false then M₁ else M₂ ↝ M₂`
-  iz `Γ ⊢ if M then M₁ else M₂ : A` sledi `Γ ⊢ M₂ : A`, kar želimo.
+* $\ifthenelse{\false}{M_1}{M_2} \leadsto M_2$
+  iz $\Gamma \vdash \ifthenelse{M}{M_1}{M_2} : A$ sledi $\Gamma \vdash M_2 : A$, kar želimo.
 
-* `M₁ + M₂ ↝ M₁' + M₂`, mora veljati `M₁ ↝ M₁'`,
-  iz `Γ ⊢ M₁ + M₂ : int` pa sledi
-  `Γ ⊢ M₁ : int` in `Γ ⊢ M₂ : int`.
-  Po indukcijski predpostavki velja `Γ ⊢ M₁' : int`, iz česar sledi tudi
-  `Γ ⊢ M₁' M₂ : int`.
+* $M_1 + M_2 \leadsto M_1' + M_2$, mora veljati $M_1 \leadsto M_1'$,
+  iz $\Gamma \vdash M_1 + M_2 : \intty$ pa sledi
+  $\Gamma \vdash M_1 : \intty$ in $\Gamma \vdash M_2 : \intty$.
+  Po indukcijski predpostavki velja $\Gamma \vdash M_1' : \intty$, iz česar sledi tudi
+  $\Gamma \vdash M_1' M_2 : \intty$.
 
-* `V₁ + M₂ ↝ V₁ + M₂'`, mora veljati `M₂ ↝ M₂'`,
-  iz `Γ ⊢ V₁ + M₂ : int` pa sledi
-  `Γ ⊢ V₁ : int` in `Γ ⊢ M₂ : int`.
-  Po indukcijski predpostavki velja `Γ ⊢ M₂' : int`, iz česar sledi tudi
-  `Γ ⊢ M₁ + M₂' : int`.
+* $V_1 + M_2 \leadsto V_1 + M_2'$, mora veljati $M_2 \leadsto M_2'$,
+  iz $\Gamma \vdash V_1 + M_2 : \intty$ pa sledi
+  $\Gamma \vdash V_1 : \intty$ in $\Gamma \vdash M_2 : \intty$.
+  Po indukcijski predpostavki velja $\Gamma \vdash M_2' : \intty$, iz česar sledi tudi
+  $\Gamma \vdash M_1 + M_2' : \intty$.
 
-* `⟨n₁⟩ + ⟨n₂⟩ ↝ ⟨n₁ + n₂⟩`, kjer sta obe strani tipa `int`.
+* $\intsym{n_1} + \intsym{n_2} \leadsto \intsym{n_1 + n_2}$, kjer sta obe strani tipa $ \intty$.
 
 * Dokazi ohranitve za produkt in primerjavo števil so enaki kot pri vsoti.
 
-* `M₁ M₂ ↝ M₁' M₂`, mora veljati `M₁ ↝ M₁'`,
-  iz `Γ ⊢ M₁ M₂ : A` pa sledi
-  `Γ ⊢ M₁ : B → A` in `Γ ⊢ M₂ : B` za nek `B`.
-  Po indukcijski predpostavki velja `Γ ⊢ M₁' : B → A`, iz česar sledi tudi
-  `Γ ⊢ M₁' M₂ : A`.
+* $M_1 \, M_2 \leadsto M_1' \, M_2$, mora veljati $M_1 \leadsto M_1'$,
+  iz $\Gamma \vdash M_1 \, M_2 : A$ pa sledi
+  $\Gamma \vdash M_1 : B → A$ in $\Gamma \vdash M_2 : B$ za nek $B$.
+  Po indukcijski predpostavki velja $\Gamma \vdash M_1' : B → A$, iz česar sledi tudi
+  $\Gamma \vdash M_1' \, M_2 : A$.
 
-* `V₁ M₂ ↝ V₁ M₂'`, mora veljati `M₂ ↝ M₂'`,
-  iz `Γ ⊢ V₁ M₂ : A` pa sledi
-  `Γ ⊢ V₁ : B → A` in `Γ ⊢ M₂ : B` za nek `B`.
-  Po indukcijski predpostavki velja `Γ ⊢ M₂' : B`, iz česar sledi tudi
-  `Γ ⊢ V M₂' : A`.
+* $V_1 \, M_2 \leadsto V_1 \, M_2'$, mora veljati $M_2 \leadsto M_2'$,
+  iz $\Gamma \vdash V_1 \, M_2 : A$ pa sledi
+  $\Gamma \vdash V_1 : B → A$ in $\Gamma \vdash M_2 : B$ za nek $B$.
+  Po indukcijski predpostavki velja $\Gamma \vdash M_2' : B$, iz česar sledi tudi
+  $\Gamma \vdash V \, M_2' : A$.
 
-* `(λx. M) V ↝ M[V / x]`,
-  iz `Γ ⊢ (λx. M) V : A` sledi
-  `Γ ⊢ (λx. M) : B → A` in `Γ ⊢ V : B` za nek `B`.
-  Iz prvega sledi `Γ, x : B ⊢ M : A`,
-  z drugim pa prek leme o substituciji izpeljemo `Γ ⊢ M[V / x] : A`.
+* $(\lambda x. M) \, V \leadsto M[V / x]$,
+  iz $\Gamma \vdash (\lambda x. M) \, V : A$ sledi
+  $\Gamma \vdash (\lambda x. M) : B → A$ in $\Gamma \vdash V : B$ za nek $B$.
+  Iz prvega sledi $\Gamma, x : B \vdash M : A$,
+  z drugim pa prek leme o substituciji izpeljemo $\Gamma \vdash M[V / x] : A$.
 
 ## Vaje
 

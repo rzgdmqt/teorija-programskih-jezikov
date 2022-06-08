@@ -52,6 +52,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"intsym": ["\\underline{#1}", 1], "kwd": ["\\mathbf{#1}", 1], "kwdpre": ["\\kwd{#1}\\;", 1], "kwdmid": ["\\;\\kwd{#1}\\;", 1], "kwdpost": ["\\;\\kwd{#1}", 1], "true": "\\kwd{true}", "false": "\\kwd{false}", "ifthenelse": ["\\kwdpre{if} #1 \\kwdmid{then} #2 \\kwdmid{else} #3", 3], "whiledo": ["\\kwdpre{while} #1 \\kwdmid{do} #2", 2], "skip": "\\kwd{skip}", "ttt": "t\\!t", "fff": "f\\!\\!f", "infer": ["\\displaystyle{\\frac{#1}{#2}}", 2], "boolty": "\\kwd{bool}", "intty": "\\kwd{int}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Izpeljava tipov" href="07-izpeljava-tipov.html" />
@@ -212,25 +214,20 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#definicija-jezika">
    Definicija jezika
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sintaksa">
+   Sintaksa
+  </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sintaksa-izrazov">
-     Sintaksa izrazov
-    </a>
-   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#operacijska-semantika">
      Operacijska semantika
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sintaksa-tipov">
-     Sintaksa tipov
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#pravila-za-dolocanje-tipov">
-     Pravila za določanje tipov
+    <a class="reference internal nav-link" href="#dolocanje-tipov">
+     Določanje tipov
     </a>
    </li>
   </ul>
@@ -325,25 +322,20 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#definicija-jezika">
    Definicija jezika
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sintaksa">
+   Sintaksa
+  </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sintaksa-izrazov">
-     Sintaksa izrazov
-    </a>
-   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#operacijska-semantika">
      Operacijska semantika
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sintaksa-tipov">
-     Sintaksa tipov
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#pravila-za-dolocanje-tipov">
-     Pravila za določanje tipov
+    <a class="reference internal nav-link" href="#dolocanje-tipov">
+     Določanje tipov
     </a>
    </li>
   </ul>
@@ -425,255 +417,273 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="tipi">
 <h1>Tipi<a class="headerlink" href="#tipi" title="Permalink to this headline">¶</a></h1>
+<p>Videli smo, da lahko v λ-računu zakodiramo vse običajne programske konstrukte, vendar to ni najbolj praktično. Običajno vzamemo λ-račun, v katerem te dodatne konstrukte vzamemo kot osnovne in ne izpeljane. Za primer razširitve vzemimo cela števila in logične vrednosti.</p>
 <section id="definicija-jezika">
 <h2>Definicija jezika<a class="headerlink" href="#definicija-jezika" title="Permalink to this headline">¶</a></h2>
-<section id="sintaksa-izrazov">
-<h3>Sintaksa izrazov<a class="headerlink" href="#sintaksa-izrazov" title="Permalink to this headline">¶</a></h3>
-<p>Vzemimo λ-račun, kot smo ga spoznali na predavanjih:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>M ::= x
-    | true
-    | false
-    | if M then M₁ else M₂
-    | ⟨n⟩
-    | M₁ + M₂
-    | M₁ * M₂
-    | M₁ &lt; M₂
-    | λx. M
-    | M₁ M₂
-</pre></div>
-</div>
 </section>
+<section id="sintaksa">
+<h2>Sintaksa<a class="headerlink" href="#sintaksa" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \begin{align*}
+    \text{izraz } M &amp;::= x
+        \mid \true
+        \mid \false
+        \mid \ifthenelse{M}{M_1}{M_2} \\
+        &amp;\mid \intsym{n}
+        \mid M_1 + M_2
+        \mid M_1 * M_2
+        \mid M_1 &lt; M_2 \\
+        &amp;\mid \lambda x. M
+        \mid M_1 \, M_2
+\end{align*}
+\end{split}\]</div>
 <section id="operacijska-semantika">
 <h3>Operacijska semantika<a class="headerlink" href="#operacijska-semantika" title="Permalink to this headline">¶</a></h3>
-<p>Za vrednosti vzamemo:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>V ::= true
-    | false
-    | ⟨n⟩
-    | λx. M
-</pre></div>
-</div>
-<p>Operacijsko semantiko podamo z malimi koraki:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>M  ↝  M&#39;
-----------------------------------------------
-if M then M₁ else M₂  ↝  if M&#39; then M₁ else M₂
-
-------------------------------
-if true then M₁ else M₂  ↝  M₁
-
--------------------------------
-if false then M₁ else M₂  ↝  M₂
-
-M₁  ↝  M₁&#39;
---------------------
-M₁ + M₂  ↝  M₁&#39; + M₂
-
-M₂  ↝  M₂&#39;
---------------------
-V₁ + M₂  ↝  V₁ + M₂&#39;
-
----------------------------
-⟨n₁⟩ + ⟨n₂⟩  ↝  ⟨n₁ + n₂⟩
-
-M₁  ↝  M₁&#39;
---------------------
-M₁ * M₂  ↝  M₁&#39; * M₂
-
-M₂  ↝  M₂&#39;
---------------------
-V₁ * M₂  ↝  V₁ * M₂&#39;
-
----------------------------
-⟨n₁⟩ * ⟨n₂⟩  ↝  ⟨n₁ · n₂⟩
-
-M₁  ↝  M₁&#39;
---------------------
-M₁ &lt; M₂  ↝  M₁&#39; &lt; M₂
-
-M₂  ↝  M₂&#39;
---------------------
-V₁ &lt; M₂  ↝  V₁ &lt; M₂&#39;
-
-n₁ &lt; n₂
---------------------
-⟨n₁⟩ &lt; ⟨n₂⟩  ↝  true
-
-n₁ ≮ n₂
----------------------
-⟨n₁⟩ &lt; ⟨n₂⟩  ↝  false
-
-M₁  ↝  M₁&#39;
-----------------
-M₁ M₂  ↝  M₁&#39; M₂
-
-M₂  ↝  M₂&#39;
-----------------
-V₁ M₂  ↝  V₁ M₂&#39;
-
-----------------------
-(λx. M) V  ↝  M[V / x]
-</pre></div>
-</div>
+<p>Podobno se spremeni operacijska semantika, kjer vrednosti razširimo s konstantami:</p>
+<div class="math notranslate nohighlight">
+\[
+    \begin{align*}
+    \text{vrednost } V ::= \true
+        \mid \false
+        \mid \intsym{n}
+        \mid \lambda x. M
+    \end{align*}
+\]</div>
+<p>Operacijsko semantiko malih korakov pa podamo s pravili:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}
+\infer{
+    M  \leadsto  M'
+}{
+    \ifthenelse{M}{M_1}{M_2}  \leadsto  \ifthenelse{M'}{M_1}{M_2}
+} \\[2em]\end{split}\\\infer{}{
+    \ifthenelse{\true}{M_1}{M_2}  \leadsto  M_1
+} \qquad\\\begin{split}\infer{}{
+    \ifthenelse{\false}{M_1}{M_2}  \leadsto  M_2
+} \\[2em]\end{split}\\\infer{
+    M_1  \leadsto  M_1'
+}{
+    M_1 + M_2  \leadsto  M_1' + M_2
+} \qquad\\\infer{
+    M_2  \leadsto  M_2'
+}{
+    V_1 + M_2  \leadsto  V_1 + M_2'
+} \qquad\\\begin{split}\infer{}{
+    \intsym{n_1} + \intsym{n_2}  \leadsto  \intsym{n_1 + n_2}
+} \\[2em]\end{split}\\\infer{
+    M_1  \leadsto  M_1'
+}{
+    M_1 * M_2  \leadsto  M_1' * M_2
+} \qquad\\\infer{
+    M_2  \leadsto  M_2'
+}{
+    V_1 * M_2  \leadsto  V_1 * M_2'
+} \qquad\\\begin{split}\infer{}{
+    \intsym{n_1} * \intsym{n_2}  \leadsto  \intsym{n_1 · n_2}
+} \\[2em]\end{split}\\\infer{
+    M_1  \leadsto  M_1'
+}{
+    M_1 &lt; M_2  \leadsto  M_1' &lt; M_2
+} \qquad\\\begin{split}\infer{
+    M_2  \leadsto  M_2'
+}{
+    V_1 &lt; M_2  \leadsto  V_1 &lt; M_2'
+} \\[2em]\end{split}\\\infer{
+    n_1 &lt; n_2
+}{
+    \intsym{n_1} &lt; \intsym{n_2}  \leadsto  \true
+} \qquad\\\begin{split}\infer{
+    n_1 ≮ n_2
+}{
+    \intsym{n_1} &lt; \intsym{n_2}  \leadsto  \false
+} \\[2em]\end{split}\\\infer{
+    M_1  \leadsto  M_1'
+}{
+    M_1 \, M_2  \leadsto  M_1' \, M_2
+} \qquad\\\infer{
+    M_2  \leadsto  M_2'
+}{
+    V_1 \, M_2  \leadsto  V_1 \, M_2'
+} \qquad\\\infer{}{
+    (\lambda x. M) \, V  \leadsto  M[V / x]
+}
+\end{aligned}\end{align} \]</div>
 </section>
-<section id="sintaksa-tipov">
-<h3>Sintaksa tipov<a class="headerlink" href="#sintaksa-tipov" title="Permalink to this headline">¶</a></h3>
-<p>Tipi so:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>A, B ::= bool
-       | int
-       | A → B
-</pre></div>
-</div>
-</section>
-<section id="pravila-za-dolocanje-tipov">
-<h3>Pravila za določanje tipov<a class="headerlink" href="#pravila-za-dolocanje-tipov" title="Permalink to this headline">¶</a></h3>
-<p>Pravila za določanje tipov pa so:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(x : A) ∈ Γ
------------
-Γ ⊢ x : A
-
----------------
-Γ ⊢ true : bool
-
-----------------
-Γ ⊢ false : bool
-
-Γ ⊢ M : bool   Γ ⊢ M₁ : A   Γ ⊢ M₂ : A
----------------------------------------
-Γ ⊢ if M then M₁ else M₂ : A
-
--------------
-Γ ⊢ ⟨n⟩ : int
-
-Γ ⊢ M₁ : int   Γ ⊢ M₂ : int
-----------------------------
-Γ ⊢ M₁ + M₂ : int
-
-Γ ⊢ M₁ : int   Γ ⊢ M₂ : int
-----------------------------
-Γ ⊢ M₁ * M₂ : int
-
-Γ ⊢ M₁ : int   Γ ⊢ M₂ : int
-----------------------------
-Γ ⊢ M₁ &lt; M₂ : bool
-
-Γ, x : A ⊢ M : B
------------------
-Γ ⊢ λx. M : A → B
-
-Γ ⊢ M₁ : A → B   Γ ⊢ M₂ : A
-----------------------------
-Γ ⊢ M₁ M₂ : B
-</pre></div>
-</div>
+<section id="dolocanje-tipov">
+<h3>Določanje tipov<a class="headerlink" href="#dolocanje-tipov" title="Permalink to this headline">¶</a></h3>
+<p>Prej so vsi izrazi predstavljali funkcije, z novimi razširitvami pa temu ni več tako, zato si za razločevanje pomagamo s tipi, ki jih bomo priredili vsem veljavnim izrazom. Sintakso tipov podamo z:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align*}
+A, B &amp;::= \boolty
+        \mid \intty
+        \mid A → B
+\end{align*}
+\]</div>
+<p>Vidimo, da funkcijski tip ne pove le tega, da imamo opravka s funkcijo, temveč tudi to, od kod in kam ta funkcija slika.</p>
+<p>Tako kot smo pri preverjanju veljavnih izrazov v IMPu morali vedeti, katera množica lokacij <span class="math notranslate nohighlight">\(L\)</span> je definirana, moramo v kakšne spremenljivke imamo in kakšni so njihovi tipi. S tem namenom uvedemo <em>kontekste</em> <span class="math notranslate nohighlight">\(\Gamma = x_1 : A_1, \ldots, x_n : A_n\)</span>, ki povedo, da za spremenljivko <span class="math notranslate nohighlight">\(x_i\)</span> predpostavimo tip <span class="math notranslate nohighlight">\(A_i\)</span>. Tedaj definiramo relacijo <span class="math notranslate nohighlight">\(\Gamma \vdash M : A\)</span>, ki pove, da ima izraz <span class="math notranslate nohighlight">\(M\)</span> tip <span class="math notranslate nohighlight">\(A\)</span>, če predpostavimo, da imajo spremenljivke tipe, določene s kontekstom <span class="math notranslate nohighlight">\(\Gamma\)</span>. Relacijo podamo s pravili:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}
+\infer{
+    (x : A) ∈ \Gamma
+}{
+    \Gamma \vdash x : A
+} \qquad\\\infer{}{
+    \Gamma \vdash \true : \boolty
+} \qquad\\\begin{split}\infer{}{
+    \Gamma \vdash \false : \boolty
+} \\[2em]\end{split}\\\begin{split}\infer{
+    \Gamma \vdash M : \boolty \qquad
+    \Gamma \vdash M_1 : A \qquad
+    \Gamma \vdash M_2 : A
+}{
+    \Gamma \vdash \ifthenelse{M}{M_1}{M_2} : A
+} \\[2em]\end{split}\\\infer{}{
+    \Gamma \vdash \intsym{n} : \intty
+} \qquad\\\begin{split}\infer{
+    \Gamma \vdash M_1 : \intty \qquad
+    \Gamma \vdash M_2 : \intty
+}{
+    \Gamma \vdash M_1 + M_2 : \intty
+} \\[2em]\end{split}\\\infer{
+    \Gamma \vdash M_1 : \intty \qquad
+    \Gamma \vdash M_2 : \intty
+}{
+    \Gamma \vdash M_1 * M_2 : \intty
+} \qquad\\\begin{split}\infer{
+    \Gamma \vdash M_1 : \intty \qquad
+    \Gamma \vdash M_2 : \intty
+}{
+    \Gamma \vdash M_1 &lt; M_2 : \boolty
+} \\[2em]\end{split}\\\infer{
+    \Gamma, x : A \vdash M : B
+}{
+    \Gamma \vdash \lambda x. M : A → B
+} \qquad\\\infer{
+    \Gamma \vdash M_1 : A → B \qquad
+    \Gamma \vdash M_2 : A
+}{
+    \Gamma \vdash M_1 \, M_2 : B
+}
+\end{aligned}\end{align} \]</div>
+<p>Vsak izraz nima tipa, na primer <span class="math notranslate nohighlight">\(\true + \intsym{2}\)</span> ga nima. Za tiste izraze, ki pa tip imajo, pa velja podoben izrek o varnosti, kot smo ga spoznali za IMP.</p>
 </section>
 </section>
 <section id="izrek-o-varnosti">
 <h2>Izrek o varnosti<a class="headerlink" href="#izrek-o-varnosti" title="Permalink to this headline">¶</a></h2>
+<p>Izrek o varnosti tako kot prej razdelimo na dva dela:</p>
+<ol class="simple">
+<li><p>napredek, ki pove, da je vsak izraz, ki ima tip, bodisi vrednost bodisi lahko naredi korak, ter</p></li>
+<li><p>ohranitev, ki pove, da izraz v vsakem koraku ohrani prvotni tip.</p></li>
+</ol>
+<p>Ker v operacijski semantiki nastopa substitucija, moramo najprej dokazati, da ima pričakovani tip.</p>
 <section id="lema-o-substituciji">
 <h3>Lema (o substituciji)<a class="headerlink" href="#lema-o-substituciji" title="Permalink to this headline">¶</a></h3>
-<p>Če velja <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M</span> <span class="pre">:</span> <span class="pre">B</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">N</span> <span class="pre">:</span> <span class="pre">A</span></code>, tedaj velja <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">B</span></code>.</p>
+<p>Če velja <span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M : B\)</span> in <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash N : A\)</span>, tedaj velja <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash M[N / x] : B\)</span>.</p>
 <section id="dokaz">
 <h4>Dokaz<a class="headerlink" href="#dokaz" title="Permalink to this headline">¶</a></h4>
-<p>Z indukcijo na izpeljavo <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M</span> <span class="pre">:</span> <span class="pre">B</span></code>.
+<p>Z indukcijo na izpeljavo <span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M : B\)</span>.
 Če je zaključek zadnjega uporabljenega pravila:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A</span></code>, je <code class="docutils literal notranslate"><span class="pre">M</span> <span class="pre">=</span> <span class="pre">x</span></code>, zato velja <code class="docutils literal notranslate"><span class="pre">M[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">=</span> <span class="pre">N</span></code>,
-torej velja <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">B</span></code> po drugi predpostavki.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">y</span> <span class="pre">:</span> <span class="pre">B</span></code> za <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">≠</span> <span class="pre">x</span></code>, iz prvi predpostavke sledi <code class="docutils literal notranslate"><span class="pre">(y</span> <span class="pre">:</span> <span class="pre">B)</span> <span class="pre">∈</span> <span class="pre">Γ,</span> <span class="pre">Γ'</span></code>.
-Iz tega sledi <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">B</span></code>, saj je <code class="docutils literal notranslate"><span class="pre">M[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">=</span> <span class="pre">y</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">true</span> <span class="pre">:</span> <span class="pre">bool</span></code>, velja tudi <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">true</span> <span class="pre">:</span> <span class="pre">bool</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">false</span> <span class="pre">:</span> <span class="pre">bool</span></code>, velja tudi <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">false</span> <span class="pre">:</span> <span class="pre">bool</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">if</span> <span class="pre">M</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">A</span></code>, mora veljati
-<code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M</span> <span class="pre">:</span> <span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">:</span> <span class="pre">A</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">A</span></code>.
+<li><p><span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash x : A\)</span>, je <span class="math notranslate nohighlight">\(M = x\)</span>, zato velja <span class="math notranslate nohighlight">\(M[N / x] = N\)</span>,
+torej velja <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash M[N / x] : B\)</span> po drugi predpostavki.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash y : B\)</span> za <span class="math notranslate nohighlight">\(y ≠ x\)</span>, iz prvi predpostavke sledi <span class="math notranslate nohighlight">\((y : B) ∈ \Gamma, \Gamma'\)</span>.
+Iz tega sledi <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash M[N / x] : B\)</span>, saj je <span class="math notranslate nohighlight">\(M[N / x] = y\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash \true : \boolty\)</span>, velja tudi <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash \true : \boolty\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash \false : \boolty\)</span>, velja tudi <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash \false : \boolty\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash \ifthenelse{M}{M_1}{M_2} : A\)</span>, mora veljati
+<span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M : \boolty\)</span>, <span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M_1 : A\)</span> in <span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M_2 : A\)</span>.
 Po indukcijski predpostavki zato velja
-<code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₁[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">A</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₂[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">A</span></code>,
-iz česar sledi <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">(if</span> <span class="pre">M</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂)[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">A</span></code>, saj je
-<code class="docutils literal notranslate"><span class="pre">(if</span> <span class="pre">M</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂)[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">=</span> <span class="pre">if</span> <span class="pre">M[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">then</span> <span class="pre">M₁[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">else</span> <span class="pre">M₂[N</span> <span class="pre">/</span> <span class="pre">x]</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">⟨n⟩</span> <span class="pre">:</span> <span class="pre">int</span></code>, velja tudi <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">⟨n⟩</span> <span class="pre">:</span> <span class="pre">int</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">+</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">int</span></code>, mora veljati
-<code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">:</span> <span class="pre">int</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">int</span></code>.
+<span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash M[N / x] : \boolty\)</span>, <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash M_1[N / x] : A\)</span> in <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash M_2[N / x] : A\)</span>,
+iz česar sledi <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash (\ifthenelse{M}{M_1}{M_2})[N / x] : A\)</span>, saj je
+<span class="math notranslate nohighlight">\((\ifthenelse{M}{M_1}{M_2})[N / x] = \ifthenelse{M[N / x]}{M_1[N / x]}{M_2}[N / x]\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash \intsym{n} : \intty\)</span>, velja tudi <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash \intsym{n} : \intty\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M_1 + M_2 : \intty\)</span>, mora veljati
+<span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M_1 : \intty\)</span> in <span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M_2 : \intty\)</span>.
 Po indukcijski predpostavki zato velja
-<code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₁[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">int</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₂[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">int</span></code>
-iz česar sledi <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">(M₁</span> <span class="pre">+</span> <span class="pre">M₂)[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">int</span></code>, saj je
-<code class="docutils literal notranslate"><span class="pre">(M₁</span> <span class="pre">+</span> <span class="pre">M₂)[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">=</span> <span class="pre">M₁[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">+</span> <span class="pre">M₂[N</span> <span class="pre">/</span> <span class="pre">x]</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">*</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">int</span></code>, mora veljati
-<code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">:</span> <span class="pre">int</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">int</span></code>.
+<span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash M_1[N / x] : \intty\)</span> in <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash M_2[N / x] : \intty\)</span>
+iz česar sledi <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash (M_1 + M_2)[N / x] : \intty\)</span>, saj je
+<span class="math notranslate nohighlight">\((M_1 + M_2)[N / x] = M_1[N / x] + M_2[N / x]\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M_1 * M_2 : \intty\)</span>, mora veljati
+<span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M_1 : \intty\)</span> in <span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M_2 : \intty\)</span>.
 Po indukcijski predpostavki zato velja
-<code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₁[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">int</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₂[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">int</span></code>
-iz česar sledi <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">(M₁</span> <span class="pre">*</span> <span class="pre">M₂)[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">int</span></code>, saj je
-<code class="docutils literal notranslate"><span class="pre">(M₁</span> <span class="pre">*</span> <span class="pre">M₂)[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">=</span> <span class="pre">M₁[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">*</span> <span class="pre">M₂[N</span> <span class="pre">/</span> <span class="pre">x]</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">&lt;</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">int</span></code>, mora veljati
-<code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">:</span> <span class="pre">int</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">int</span></code>.
+<span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash M_1[N / x] : \intty\)</span> in <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash M_2[N / x] : \intty\)</span>
+iz česar sledi <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash (M_1 * M_2)[N / x] : \intty\)</span>, saj je
+<span class="math notranslate nohighlight">\((M_1 * M_2)[N / x] = M_1[N / x] * M_2[N / x]\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M_1 &lt; M_2 : \intty\)</span>, mora veljati
+<span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M_1 : \intty\)</span> in <span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M_2 : \intty\)</span>.
 Po indukcijski predpostavki zato velja
-<code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₁[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">int</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₂[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">int</span></code>
-iz česar sledi <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">(M₁</span> <span class="pre">&lt;</span> <span class="pre">M₂)[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">int</span></code>, saj je
-<code class="docutils literal notranslate"><span class="pre">(M₁</span> <span class="pre">&lt;</span> <span class="pre">M₂)[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">=</span> <span class="pre">M₁[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">&lt;</span> <span class="pre">M₂[N</span> <span class="pre">/</span> <span class="pre">x]</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">λy.</span> <span class="pre">M'</span> <span class="pre">:</span> <span class="pre">A'</span> <span class="pre">→</span> <span class="pre">B'</span></code>, mora veljati
-<code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ',</span> <span class="pre">y</span> <span class="pre">:</span> <span class="pre">A'</span> <span class="pre">⊢</span> <span class="pre">M'</span> <span class="pre">:</span> <span class="pre">B'</span></code>.
+<span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash M_1[N / x] : \intty\)</span> in <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash M_2[N / x] : \intty\)</span>
+iz česar sledi <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash (M_1 &lt; M_2)[N / x] : \intty\)</span>, saj je
+<span class="math notranslate nohighlight">\((M_1 &lt; M_2)[N / x] = M_1[N / x] &lt; M_2[N / x]\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash \lambda y. M' : A' → B'\)</span>, mora veljati
+<span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma', y : A' \vdash M' : B'\)</span>.
 Po indukcijski predpostavki zato velja
-<code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ',</span> <span class="pre">y</span> <span class="pre">:</span> <span class="pre">A'</span> <span class="pre">⊢</span> <span class="pre">M'[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">B'</span></code>
-iz česar sledi <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">(λy.</span> <span class="pre">M')[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">A'</span> <span class="pre">→</span> <span class="pre">B'</span></code>, saj je
-<code class="docutils literal notranslate"><span class="pre">(λy.</span> <span class="pre">M')[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">=</span> <span class="pre">λy.</span> <span class="pre">M'[N</span> <span class="pre">/</span> <span class="pre">x]</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">B</span></code>, mora veljati
-<code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">:</span> <span class="pre">A'</span> <span class="pre">→</span> <span class="pre">B</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">A'</span></code>.
+<span class="math notranslate nohighlight">\(\Gamma, \Gamma', y : A' \vdash M'[N / x] : B'\)</span>
+iz česar sledi <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash (\lambda y. M')[N / x] : A' → B'\)</span>, saj je
+<span class="math notranslate nohighlight">\((\lambda y. M')[N / x] = \lambda y. M'[N / x]\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M_1 \, M_2 : B\)</span>, mora veljati
+<span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M_1 : A' → B\)</span> in <span class="math notranslate nohighlight">\(\Gamma, x : A, \Gamma' \vdash M_2 : A'\)</span>.
 Po indukcijski predpostavki zato velja
-<code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₁[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">A'</span> <span class="pre">→</span> <span class="pre">B</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">M₂[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">A'</span></code>
-iz česar sledi <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">Γ'</span> <span class="pre">⊢</span> <span class="pre">(M₁</span> <span class="pre">M₂)[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">int</span></code>, saj je
-<code class="docutils literal notranslate"><span class="pre">(M₁</span> <span class="pre">M₂)[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">=</span> <span class="pre">M₁[N</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">M₂[N</span> <span class="pre">/</span> <span class="pre">x]</span></code>.</p></li>
+<span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash M_1[N / x] : A' → B\)</span> in <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash M_2[N / x] : A'\)</span>
+iz česar sledi <span class="math notranslate nohighlight">\(\Gamma, \Gamma' \vdash (M_1 \, M_2)[N / x] : \intty\)</span>, saj je
+<span class="math notranslate nohighlight">\((M_1 \, M_2)[N / x] = M_1[N / x] \, M_2[N / x]\)</span>.</p></li>
 </ul>
 </section>
 </section>
 <section id="trditev-napredek">
 <h3>Trditev (napredek)<a class="headerlink" href="#trditev-napredek" title="Permalink to this headline">¶</a></h3>
-<p>Če velja <code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">M</span> <span class="pre">:</span> <span class="pre">A</span></code>, tedaj:</p>
+<p>Če velja <span class="math notranslate nohighlight">\(\vdash M : A\)</span>, tedaj:</p>
 <ol class="simple">
-<li><p>je <code class="docutils literal notranslate"><span class="pre">M</span></code> vrednost ali</p></li>
-<li><p>obstaja <code class="docutils literal notranslate"><span class="pre">M'</span></code>, da velja <code class="docutils literal notranslate"><span class="pre">M</span> <span class="pre">↝</span> <span class="pre">M'</span></code>.</p></li>
+<li><p>je <span class="math notranslate nohighlight">\(M\)</span> vrednost ali</p></li>
+<li><p>obstaja <span class="math notranslate nohighlight">\(M'\)</span>, da velja <span class="math notranslate nohighlight">\(M \leadsto M'\)</span>.</p></li>
 </ol>
 <p><strong>Dokaz.</strong>
 Z indukcijo na predpostavko o določenem tipu.
 Če je zaključek zadnjega uporabljenega pravila:</p>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">A</span></code>, imamo protislovje, saj je kontekst prazen.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">true</span> <span class="pre">:</span> <span class="pre">bool</span></code>, imamo vrednost (1).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">false</span> <span class="pre">:</span> <span class="pre">bool</span></code>, imamo vrednost (1).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">if</span> <span class="pre">M</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">A</span></code>, mora veljati <code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">M</span> <span class="pre">:</span> <span class="pre">bool</span></code>.
+<li><p><span class="math notranslate nohighlight">\(\vdash x : A\)</span>, imamo protislovje, saj je kontekst prazen.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\vdash \true : \boolty\)</span>, imamo vrednost (1).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\vdash \false : \boolty\)</span>, imamo vrednost (1).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\vdash \ifthenelse{M}{M_1}{M_2} : A\)</span>, mora veljati <span class="math notranslate nohighlight">\(\vdash M : \boolty\)</span>.
 Po indukciji dobimo dva primera:</p>
 <ol class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">M</span></code> je vrednost, torej <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">false</span></code>, <code class="docutils literal notranslate"><span class="pre">⟨n⟩</span></code> ali <code class="docutils literal notranslate"><span class="pre">λx.</span> <span class="pre">M</span></code>.
-Ker velja <code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">M</span> <span class="pre">:</span> <span class="pre">bool</span></code>, zadnji dve možnosti odpadeta.
-Če je <code class="docutils literal notranslate"><span class="pre">M</span> <span class="pre">=</span> <span class="pre">true</span></code>, velja <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">M</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">M₁</span></code>,
-če je <code class="docutils literal notranslate"><span class="pre">M</span> <span class="pre">=</span> <span class="pre">false</span></code>, velja <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">M</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">M₂</span></code>.</p></li>
-<li><p>Obstaja <code class="docutils literal notranslate"><span class="pre">M'</span></code>, da velja <code class="docutils literal notranslate"><span class="pre">M</span> <span class="pre">↝</span> <span class="pre">M'</span></code>, zato velja tudi <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">M</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">if</span> <span class="pre">M'</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂</span></code>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(M\)</span> je vrednost, torej <span class="math notranslate nohighlight">\(\true\)</span>, <span class="math notranslate nohighlight">\(\false\)</span>, <span class="math notranslate nohighlight">\(\intsym{n}\)</span> ali <span class="math notranslate nohighlight">\(\lambda x. M\)</span>.
+Ker velja <span class="math notranslate nohighlight">\(\vdash M : \boolty\)</span>, zadnji dve možnosti odpadeta.
+Če je <span class="math notranslate nohighlight">\(M = \true\)</span>, velja <span class="math notranslate nohighlight">\(\ifthenelse{M}{M_1}{M_2} \leadsto M_1\)</span>,
+če je <span class="math notranslate nohighlight">\(M = \false\)</span>, velja <span class="math notranslate nohighlight">\(\ifthenelse{M}{M_1}{M_2} \leadsto M_2\)</span>.</p></li>
+<li><p>Obstaja <span class="math notranslate nohighlight">\(M'\)</span>, da velja <span class="math notranslate nohighlight">\(M \leadsto M'\)</span>, zato velja tudi <span class="math notranslate nohighlight">\(\ifthenelse{M}{M_1}{M_2} \leadsto \ifthenelse{M'}{M_1}{M_2}\)</span>.</p></li>
 </ol>
 <p>V vseh primerih izraz torej lahko naredi korak (2).</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">⟨n⟩</span> <span class="pre">:</span> <span class="pre">int</span></code>, imamo vrednost (1).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">+</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">int</span></code>, mora veljati <code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">:</span> <span class="pre">int</span></code> in <code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">int</span></code>.
-Po indukciji za <code class="docutils literal notranslate"><span class="pre">M₁</span></code> dobimo dva primera:</p>
+<li><p><span class="math notranslate nohighlight">\(\vdash \intsym{n} : \intty\)</span>, imamo vrednost (1).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\vdash M_1 + M_2 : \intty\)</span>, mora veljati <span class="math notranslate nohighlight">\(\vdash M_1 : \intty\)</span> in <span class="math notranslate nohighlight">\(\vdash M_2 : \intty\)</span>.
+Po indukciji za <span class="math notranslate nohighlight">\(M_1\)</span> dobimo dva primera:</p>
 <ol class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">M₁</span></code> je vrednost tipa <code class="docutils literal notranslate"><span class="pre">int</span></code>, torej število <code class="docutils literal notranslate"><span class="pre">⟨n₁⟩</span></code>. V tem primeru po indukciji za <code class="docutils literal notranslate"><span class="pre">M₂</span></code> dobimo dva primera:</p>
+<li><p><span class="math notranslate nohighlight">\(M_1\)</span> je vrednost tipa <span class="math notranslate nohighlight">\(\intty\)</span>, torej število <span class="math notranslate nohighlight">\(\intsym{n_1}\)</span>. V tem primeru po indukciji za <span class="math notranslate nohighlight">\(M_2\)</span> dobimo dva primera:</p>
 <ol class="simple">
-<li><p>Tudi <code class="docutils literal notranslate"><span class="pre">M₂</span></code> je vrednost tipa <code class="docutils literal notranslate"><span class="pre">int</span></code>, torej število <code class="docutils literal notranslate"><span class="pre">⟨n₂⟩</span></code>. Tedaj velja <code class="docutils literal notranslate"><span class="pre">M₁</span> <span class="pre">+</span> <span class="pre">M₂</span> <span class="pre">=</span> <span class="pre">⟨n₁⟩</span> <span class="pre">+</span> <span class="pre">⟨n₂⟩</span> <span class="pre">↝</span> <span class="pre">⟨n₁</span> <span class="pre">+</span> <span class="pre">n₂⟩</span></code>.</p></li>
-<li><p>Obstaja <code class="docutils literal notranslate"><span class="pre">M₂'</span></code>, da velja <code class="docutils literal notranslate"><span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">M₂'</span></code>, zato velja tudi <code class="docutils literal notranslate"><span class="pre">M₁</span> <span class="pre">M₂</span> <span class="pre">=</span> <span class="pre">V₁</span> <span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">V₁</span> <span class="pre">M₂'</span></code>.</p></li>
+<li><p>Tudi <span class="math notranslate nohighlight">\(M_2\)</span> je vrednost tipa <span class="math notranslate nohighlight">\( \intty\)</span>, torej število <span class="math notranslate nohighlight">\(\intsym{n_2}\)</span>. Tedaj velja <span class="math notranslate nohighlight">\(M_1 + M_2 = \intsym{n_1} + \intsym{n_2} \leadsto \intsym{n_1 + n_2}\)</span>.</p></li>
+<li><p>Obstaja <span class="math notranslate nohighlight">\(M_2'\)</span>, da velja <span class="math notranslate nohighlight">\(M_2 \leadsto M_2'\)</span>, zato velja tudi <span class="math notranslate nohighlight">\(M_1 \, M_2 = V_1 \, M_2 \leadsto V_1 \, M_2'\)</span>.</p></li>
 </ol>
 </li>
-<li><p>Obstaja <code class="docutils literal notranslate"><span class="pre">M₁'</span></code>, da velja <code class="docutils literal notranslate"><span class="pre">M₁</span> <span class="pre">↝</span> <span class="pre">M₁'</span></code>, zato velja tudi <code class="docutils literal notranslate"><span class="pre">M₁</span> <span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">M₁'</span> <span class="pre">M₂</span></code>.</p></li>
+<li><p>Obstaja <span class="math notranslate nohighlight">\(M_1'\)</span>, da velja <span class="math notranslate nohighlight">\(M_1 \leadsto M_1'\)</span>, zato velja tudi <span class="math notranslate nohighlight">\(M_1 \, M_2 \leadsto M_1' \, M_2\)</span>.</p></li>
 </ol>
 <p>V vseh primerih izraz torej lahko naredi korak (2).</p>
 </li>
-<li><p><code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">*</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">int</span></code>, je dokaz podoben kot za vsoto.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">&lt;</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">bool</span></code>, je dokaz podoben kot za vsoto.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">λx.</span> <span class="pre">M</span> <span class="pre">:</span> <span class="pre">A</span> <span class="pre">→</span> <span class="pre">B</span></code>, imamo vrednost (1).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">B</span></code>, mora veljati <code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">:</span> <span class="pre">A</span> <span class="pre">→</span> <span class="pre">B</span></code> in <code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">A</span></code> za nek <code class="docutils literal notranslate"><span class="pre">A</span></code>.
-Po indukciji za <code class="docutils literal notranslate"><span class="pre">M₁</span></code> dobimo dva primera:</p>
+<li><p><span class="math notranslate nohighlight">\(\vdash M_1 * M_2 : \intty\)</span>, je dokaz podoben kot za vsoto.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\vdash M_1 &lt; M_2 : \boolty\)</span>, je dokaz podoben kot za vsoto.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\vdash \lambda x. M : A → B\)</span>, imamo vrednost (1).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\vdash M_1 \, M_2 : B\)</span>, mora veljati <span class="math notranslate nohighlight">\(\vdash M_1 : A → B\)</span> in <span class="math notranslate nohighlight">\(\vdash M_2 : A\)</span> za nek <span class="math notranslate nohighlight">\(A\)</span>.
+Po indukciji za <span class="math notranslate nohighlight">\(M_1\)</span> dobimo dva primera:</p>
 <ol class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">M₁</span></code> je vrednost <code class="docutils literal notranslate"><span class="pre">V₁</span></code>. V tem primeru po indukciji za <code class="docutils literal notranslate"><span class="pre">M₂</span></code> dobimo dva primera:</p>
+<li><p><span class="math notranslate nohighlight">\(M_1\)</span> je vrednost <span class="math notranslate nohighlight">\(V_1\)</span>. V tem primeru po indukciji za <span class="math notranslate nohighlight">\(M_2\)</span> dobimo dva primera:</p>
 <ol class="simple">
-<li><p>Tudi <code class="docutils literal notranslate"><span class="pre">M₂</span></code> je vrednost <code class="docutils literal notranslate"><span class="pre">V₂</span></code>. Ker velja <code class="docutils literal notranslate"><span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">:</span> <span class="pre">A</span> <span class="pre">→</span> <span class="pre">B</span></code>, mora veljati <code class="docutils literal notranslate"><span class="pre">M₁</span> <span class="pre">=</span> <span class="pre">λx.</span> <span class="pre">M</span></code> za neka <code class="docutils literal notranslate"><span class="pre">x</span></code> in <code class="docutils literal notranslate"><span class="pre">M</span></code>. Tedaj velja <code class="docutils literal notranslate"><span class="pre">M₁</span> <span class="pre">M₂</span> <span class="pre">=</span> <span class="pre">(λx.</span> <span class="pre">M)</span> <span class="pre">V₂</span> <span class="pre">↝</span> <span class="pre">M[V₂</span> <span class="pre">/</span> <span class="pre">x]</span></code>.</p></li>
-<li><p>Obstaja <code class="docutils literal notranslate"><span class="pre">M₂'</span></code>, da velja <code class="docutils literal notranslate"><span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">M₂'</span></code>, zato velja tudi <code class="docutils literal notranslate"><span class="pre">M₁</span> <span class="pre">M₂</span> <span class="pre">=</span> <span class="pre">V₁</span> <span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">V₁</span> <span class="pre">M₂'</span></code>.</p></li>
+<li><p>Tudi <span class="math notranslate nohighlight">\(M_2\)</span> je vrednost <span class="math notranslate nohighlight">\(V_2\)</span>. Ker velja <span class="math notranslate nohighlight">\(\vdash M_1 : A → B\)</span>, mora veljati <span class="math notranslate nohighlight">\(M_1 = \lambda x. M\)</span> za neka <span class="math notranslate nohighlight">\(x\)</span> in <span class="math notranslate nohighlight">\(M\)</span>. Tedaj velja <span class="math notranslate nohighlight">\(M_1 \, M_2 = (\lambda x. M) V_2 \leadsto M[V_2 / x]\)</span>.</p></li>
+<li><p>Obstaja <span class="math notranslate nohighlight">\(M_2'\)</span>, da velja <span class="math notranslate nohighlight">\(M_2 \leadsto M_2'\)</span>, zato velja tudi <span class="math notranslate nohighlight">\(M_1 \, M_2 = V_1 \, M_2 \leadsto V_1 M_2'\)</span>.</p></li>
 </ol>
 </li>
-<li><p>Obstaja <code class="docutils literal notranslate"><span class="pre">M₁'</span></code>, da velja <code class="docutils literal notranslate"><span class="pre">M₁</span> <span class="pre">↝</span> <span class="pre">M₁'</span></code>, zato velja tudi <code class="docutils literal notranslate"><span class="pre">M₁</span> <span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">M₁'</span> <span class="pre">M₂</span></code>.</p></li>
+<li><p>Obstaja <span class="math notranslate nohighlight">\(M_1'\)</span>, da velja <span class="math notranslate nohighlight">\(M_1 \leadsto M_1'\)</span>, zato velja tudi <span class="math notranslate nohighlight">\(M_1 \, M_2 \leadsto M_1' M_2\)</span>.</p></li>
 </ol>
 <p>V vseh primerih izraz torej lahko naredi korak (2).</p>
 </li>
@@ -681,47 +691,47 @@ Po indukciji za <code class="docutils literal notranslate"><span class="pre">M�
 </section>
 <section id="trditev-ohranitev">
 <h3>Trditev (ohranitev)<a class="headerlink" href="#trditev-ohranitev" title="Permalink to this headline">¶</a></h3>
-<p>Če velja <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M</span> <span class="pre">:</span> <span class="pre">A</span></code> in <code class="docutils literal notranslate"><span class="pre">M</span> <span class="pre">↝</span> <span class="pre">M'</span></code>, tedaj velja tudi <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M'</span> <span class="pre">:</span> <span class="pre">A</span></code>.</p>
+<p>Če velja <span class="math notranslate nohighlight">\(\Gamma \vdash M : A\)</span> in <span class="math notranslate nohighlight">\(M \leadsto M'\)</span>, tedaj velja tudi <span class="math notranslate nohighlight">\(\Gamma \vdash M' : A\)</span>.</p>
 <p><strong>Dokaz.</strong>
 Z indukcijo na predpostavko o koraku.
 Če je zaključek zadnjega uporabljenega pravila:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">M</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">if</span> <span class="pre">M'</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂</span></code>, mora veljati <code class="docutils literal notranslate"><span class="pre">M</span> <span class="pre">↝</span> <span class="pre">M'</span></code>,
-iz <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">if</span> <span class="pre">M</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">A</span></code> pa sledi
-<code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M</span> <span class="pre">:</span> <span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">:</span> <span class="pre">A</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">A</span></code>.
-Po indukcijski predpostavki velja <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M'</span> <span class="pre">:</span> <span class="pre">bool</span></code>, iz česar sledi tudi
-<code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">if</span> <span class="pre">M'</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">A</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">true</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">M₁</span></code>,
-iz <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">if</span> <span class="pre">M</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">A</span></code> sledi <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">:</span> <span class="pre">A</span></code>, kar želimo.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">false</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">M₂</span></code>
-iz <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">if</span> <span class="pre">M</span> <span class="pre">then</span> <span class="pre">M₁</span> <span class="pre">else</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">A</span></code> sledi <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">A</span></code>, kar želimo.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">M₁</span> <span class="pre">+</span> <span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">M₁'</span> <span class="pre">+</span> <span class="pre">M₂</span></code>, mora veljati <code class="docutils literal notranslate"><span class="pre">M₁</span> <span class="pre">↝</span> <span class="pre">M₁'</span></code>,
-iz <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">+</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">int</span></code> pa sledi
-<code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">:</span> <span class="pre">int</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">int</span></code>.
-Po indukcijski predpostavki velja <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₁'</span> <span class="pre">:</span> <span class="pre">int</span></code>, iz česar sledi tudi
-<code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₁'</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">int</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">V₁</span> <span class="pre">+</span> <span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">V₁</span> <span class="pre">+</span> <span class="pre">M₂'</span></code>, mora veljati <code class="docutils literal notranslate"><span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">M₂'</span></code>,
-iz <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">V₁</span> <span class="pre">+</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">int</span></code> pa sledi
-<code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">V₁</span> <span class="pre">:</span> <span class="pre">int</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">int</span></code>.
-Po indukcijski predpostavki velja <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₂'</span> <span class="pre">:</span> <span class="pre">int</span></code>, iz česar sledi tudi
-<code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">+</span> <span class="pre">M₂'</span> <span class="pre">:</span> <span class="pre">int</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">⟨n₁⟩</span> <span class="pre">+</span> <span class="pre">⟨n₂⟩</span> <span class="pre">↝</span> <span class="pre">⟨n₁</span> <span class="pre">+</span> <span class="pre">n₂⟩</span></code>, kjer sta obe strani tipa <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ifthenelse{M}{M_1}{M_2} \leadsto \ifthenelse{M'}{M_1}{M_2}\)</span>, mora veljati <span class="math notranslate nohighlight">\(M \leadsto M'\)</span>,
+iz <span class="math notranslate nohighlight">\(\Gamma \vdash \ifthenelse{M}{M_1}{M_2} : A\)</span> pa sledi
+<span class="math notranslate nohighlight">\(\Gamma \vdash M : \boolty\)</span>, <span class="math notranslate nohighlight">\(\Gamma \vdash M_1 : A\)</span> in <span class="math notranslate nohighlight">\(\Gamma \vdash M_2 : A\)</span>.
+Po indukcijski predpostavki velja <span class="math notranslate nohighlight">\(\Gamma \vdash M' : \boolty\)</span>, iz česar sledi tudi
+<span class="math notranslate nohighlight">\(\Gamma \vdash \ifthenelse{M'}{M_1}{M_2} : A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ifthenelse{\true}{M_1}{M_2} \leadsto M_1\)</span>,
+iz <span class="math notranslate nohighlight">\(\Gamma \vdash \ifthenelse{M}{M_1}{M_2} : A\)</span> sledi <span class="math notranslate nohighlight">\(\Gamma \vdash M_1 : A\)</span>, kar želimo.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\ifthenelse{\false}{M_1}{M_2} \leadsto M_2\)</span>
+iz <span class="math notranslate nohighlight">\(\Gamma \vdash \ifthenelse{M}{M_1}{M_2} : A\)</span> sledi <span class="math notranslate nohighlight">\(\Gamma \vdash M_2 : A\)</span>, kar želimo.</p></li>
+<li><p><span class="math notranslate nohighlight">\(M_1 + M_2 \leadsto M_1' + M_2\)</span>, mora veljati <span class="math notranslate nohighlight">\(M_1 \leadsto M_1'\)</span>,
+iz <span class="math notranslate nohighlight">\(\Gamma \vdash M_1 + M_2 : \intty\)</span> pa sledi
+<span class="math notranslate nohighlight">\(\Gamma \vdash M_1 : \intty\)</span> in <span class="math notranslate nohighlight">\(\Gamma \vdash M_2 : \intty\)</span>.
+Po indukcijski predpostavki velja <span class="math notranslate nohighlight">\(\Gamma \vdash M_1' : \intty\)</span>, iz česar sledi tudi
+<span class="math notranslate nohighlight">\(\Gamma \vdash M_1' M_2 : \intty\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(V_1 + M_2 \leadsto V_1 + M_2'\)</span>, mora veljati <span class="math notranslate nohighlight">\(M_2 \leadsto M_2'\)</span>,
+iz <span class="math notranslate nohighlight">\(\Gamma \vdash V_1 + M_2 : \intty\)</span> pa sledi
+<span class="math notranslate nohighlight">\(\Gamma \vdash V_1 : \intty\)</span> in <span class="math notranslate nohighlight">\(\Gamma \vdash M_2 : \intty\)</span>.
+Po indukcijski predpostavki velja <span class="math notranslate nohighlight">\(\Gamma \vdash M_2' : \intty\)</span>, iz česar sledi tudi
+<span class="math notranslate nohighlight">\(\Gamma \vdash M_1 + M_2' : \intty\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\intsym{n_1} + \intsym{n_2} \leadsto \intsym{n_1 + n_2}\)</span>, kjer sta obe strani tipa <span class="math notranslate nohighlight">\( \intty\)</span>.</p></li>
 <li><p>Dokazi ohranitve za produkt in primerjavo števil so enaki kot pri vsoti.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">M₁</span> <span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">M₁'</span> <span class="pre">M₂</span></code>, mora veljati <code class="docutils literal notranslate"><span class="pre">M₁</span> <span class="pre">↝</span> <span class="pre">M₁'</span></code>,
-iz <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">A</span></code> pa sledi
-<code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₁</span> <span class="pre">:</span> <span class="pre">B</span> <span class="pre">→</span> <span class="pre">A</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">B</span></code> za nek <code class="docutils literal notranslate"><span class="pre">B</span></code>.
-Po indukcijski predpostavki velja <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₁'</span> <span class="pre">:</span> <span class="pre">B</span> <span class="pre">→</span> <span class="pre">A</span></code>, iz česar sledi tudi
-<code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₁'</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">A</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">V₁</span> <span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">V₁</span> <span class="pre">M₂'</span></code>, mora veljati <code class="docutils literal notranslate"><span class="pre">M₂</span> <span class="pre">↝</span> <span class="pre">M₂'</span></code>,
-iz <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">V₁</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">A</span></code> pa sledi
-<code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">V₁</span> <span class="pre">:</span> <span class="pre">B</span> <span class="pre">→</span> <span class="pre">A</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₂</span> <span class="pre">:</span> <span class="pre">B</span></code> za nek <code class="docutils literal notranslate"><span class="pre">B</span></code>.
-Po indukcijski predpostavki velja <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M₂'</span> <span class="pre">:</span> <span class="pre">B</span></code>, iz česar sledi tudi
-<code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">V</span> <span class="pre">M₂'</span> <span class="pre">:</span> <span class="pre">A</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">(λx.</span> <span class="pre">M)</span> <span class="pre">V</span> <span class="pre">↝</span> <span class="pre">M[V</span> <span class="pre">/</span> <span class="pre">x]</span></code>,
-iz <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">(λx.</span> <span class="pre">M)</span> <span class="pre">V</span> <span class="pre">:</span> <span class="pre">A</span></code> sledi
-<code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">(λx.</span> <span class="pre">M)</span> <span class="pre">:</span> <span class="pre">B</span> <span class="pre">→</span> <span class="pre">A</span></code> in <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">V</span> <span class="pre">:</span> <span class="pre">B</span></code> za nek <code class="docutils literal notranslate"><span class="pre">B</span></code>.
-Iz prvega sledi <code class="docutils literal notranslate"><span class="pre">Γ,</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">B</span> <span class="pre">⊢</span> <span class="pre">M</span> <span class="pre">:</span> <span class="pre">A</span></code>,
-z drugim pa prek leme o substituciji izpeljemo <code class="docutils literal notranslate"><span class="pre">Γ</span> <span class="pre">⊢</span> <span class="pre">M[V</span> <span class="pre">/</span> <span class="pre">x]</span> <span class="pre">:</span> <span class="pre">A</span></code>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(M_1 \, M_2 \leadsto M_1' \, M_2\)</span>, mora veljati <span class="math notranslate nohighlight">\(M_1 \leadsto M_1'\)</span>,
+iz <span class="math notranslate nohighlight">\(\Gamma \vdash M_1 \, M_2 : A\)</span> pa sledi
+<span class="math notranslate nohighlight">\(\Gamma \vdash M_1 : B → A\)</span> in <span class="math notranslate nohighlight">\(\Gamma \vdash M_2 : B\)</span> za nek <span class="math notranslate nohighlight">\(B\)</span>.
+Po indukcijski predpostavki velja <span class="math notranslate nohighlight">\(\Gamma \vdash M_1' : B → A\)</span>, iz česar sledi tudi
+<span class="math notranslate nohighlight">\(\Gamma \vdash M_1' \, M_2 : A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(V_1 \, M_2 \leadsto V_1 \, M_2'\)</span>, mora veljati <span class="math notranslate nohighlight">\(M_2 \leadsto M_2'\)</span>,
+iz <span class="math notranslate nohighlight">\(\Gamma \vdash V_1 \, M_2 : A\)</span> pa sledi
+<span class="math notranslate nohighlight">\(\Gamma \vdash V_1 : B → A\)</span> in <span class="math notranslate nohighlight">\(\Gamma \vdash M_2 : B\)</span> za nek <span class="math notranslate nohighlight">\(B\)</span>.
+Po indukcijski predpostavki velja <span class="math notranslate nohighlight">\(\Gamma \vdash M_2' : B\)</span>, iz česar sledi tudi
+<span class="math notranslate nohighlight">\(\Gamma \vdash V \, M_2' : A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\((\lambda x. M) \, V \leadsto M[V / x]\)</span>,
+iz <span class="math notranslate nohighlight">\(\Gamma \vdash (\lambda x. M) \, V : A\)</span> sledi
+<span class="math notranslate nohighlight">\(\Gamma \vdash (\lambda x. M) : B → A\)</span> in <span class="math notranslate nohighlight">\(\Gamma \vdash V : B\)</span> za nek <span class="math notranslate nohighlight">\(B\)</span>.
+Iz prvega sledi <span class="math notranslate nohighlight">\(\Gamma, x : B \vdash M : A\)</span>,
+z drugim pa prek leme o substituciji izpeljemo <span class="math notranslate nohighlight">\(\Gamma \vdash M[V / x] : A\)</span>.</p></li>
 </ul>
 </section>
 </section>

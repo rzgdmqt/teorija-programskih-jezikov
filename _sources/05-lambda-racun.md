@@ -60,7 +60,7 @@ Funkcije bomo uporabili tako, da bomo vse pojavitve parametra v telesu zamenjali
 $$
 \begin{align*}
   x[N / x] &:= N \\
-  y[N / x] &:= N \qquad (x \ne y) \\
+  y[N / x] &:= y \qquad (x \ne y) \\
   (\lambda y. M)[N / x] &:= \lambda y. M[N / x] \qquad (x \ne y, y \notin fv(M)) \\
   (M_1 \, M_2)[N / x] &:= (M_1[N / x]) \, (M_2[N / x])
 \end{align*}

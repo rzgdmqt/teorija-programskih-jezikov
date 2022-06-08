@@ -52,7 +52,7 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"intsym": ["\\underline{#1}", 1], "kwd": ["\\mathbf{#1}", 1], "kwdpre": ["\\kwd{#1}\\;", 1], "kwdmid": ["\\;\\kwd{#1}\\;", 1], "kwdpost": ["\\;\\kwd{#1}", 1], "true": "\\kwd{true}", "false": "\\kwd{false}", "ifthenelse": ["\\kwdpre{if} #1 \\kwdmid{then} #2 \\kwdmid{else} #3", 3], "whiledo": ["\\kwdpre{while} #1 \\kwdmid{do} #2", 2], "skip": "\\kwd{skip}", "ttt": "t\\!t", "fff": "f\\!\\!f", "infer": ["\\displaystyle{\\frac{#1}{#2}}", 2]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"intsym": ["\\underline{#1}", 1], "kwd": ["\\mathbf{#1}", 1], "kwdpre": ["\\kwd{#1}\\;", 1], "kwdmid": ["\\;\\kwd{#1}\\;", 1], "kwdpost": ["\\;\\kwd{#1}", 1], "true": "\\kwd{true}", "false": "\\kwd{false}", "ifthenelse": ["\\kwdpre{if} #1 \\kwdmid{then} #2 \\kwdmid{else} #3", 3], "whiledo": ["\\kwdpre{while} #1 \\kwdmid{do} #2", 2], "skip": "\\kwd{skip}", "ttt": "t\\!t", "fff": "f\\!\\!f", "infer": ["\\displaystyle{\\frac{#1}{#2}}", 2], "boolty": "\\kwd{bool}", "intty": "\\kwd{int}"}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -414,7 +414,7 @@ const thebe_selector_output = ".output, .cell_output"
 \[\begin{split}
 \begin{align*}
   x[N / x] &amp;:= N \\
-  y[N / x] &amp;:= N \qquad (x \ne y) \\
+  y[N / x] &amp;:= y \qquad (x \ne y) \\
   (\lambda y. M)[N / x] &amp;:= \lambda y. M[N / x] \qquad (x \ne y, y \notin fv(M)) \\
   (M_1 \, M_2)[N / x] &amp;:= (M_1[N / x]) \, (M_2[N / x])
 \end{align*}
