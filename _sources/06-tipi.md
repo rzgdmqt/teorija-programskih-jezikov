@@ -1,10 +1,10 @@
 # Tipi
 
-Videli smo, da lahko v λ-računu zakodiramo vse običajne programske konstrukte, vendar to ni najbolj praktično. Običajno vzamemo λ-račun, v katerem te dodatne konstrukte vzamemo kot osnovne in ne izpeljane. Za primer razširitve vzemimo cela števila in logične vrednosti.
+Videli smo, da lahko v λ-računu zakodiramo vse običajne programske konstrukte, vendar to ni najbolj praktično. Običajno vzamemo λ-račun, v katerem te dodatne konstrukte vzamemo kot osnovne in ne izpeljane. Prej so vsi izrazi predstavljali funkcije, z novimi razširitvami pa temu ni več tako, zato si za razločevanje pomagamo s tipi, ki jih bomo priredili vsem veljavnim izrazom. Dobimo _λ-račun s preprostimi tipi_ (_simply-typed λ-calculus_ ali kar _STLC_). Za primer razširitve vzemimo cela števila in logične vrednosti.
 
 ## Definicija jezika
 
-## Sintaksa
+### Sintaksa
 
 $$
     \begin{align*}
@@ -20,6 +20,107 @@ $$
         \mid M_1 \, M_2
 \end{align*}
 $$
+
+Tudi za tipe podamo sintakso in sicer:
+
+$$
+\begin{align*}
+A, B &::= \boolty
+        \mid \intty
+        \mid A \to B
+\end{align*}
+$$
+
+Vidimo, da funkcijski tip ne pove le tega, da imamo opravka s funkcijo, temveč tudi to, od kod in kam ta funkcija slika.
+
+### Določanje tipov
+
+Tako kot smo pri preverjanju veljavnih izrazov v IMPu morali vedeti, katera množica lokacij $L$ je definirana, moramo v kakšne spremenljivke imamo in kakšni so njihovi tipi. S tem namenom uvedemo _kontekste_ $\Gamma = x_1 : A_1, \ldots, x_n : A_n$, ki povedo, da za spremenljivko $x_i$ predpostavimo tip $A_i$. Tedaj definiramo relacijo $\Gamma \vdash M : A$, ki pove, da ima izraz $M$ tip $A$, če predpostavimo, da imajo spremenljivke tipe, določene s kontekstom $\Gamma$. Če je kontekst prazen, pišemo kar $\vdash M : A$. Relacijo podamo s pravili:
+
+$$
+\infer{
+    (x : A) ∈ \Gamma
+}{
+    \Gamma \vdash x : A
+} \qquad
+
+\infer{}{
+    \Gamma \vdash \true : \boolty
+} \qquad
+
+\infer{}{
+    \Gamma \vdash \false : \boolty
+} \\[2em]
+
+\infer{
+    \Gamma \vdash M : \boolty \qquad
+    \Gamma \vdash M_1 : A \qquad
+    \Gamma \vdash M_2 : A
+}{
+    \Gamma \vdash \ifthenelse{M}{M_1}{M_2} : A
+} \\[2em]
+
+\infer{}{
+    \Gamma \vdash \intsym{n} : \intty
+} \qquad
+
+\infer{
+    \Gamma \vdash M_1 : \intty \qquad
+    \Gamma \vdash M_2 : \intty
+}{
+    \Gamma \vdash M_1 + M_2 : \intty
+} \\[2em]
+
+\infer{
+    \Gamma \vdash M_1 : \intty \qquad
+    \Gamma \vdash M_2 : \intty
+}{
+    \Gamma \vdash M_1 * M_2 : \intty
+} \qquad
+
+\infer{
+    \Gamma \vdash M_1 : \intty \qquad
+    \Gamma \vdash M_2 : \intty
+}{
+    \Gamma \vdash M_1 < M_2 : \boolty
+} \\[2em]
+
+\infer{
+    \Gamma, x : A \vdash M : B
+}{
+    \Gamma \vdash \lambda x. M : A \to B
+} \qquad
+
+\infer{
+    \Gamma \vdash M_1 : A \to B \qquad
+    \Gamma \vdash M_2 : A
+}{
+    \Gamma \vdash M_1 \, M_2 : B
+}
+$$
+
+Primer izpeljave tipa je:
+
+$$
+\infer{
+    \infer{
+        \infer{
+            \infer{}{x : \intty \vdash x : \intty} \qquad
+            \infer{}{x : \intty \vdash \intsym{0} : \intty}
+        }{
+            x : \intty \vdash x < \intsym{0} : \boolty
+        }
+    }{
+        \vdash \lambda x. x < \intsym{0} : \intty \to \boolty
+    }
+    \qquad
+    \infer{}{\vdash \intsym{3} : \intty}
+}{
+    \vdash (\lambda x. x < \intsym{0}) \, \intsym{3} : \boolty
+}
+$$
+
+Vsak izraz seveda nima tipa, na primer $\true + \intsym{2}$ ga nima.
 
 ### Operacijska semantika
 
@@ -124,89 +225,9 @@ $$
 }
 $$
 
-### Določanje tipov
-
-Prej so vsi izrazi predstavljali funkcije, z novimi razširitvami pa temu ni več tako, zato si za razločevanje pomagamo s tipi, ki jih bomo priredili vsem veljavnim izrazom. Sintakso tipov podamo z:
-
-$$
-\begin{align*}
-A, B &::= \boolty
-        \mid \intty
-        \mid A → B
-\end{align*}
-$$
-
-Vidimo, da funkcijski tip ne pove le tega, da imamo opravka s funkcijo, temveč tudi to, od kod in kam ta funkcija slika.
-
-Tako kot smo pri preverjanju veljavnih izrazov v IMPu morali vedeti, katera množica lokacij $L$ je definirana, moramo v kakšne spremenljivke imamo in kakšni so njihovi tipi. S tem namenom uvedemo _kontekste_ $\Gamma = x_1 : A_1, \ldots, x_n : A_n$, ki povedo, da za spremenljivko $x_i$ predpostavimo tip $A_i$. Tedaj definiramo relacijo $\Gamma \vdash M : A$, ki pove, da ima izraz $M$ tip $A$, če predpostavimo, da imajo spremenljivke tipe, določene s kontekstom $\Gamma$. Relacijo podamo s pravili:
-
-$$
-\infer{
-    (x : A) ∈ \Gamma
-}{
-    \Gamma \vdash x : A
-} \qquad
-
-\infer{}{
-    \Gamma \vdash \true : \boolty
-} \qquad
-
-\infer{}{
-    \Gamma \vdash \false : \boolty
-} \\[2em]
-
-\infer{
-    \Gamma \vdash M : \boolty \qquad
-    \Gamma \vdash M_1 : A \qquad
-    \Gamma \vdash M_2 : A
-}{
-    \Gamma \vdash \ifthenelse{M}{M_1}{M_2} : A
-} \\[2em]
-
-\infer{}{
-    \Gamma \vdash \intsym{n} : \intty
-} \qquad
-
-\infer{
-    \Gamma \vdash M_1 : \intty \qquad
-    \Gamma \vdash M_2 : \intty
-}{
-    \Gamma \vdash M_1 + M_2 : \intty
-} \\[2em]
-
-\infer{
-    \Gamma \vdash M_1 : \intty \qquad
-    \Gamma \vdash M_2 : \intty
-}{
-    \Gamma \vdash M_1 * M_2 : \intty
-} \qquad
-
-\infer{
-    \Gamma \vdash M_1 : \intty \qquad
-    \Gamma \vdash M_2 : \intty
-}{
-    \Gamma \vdash M_1 < M_2 : \boolty
-} \\[2em]
-
-\infer{
-    \Gamma, x : A \vdash M : B
-}{
-    \Gamma \vdash \lambda x. M : A → B
-} \qquad
-
-\infer{
-    \Gamma \vdash M_1 : A → B \qquad
-    \Gamma \vdash M_2 : A
-}{
-    \Gamma \vdash M_1 \, M_2 : B
-}
-$$
-
-Vsak izraz nima tipa, na primer $\true + \intsym{2}$ ga nima. Za tiste izraze, ki pa tip imajo, pa velja podoben izrek o varnosti, kot smo ga spoznali za IMP.
-
 ## Izrek o varnosti
 
-Izrek o varnosti tako kot prej razdelimo na dva dela:
+Za tiste izraze, ki imajo tip v praznem kontekstu, velja podoben izrek o varnosti, kot smo ga spoznali za IMP. Tako kot prej razdelimo na dva dela:
 
 1. napredek, ki pove, da je vsak izraz, ki ima tip, bodisi vrednost bodisi lahko naredi korak, ter
 2. ohranitev, ki pove, da izraz v vsakem koraku ohrani prvotni tip.
@@ -262,17 +283,17 @@ Z indukcijo na izpeljavo $\Gamma, x : A, \Gamma' \vdash M : B$.
     iz česar sledi $\Gamma, \Gamma' \vdash (M_1 < M_2)[N / x] : \intty$, saj je
     $(M_1 < M_2)[N / x] = M_1[N / x] < M_2[N / x]$.
 
-* $\Gamma, x : A, \Gamma' \vdash \lambda y. M' : A' → B'$, mora veljati
+* $\Gamma, x : A, \Gamma' \vdash \lambda y. M' : A' \to B'$, mora veljati
     $\Gamma, x : A, \Gamma', y : A' \vdash M' : B'$.
     Po indukcijski predpostavki zato velja
     $\Gamma, \Gamma', y : A' \vdash M'[N / x] : B'$
-    iz česar sledi $\Gamma, \Gamma' \vdash (\lambda y. M')[N / x] : A' → B'$, saj je
+    iz česar sledi $\Gamma, \Gamma' \vdash (\lambda y. M')[N / x] : A' \to B'$, saj je
     $(\lambda y. M')[N / x] = \lambda y. M'[N / x]$.
 
 * $\Gamma, x : A, \Gamma' \vdash M_1 \, M_2 : B$, mora veljati
-    $\Gamma, x : A, \Gamma' \vdash M_1 : A' → B$ in $\Gamma, x : A, \Gamma' \vdash M_2 : A'$.
+    $\Gamma, x : A, \Gamma' \vdash M_1 : A' \to B$ in $\Gamma, x : A, \Gamma' \vdash M_2 : A'$.
     Po indukcijski predpostavki zato velja
-    $\Gamma, \Gamma' \vdash M_1[N / x] : A' → B$ in $\Gamma, \Gamma' \vdash M_2[N / x] : A'$
+    $\Gamma, \Gamma' \vdash M_1[N / x] : A' \to B$ in $\Gamma, \Gamma' \vdash M_2[N / x] : A'$
     iz česar sledi $\Gamma, \Gamma' \vdash (M_1 \, M_2)[N / x] : \intty$, saj je
     $(M_1 \, M_2)[N / x] = M_1[N / x] \, M_2[N / x]$.
 
@@ -318,12 +339,12 @@ Z indukcijo na predpostavko o določenem tipu.
 
 * $\vdash M_1 < M_2 : \boolty$, je dokaz podoben kot za vsoto.
 
-* $\vdash \lambda x. M : A → B$, imamo vrednost (1).
+* $\vdash \lambda x. M : A \to B$, imamo vrednost (1).
 
-* $\vdash M_1 \, M_2 : B$, mora veljati $\vdash M_1 : A → B$ in $\vdash M_2 : A$ za nek $A$.
+* $\vdash M_1 \, M_2 : B$, mora veljati $\vdash M_1 : A \to B$ in $\vdash M_2 : A$ za nek $A$.
     Po indukciji za $M_1$ dobimo dva primera:
     1. $M_1$ je vrednost $V_1$. V tem primeru po indukciji za $M_2$ dobimo dva primera:
-        1. Tudi $M_2$ je vrednost $V_2$. Ker velja $\vdash M_1 : A → B$, mora veljati $M_1 = \lambda x. M$ za neka $x$ in $M$. Tedaj velja $M_1 \, M_2 = (\lambda x. M) V_2 \leadsto M[V_2 / x]$.
+        1. Tudi $M_2$ je vrednost $V_2$. Ker velja $\vdash M_1 : A \to B$, mora veljati $M_1 = \lambda x. M$ za neka $x$ in $M$. Tedaj velja $M_1 \, M_2 = (\lambda x. M) V_2 \leadsto M[V_2 / x]$.
         2. Obstaja $M_2'$, da velja $M_2 \leadsto M_2'$, zato velja tudi $M_1 \, M_2 = V_1 \, M_2 \leadsto V_1 M_2'$.
     2. Obstaja $M_1'$, da velja $M_1 \leadsto M_1'$, zato velja tudi $M_1 \, M_2 \leadsto M_1' M_2$.
 
@@ -367,19 +388,19 @@ Z indukcijo na predpostavko o koraku.
 
 * $M_1 \, M_2 \leadsto M_1' \, M_2$, mora veljati $M_1 \leadsto M_1'$,
   iz $\Gamma \vdash M_1 \, M_2 : A$ pa sledi
-  $\Gamma \vdash M_1 : B → A$ in $\Gamma \vdash M_2 : B$ za nek $B$.
-  Po indukcijski predpostavki velja $\Gamma \vdash M_1' : B → A$, iz česar sledi tudi
+  $\Gamma \vdash M_1 : B \to A$ in $\Gamma \vdash M_2 : B$ za nek $B$.
+  Po indukcijski predpostavki velja $\Gamma \vdash M_1' : B \to A$, iz česar sledi tudi
   $\Gamma \vdash M_1' \, M_2 : A$.
 
 * $V_1 \, M_2 \leadsto V_1 \, M_2'$, mora veljati $M_2 \leadsto M_2'$,
   iz $\Gamma \vdash V_1 \, M_2 : A$ pa sledi
-  $\Gamma \vdash V_1 : B → A$ in $\Gamma \vdash M_2 : B$ za nek $B$.
+  $\Gamma \vdash V_1 : B \to A$ in $\Gamma \vdash M_2 : B$ za nek $B$.
   Po indukcijski predpostavki velja $\Gamma \vdash M_2' : B$, iz česar sledi tudi
   $\Gamma \vdash V \, M_2' : A$.
 
 * $(\lambda x. M) \, V \leadsto M[V / x]$,
   iz $\Gamma \vdash (\lambda x. M) \, V : A$ sledi
-  $\Gamma \vdash (\lambda x. M) : B → A$ in $\Gamma \vdash V : B$ za nek $B$.
+  $\Gamma \vdash (\lambda x. M) : B \to A$ in $\Gamma \vdash V : B$ za nek $B$.
   Iz prvega sledi $\Gamma, x : B \vdash M : A$,
   z drugim pa prek leme o substituciji izpeljemo $\Gamma \vdash M[V / x] : A$.
 
