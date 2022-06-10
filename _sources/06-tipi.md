@@ -404,6 +404,34 @@ Z indukcijo na predpostavko o koraku.
   Iz prvega sledi $\Gamma, x : B \vdash M : A$,
   z drugim pa prek leme o substituciji izpeljemo $\Gamma \vdash M[V / x] : A$.
 
+## Rekurzija
+
+Če želimo uporabljati rekurzijo, lahko uvedemo izraz $\kwdpre{rec} f \, x . M$, ki predstavlja rekurzivno funkcijo s telesom $M$, v katerem se lahko poleg argumenta $x$ pojavljajo tudi rekurzivni klici, dostopni prek spremenljivke $x$. Pravilo za določanje tipa je
+
+$$
+\infer{
+    \Gamma, f : A \to B, x : A \vdash M : A \to B
+}{
+    \Gamma \vdash \kwdpre{rec} f \, x . M : A \to B
+}
+$$
+
+pri operacijski semantiki pa razširimo vrednosti
+
+$$
+    V ::= \dots \mid \kwdpre{rec} f \, x . M
+$$
+
+ter dodamo pravilo za izvajanje klicev rekurzivnih funkcij:
+
+$$
+    \infer{}{
+        (\kwdpre{rec} f \, x . M) \, V \leadsto M[V / x, (\kwdpre{rec} f \, x . M) / f]
+    }
+$$
+
+Spremenljivko $x$ kot prej zamenjamo z argumentom $V$, spremenljivko $f$ pa z rekurzivno funkcijo samo.
+
 ## Vaje
 
 ### Naloga 1

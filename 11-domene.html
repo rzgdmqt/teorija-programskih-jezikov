@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>*Domene &#8212; Teorija programskih jezikov</title>
+    <title>Domene &#8212; Teorija programskih jezikov</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -52,6 +52,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"intsym": ["\\underline{#1}", 1], "kwd": ["\\mathbf{#1}", 1], "kwdpre": ["\\kwd{#1}\\;", 1], "kwdmid": ["\\;\\kwd{#1}\\;", 1], "kwdpost": ["\\;\\kwd{#1}", 1], "true": "\\kwd{true}", "false": "\\kwd{false}", "ifthenelse": ["\\kwdpre{if} #1 \\kwdmid{then} #2 \\kwdmid{else} #3", 3], "whiledo": ["\\kwdpre{while} #1 \\kwdmid{do} #2", 2], "skip": "\\kwd{skip}", "ttt": "t\\!t", "fff": "f\\!\\!f", "infer": ["\\displaystyle{\\frac{#1}{#2}}", 2], "boolty": "\\kwd{bool}", "intty": "\\kwd{int}", "eqs": "\\mathcal{E}", "ctxt": "\\mathcal{C}", "itp": ["[\\![ #1 ]\\!]", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="*Računski učinki" href="08-racunski-ucinki.html" />
@@ -137,11 +139,6 @@ const thebe_selector_output = ".output, .cell_output"
    Izpeljava tipov
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="08-kontekstna-ekvivalenca.html">
-   Kontekstna ekvivalenca
-  </a>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -156,7 +153,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   *Domene
+   Domene
   </a>
  </li>
 </ul>
@@ -252,6 +249,24 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Domene
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interpretacije-tipov-in-izrazov">
+   Interpretacije tipov in izrazov
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -259,11 +274,29 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>*Domene</h1>
+                <h1>Domene</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Domene
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interpretacije-tipov-in-izrazov">
+   Interpretacije tipov in izrazov
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -271,7 +304,146 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="domene">
-<h1>*Domene<a class="headerlink" href="#domene" title="Permalink to this headline">¶</a></h1>
+<h1>Domene<a class="headerlink" href="#domene" title="Permalink to this headline">¶</a></h1>
+<p>Pri interpretaciji izrazov nismo omenjali rekurzije. Spomnimo se, da jo lahko uvedemo z izrazom <span class="math notranslate nohighlight">\(\kwdpre{rec} f \, x . M\)</span>, za katerega velja</p>
+<div class="math notranslate nohighlight">
+\[
+    \infer{}{
+        (\kwdpre{rec} f \, x . M) \, V \leadsto M[V / x, (\kwdpre{rec} f \, x . M) / f]
+    }
+\]</div>
+<p>Če bi želeli skladnost denotacijske semantike z operacijsko, bi torej moralo veljati</p>
+<div class="math notranslate nohighlight">
+\[
+    \itp{(\kwdpre{rec} f \, x . M)}(\itp{V}) = \itp{M}(\itp{V}, \itp{\kwdpre{rec} f \, x . M})
+\]</div>
+<p>Na primer, če za <span class="math notranslate nohighlight">\(M\)</span> vzamemo <span class="math notranslate nohighlight">\(x + \intsym{1}\)</span>, za <span class="math notranslate nohighlight">\(V\)</span> pa <span class="math notranslate nohighlight">\(\intsym{0}\)</span>, dobimo</p>
+<div class="math notranslate nohighlight">
+\[
+    \itp{(\kwdpre{rec} f \, x . f \, x + \intsym{1}) \, \intsym{0}} = \itp{(\kwdpre{rec} f \, x . f \, x + \intsym{1}) \, \intsym{0}} + 1
+\]</div>
+<p>kar seveda ni res. V splošnem pa nam enačba pove, da ima (malo preurejeni) <span class="math notranslate nohighlight">\(\itp{M}\)</span> vedno fiksno točko. To za množice in preslikave med njimi seveda ne velja. Smo pa fiksne točke že konstruirali v poglavju o indukciji, kjer smo imeli monotono preslikavo na množicah <span class="math notranslate nohighlight">\(F\)</span>, ki smo jo iterirali na prazni množici <span class="math notranslate nohighlight">\(\emptyset\)</span>, da smo dobili množico <span class="math notranslate nohighlight">\(I = \bigcup_{n = 0}^{\infty} F^i(\emptyset)\)</span>, za katero je veljalo <span class="math notranslate nohighlight">\(F I = I\)</span>. Podoben postopek želimo narediti v splošnem, kar nas pripelje do definicije <em>domen</em>.</p>
+<section id="id1">
+<h2>Domene<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Zaporedje <span class="math notranslate nohighlight">\((x_i)_{i \in \mathbb{N}}\)</span> v delno urejeni množici <span class="math notranslate nohighlight">\(D\)</span> je <em>veriga</em>, če za vsak <span class="math notranslate nohighlight">\(i \in \mathbb{N}\)</span> velja <span class="math notranslate nohighlight">\(x_i \le x_{i + 1}\)</span>.</p>
+<p>Delno urejena množica <span class="math notranslate nohighlight">\((D, \le)\)</span> je <em>domena</em>, če:</p>
+<ul class="simple">
+<li><p>obstaja najmanjši element <span class="math notranslate nohighlight">\(\bot_D\)</span>, ki ga imenujemo <em>dno</em>, za katerega velja <span class="math notranslate nohighlight">\(\bot_D \le x\)</span> za vsak <span class="math notranslate nohighlight">\(x \in D\)</span>.</p></li>
+<li><p>ima vsaka veriga <span class="math notranslate nohighlight">\((x_i)_i\)</span> natančno zgornjo mejo, ki jo označimo z <span class="math notranslate nohighlight">\(\bigvee_i x_i\)</span>.</p></li>
+</ul>
+<p>Primeri domen so:</p>
+<ul class="simple">
+<li><p>Interval <span class="math notranslate nohighlight">\([0, 1]\)</span> ali pa <span class="math notranslate nohighlight">\([0, 1) \cup \{2\}\)</span> z običajno urejenostjo <span class="math notranslate nohighlight">\(\le\)</span>. Interval <span class="math notranslate nohighlight">\((0, 1]\)</span> ni domena, ker nima dna, interval <span class="math notranslate nohighlight">\([0, 1)\)</span> pa ne, ker veriga <span class="math notranslate nohighlight">\((1 - \frac{1}{i + 1})_i\)</span> nima supremuma.</p></li>
+<li><p>Vsako množico <span class="math notranslate nohighlight">\(A\)</span> lahko razširimmo z dodatnim elementom <span class="math notranslate nohighlight">\(\bot\)</span>. Na <span class="math notranslate nohighlight">\(A_\bot = A + \{ \bot \}\)</span>, lahko definiramo urejenost <span class="math notranslate nohighlight">\(\le\)</span> kot
+<span class="math notranslate nohighlight">\(x \le y \iff x = \iota_2(\bot) \lor x = y\)</span>. Pri zapisu elementov nismo pedantni, ampak namesto <span class="math notranslate nohighlight">\(\iota_1(a)\)</span> pišemo kar <span class="math notranslate nohighlight">\(a\)</span>, namesto <span class="math notranslate nohighlight">\(\iota_2(\bot)\)</span> pa kar <span class="math notranslate nohighlight">\(\bot\)</span>. Primer dvigov sta domeni <span class="math notranslate nohighlight">\(\mathbb{B}_\bot\)</span> ali <span class="math notranslate nohighlight">\(\mathbb{Z}_\bot\)</span>, ki ju bomo še uporabljali in sta videti kot</p></li>
+</ul>
+<p><img alt="slika dvigov" src="_images/dvig.png" /></p>
+<p>Za poljubni domeni <span class="math notranslate nohighlight">\((D_1, \le_1)\)</span> in <span class="math notranslate nohighlight">\((D_2, \le_2)\)</span> lahko na kartezičnem produktu <span class="math notranslate nohighlight">\(D_1 \times D_2\)</span> definiramo urejenost</p>
+<div class="math notranslate nohighlight">
+\[
+    (x_1, x_2) \le (y_1, y_2) \iff x_1 \le_1 y_1 \land x_2 \le_2 y_2
+\]</div>
+<p>Preverimo lahko, da res dobimo domeno, ki ima za dno par <span class="math notranslate nohighlight">\((\bot_{D_1}, \bot_{D_2})\)</span>. Skica domene <span class="math notranslate nohighlight">\(\mathbb{B}_\bot \times \mathbb{B}_\bot\)</span> je</p>
+<p><img alt="slika BxB" src="_images/BxB.png" /></p>
+<p>Vzemimo domeni <span class="math notranslate nohighlight">\((D_1, \le_1)\)</span> in <span class="math notranslate nohighlight">\((D_2, \le_2)\)</span>. Pravimo, da je preslikava <span class="math notranslate nohighlight">\(f : D_1 \to D_2\)</span> <em>zvezna</em>, če:</p>
+<ul class="simple">
+<li><p>je monotona, torej iz <span class="math notranslate nohighlight">\(x \le_1 y\)</span> sledi <span class="math notranslate nohighlight">\(f(x) \le_2 f(y)\)</span>, in</p></li>
+<li><p>ohranja supremume verig, torej je <span class="math notranslate nohighlight">\(f(\bigvee_i x_i) = \bigvee_i f(x_i)\)</span> za vsako verigo <span class="math notranslate nohighlight">\((x_i)_i\)</span>.</p></li>
+</ul>
+<p>Pri tem desni supremum obstaja, ker je <span class="math notranslate nohighlight">\(f\)</span> monotona, zato je <span class="math notranslate nohighlight">\((f(x_i))_i\)</span> veriga v <span class="math notranslate nohighlight">\(D_2\)</span>.</p>
+<p><strong>Trditev.</strong> Vzemimo domene <span class="math notranslate nohighlight">\((D_1, \le_1)\)</span>, <span class="math notranslate nohighlight">\((D_2, \le_2)\)</span> in <span class="math notranslate nohighlight">\((D_3, \le_3)\)</span> ter zvezni preslikavi <span class="math notranslate nohighlight">\(f : D_1 \to D_2\)</span> in <span class="math notranslate nohighlight">\(g : D_2 \to D_3\)</span>. Tedaj je <span class="math notranslate nohighlight">\(g \circ f : D_1 \to D_3\)</span> zvezna preslikava.</p>
+<p><strong>Dokaz.</strong> Preveriti moramo monotonost in ohranjanje supremumov:</p>
+<ul class="simple">
+<li><p>Naj bo <span class="math notranslate nohighlight">\(x \le_1 y\)</span>. Ker je <span class="math notranslate nohighlight">\(f\)</span> monotona, velja <span class="math notranslate nohighlight">\(f(x) \le_2 f(y)\)</span>, zaradi monotonosti <span class="math notranslate nohighlight">\(g\)</span> pa še <span class="math notranslate nohighlight">\(g(f(x)) \le_3 g(f(y))\)</span>.</p></li>
+<li><p>Vzemimo verigo <span class="math notranslate nohighlight">\((x_i)_i\)</span>. Tedaj je</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[(g \circ f)(\bigvee_i x_i) = g (f (\bigvee_i x_i)) = g (\bigvee_i f(x_i)) = \bigvee_i g(f(x_i))\]</div>
+<p>■</p>
+<p>Domene in zvezne preslikave zadoščajo lastnosti, ki jo potrebujemo za interpretacijo rekurzije: vsaka zvezna preslikava ima fiksno točko.</p>
+<p><strong>Izrek (Tarski).</strong> Naj bo <span class="math notranslate nohighlight">\((D, \le)\)</span> domena in <span class="math notranslate nohighlight">\(f : D \to D\)</span> zvezna preslikava. Tedaj ima <span class="math notranslate nohighlight">\(f\)</span> najmanjšo fiksno točko, ki jo označimo s <span class="math notranslate nohighlight">\(\mathrm{fix} \, f\)</span>.</p>
+<p><strong>Dokaz.</strong>
+Vzemimo zaporedje <span class="math notranslate nohighlight">\((x_i)_i\)</span>, definirano z <span class="math notranslate nohighlight">\(x_i = f^i(\bot)\)</span>. Ker je <span class="math notranslate nohighlight">\(x_0 = \bot \le f(\bot) = x_1\)</span> in je <span class="math notranslate nohighlight">\(f\)</span> monotona, lahko z indukcijo pokažemo, da je <span class="math notranslate nohighlight">\((x_i)_i\)</span> veriga. Pokažimo, da je njen supremum <span class="math notranslate nohighlight">\(x = \bigvee_i x_i\)</span> najmanjša fiksna točka preslikave <span class="math notranslate nohighlight">\(f\)</span>. Zaradi zveznosti <span class="math notranslate nohighlight">\(f\)</span> velja</p>
+<div class="math notranslate nohighlight">
+\[
+    f(x) = f(\bigvee_i x_i) = \bigvee_i f(x_i) = \bigvee_i x_{i + 1} = x
+\]</div>
+<p>saj dobimo isto verigo, le premaknjeno za en člen. Torej je <span class="math notranslate nohighlight">\(x\)</span> fiksna točka <span class="math notranslate nohighlight">\(f\)</span>. Naj velja tudi <span class="math notranslate nohighlight">\(f(y) = y\)</span>. Ker je <span class="math notranslate nohighlight">\(x_0 = \bot \le y\)</span>, po indukciji velja tudi <span class="math notranslate nohighlight">\(x_{i + 1} = f(x_i) \le f(y) = y\)</span> za vse <span class="math notranslate nohighlight">\(i\)</span>. Ker je celotna veriga pod <span class="math notranslate nohighlight">\(y\)</span>, je pod <span class="math notranslate nohighlight">\(y\)</span> tudi supremum, torej <span class="math notranslate nohighlight">\(x \le y\)</span>. ■</p>
+<p>Tako kot smo prej tipe interpretirali z množicami, izraze pa s preslikavami med njimi, lahko vidimo, da bomo zdaj tipe interpretirali z domenami, izraze pa z zveznimi preslikavami. Za to najprej potrebujemo domeno, s katero bomo interpretirali funkcijski tip.</p>
+<p>Vzemimo domeni <span class="math notranslate nohighlight">\((D_1, \le_1)\)</span> in <span class="math notranslate nohighlight">\((D_2, \le_2)\)</span>. Na podmnožici vseh zveznih preslikav <span class="math notranslate nohighlight">\(f : D_1 \to D_2\)</span> definiramo ureditev</p>
+<div class="math notranslate nohighlight">
+\[
+    f \le g \iff \forall x \in D_1. f(x) \le_2 g(x)
+\]</div>
+<p>Preverimo lahko, da dobimo domeno, ki jo imenujemo <em>domena zveznih preslikav</em> in jo označimo z <span class="math notranslate nohighlight">\([D_1 \to D_2]\)</span>. Pri dokazu potrebujemo sledečo lemo.</p>
+<p><strong>Lema.</strong> Vzemimo dvojno zaporedje <span class="math notranslate nohighlight">\(x_{ij}\)</span> v <span class="math notranslate nohighlight">\(D\)</span>, da velja <span class="math notranslate nohighlight">\(x_{ij} \le x_{i' j'}\)</span> za vse <span class="math notranslate nohighlight">\(i \le i'\)</span> in <span class="math notranslate nohighlight">\(j \le j'\)</span>. Tedaj velja</p>
+<div class="math notranslate nohighlight">
+\[\bigvee_i \bigvee_j x_{ij} = \bigvee_j \bigvee_i x_{ij} = \bigvee_k x_{kk}\]</div>
+<p><strong>Dokaz.</strong> Ker za poljubna <span class="math notranslate nohighlight">\(i\)</span> in <span class="math notranslate nohighlight">\(j\)</span> velja <span class="math notranslate nohighlight">\(x_{ij} \le x_{\max(i, j) \max(i, j)} \le \bigvee_k x_{kk}\)</span>, za poljuben <span class="math notranslate nohighlight">\(i\)</span> velja <span class="math notranslate nohighlight">\(\bigvee_j x_{ij} \le \bigvee_k x_{kk}\)</span> in zato tudi <span class="math notranslate nohighlight">\(\bigvee_i \bigvee_j x_{ij}\)</span>. Obratno za poljuben <span class="math notranslate nohighlight">\(k\)</span> velja <span class="math notranslate nohighlight">\(x_{kk} \le \bigvee_j x_{kj} \le \bigvee_i \bigvee_j x_{ij}\)</span> torej dobimo neenakost tudi v drugo smer, zato velja <span class="math notranslate nohighlight">\(\bigvee_i \bigvee_j x_{ij} = \bigvee_k x_{kk}\)</span>. Druga enakost velja zaradi simetrije. ■</p>
+<p><strong>Trditev.</strong> V domeni zveznih preslikav obstajajo supremumi poljubnih verig.</p>
+<p><strong>Dokaz.</strong> Vzemimo verigo <span class="math notranslate nohighlight">\((f_i)_i\)</span> v domeni zveznih preslikav <span class="math notranslate nohighlight">\([D_1 \to D_2]\)</span> in pokažimo, da ima supremum. Definirajmo funkcijo <span class="math notranslate nohighlight">\(f\)</span> s predpisom <span class="math notranslate nohighlight">\(f(x) = \bigvee_i f_i(x)\)</span>. Ker je <span class="math notranslate nohighlight">\((f_i)_i\)</span> veriga, je veriga tudi <span class="math notranslate nohighlight">\((f_i(x))_i\)</span>, zato je preslikava dobro definirana. Pokažimo, da je funkcija <span class="math notranslate nohighlight">\(f\)</span> tudi zvezna. Vzemimo verigo <span class="math notranslate nohighlight">\((x_j)_j\)</span>. Tedaj velja</p>
+<div class="math notranslate nohighlight">
+\[
+    f\big(\bigvee_j x_j\big)
+    = \bigvee_i f_i\big(\bigvee_j x_j\big)
+    = \bigvee_i \bigvee_j f_i(x_j)
+    = \bigvee_j \bigvee_i f_i(x_j)
+    = \bigvee_j f(x_j)
+\]</div>
+<p>pri čemer smo uporabili definicijo <span class="math notranslate nohighlight">\(f\)</span>, zveznost <span class="math notranslate nohighlight">\(f_i\)</span> ter lemo od prej. Tako velja <span class="math notranslate nohighlight">\(f \in [D_1 \to D_2]\)</span>, pokazati pa moramo le še, da je <span class="math notranslate nohighlight">\(f\)</span> res supremum verige <span class="math notranslate nohighlight">\((f_i)_i\)</span>.</p>
+<p>Ker za poljubna <span class="math notranslate nohighlight">\(x\)</span> in <span class="math notranslate nohighlight">\(i\)</span> velja <span class="math notranslate nohighlight">\(f_i(x) \le \bigvee_i f_i(x) = f(x)\)</span>, je <span class="math notranslate nohighlight">\(f\)</span> res zgornja meja verige <span class="math notranslate nohighlight">\((f_i)_i\)</span>.
+Naj bo <span class="math notranslate nohighlight">\(g\)</span> zgornja meja verige <span class="math notranslate nohighlight">\((f_i)_i\)</span>. Če za vsak <span class="math notranslate nohighlight">\(i\)</span> velja <span class="math notranslate nohighlight">\(f_i \le g\)</span>, tedaj za vsak <span class="math notranslate nohighlight">\(x\)</span> velja <span class="math notranslate nohighlight">\(f_i(x) \le g(x)\)</span> in je zato <span class="math notranslate nohighlight">\(f(x) = \bigvee_i f_i(x) \le g(x)\)</span>, torej je tudi <span class="math notranslate nohighlight">\(f \le g\)</span>, s čimer je <span class="math notranslate nohighlight">\(f\)</span> res supremum verige <span class="math notranslate nohighlight">\((f_i)_i\)</span>. ■</p>
+</section>
+<section id="interpretacije-tipov-in-izrazov">
+<h2>Interpretacije tipov in izrazov<a class="headerlink" href="#interpretacije-tipov-in-izrazov" title="Permalink to this headline">¶</a></h2>
+<p>Zdaj lahko ponovimo celotno zgodbo od prej. Za vsak tip <span class="math notranslate nohighlight">\(A\)</span> definiramo njegovo <em>interpretacijo</em> <span class="math notranslate nohighlight">\(\itp{A}\)</span>, ki je domena, rekurzivno definirana kot:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \begin{align*}
+    \itp{\boolty} &amp;= \mathbb{B}_\bot \\
+    \itp{\intty} &amp;= \mathbb{Z}_\bot \\
+    \itp{A \to B} &amp;= [\itp{A} \to \itp{B}]
+    \end{align*}
+\end{split}\]</div>
+<p>Podobno definiramo interpretacijo kontekstov kot</p>
+<div class="math notranslate nohighlight">
+\[
+  \itp{x_1 : A_1, \dots, x_n : A_n} = \itp{A_1} \times \dots \times \itp{A_n}
+\]</div>
+<p>saj vemo, da je tudi produkt domen domena. Izraza <span class="math notranslate nohighlight">\(\Gamma \vdash M : A\)</span> bomo interpretirali z zveznimi preslikavami</p>
+<div class="math notranslate nohighlight">
+\[
+  \itp{\Gamma \vdash M : A} : \itp{\Gamma} \to \itp{A}
+\]</div>
+<p>ki so podane s sledečimi predpisi:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\itp{\Gamma \vdash x_i : A_i}(a_1, \dots, a_n) &amp;= a_i \\
+\itp{\Gamma \vdash \true : \boolty}(\gamma) &amp;= \ttt \\
+\itp{\Gamma \vdash \false : \boolty}(\gamma) &amp;= \fff \\
+\itp{\Gamma \vdash \ifthenelse{M}{M_1}{M_2} : A}(\gamma) &amp;=
+  \begin{cases}
+    \itp{M_1}(\gamma) &amp; \itp{M}(\gamma) = \ttt \\
+    \itp{M_2}(\gamma) &amp; \itp{M}(\gamma) = \fff \\
+    \bot &amp; \itp{M}(\gamma) = \bot
+  \end{cases} \\
+\itp{\Gamma \vdash \intsym{n} : \intty}(\gamma) &amp;= n \\
+\itp{\Gamma \vdash M_1 + M_2 : \intty}(\gamma) &amp;= \itp{M_1}(\gamma) +_\bot \itp{M_2}(\gamma) \\
+\itp{\Gamma \vdash M_1 * M_2 : \intty}(\gamma) &amp;= \itp{M_1}(\gamma) \cdot_\bot \itp{M_2}(\gamma) \\
+\itp{\Gamma \vdash M_1 &lt; M_2 : \boolty}(\gamma) &amp;= \itp{M_1}(\gamma) &lt;_\bot \itp{M_2} \\
+\itp{\Gamma \vdash \lambda x. M : A \to B}(\gamma) &amp;= a \mapsto \itp{\Gamma, x : A \vdash M : B}(\gamma, a) \\
+\itp{\Gamma \vdash M_1 \, M_2 : B}(\gamma) &amp;= \big(\itp{M_1}(\gamma)\big)\big(\itp{M_2}(\gamma)\big) \\
+\itp{\Gamma \vdash \kwdpre{rec} f \, x . M : A \to B}(\gamma) &amp;= \mathrm{fix} (f \mapsto (a \mapsto \itp{M}(\gamma, f, a)))
+\end{align*}
+\end{split}\]</div>
+<p>kjer je <span class="math notranslate nohighlight">\(+_\bot : \mathbb{Z}_\bot \times \mathbb{Z}_\bot \to \mathbb{Z}_\bot\)</span> definiran kot</p>
+<div class="math notranslate nohighlight">
+\[
+    m +_\bot n = m + n \qquad \bot +_\bot n = m +_\bot \bot = \bot +_ \bot \bot = \bot
+\]</div>
+<p>in podobno za <span class="math notranslate nohighlight">\(\cdot_\bot\)</span> in <span class="math notranslate nohighlight">\(&lt;_\bot\)</span>. Za vse preslikave moramo še preveriti, da so zvezne.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
