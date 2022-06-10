@@ -291,6 +291,11 @@ const thebe_selector_output = ".output, .cell_output"
      Izjeme
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pomnilnik">
+     Pomnilnik
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -348,6 +353,11 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#izjeme">
      Izjeme
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pomnilnik">
+     Pomnilnik
     </a>
    </li>
   </ul>
@@ -550,6 +560,64 @@ const thebe_selector_output = ".output, .cell_output"
 <li><p>obstaja izjema <span class="math notranslate nohighlight">\(E \in \mathbb{E}\)</span>, da je <span class="math notranslate nohighlight">\(M = \kwdpre{raise} E\)</span>.</p></li>
 </ol>
 <p>Če želimo, lahko pravila za določanje tipov izračunov razširimo do relacije <span class="math notranslate nohighlight">\(\Gamma \vdash_c M : A ! \mathcal{E}\)</span>, kjer množica <span class="math notranslate nohighlight">\(\mathcal{E}\)</span> našteje vse izjeme, ki se lahko zgodijo med izvajanjem. V tem primeru tudi izrek o varnosti omeji izjeme, ki se lahko zgodijo. Konkretno, če bi veljalo <span class="math notranslate nohighlight">\(\vdash_c M : A ! \emptyset\)</span>, bi izrek o varnosti zagotavljal, da se ne bo sprožila nobena izjema.</p>
+</section>
+<section id="pomnilnik">
+<h3>Pomnilnik<a class="headerlink" href="#pomnilnik" title="Permalink to this headline">¶</a></h3>
+<p>Zaradi enostavnosti predpostavimo, da imamo taka stanja pomnilnika kot v IMPu, torej množico lokacij <span class="math notranslate nohighlight">\(\ell\)</span> s pripadajočimi celoštevilskimi vrednostmi. Za branje in pisanje potrebujemo dva izračuna:</p>
+<div class="math notranslate nohighlight">
+\[
+    \text{izračun } M, N ::=
+        \cdots
+        \mid {! \ell}
+        \mid \ell := V
+\]</div>
+<p>Prvi vrne število, shranjeno v lokaciji <span class="math notranslate nohighlight">\(\ell\)</span>, drugi pa v lokacijo <span class="math notranslate nohighlight">\(\ell\)</span> zapiše število, predstavljeno z vrednostjo <span class="math notranslate nohighlight">\(V\)</span>. Ker pisanje v pomnilnik običajno vrača enotsko vrednost <span class="math notranslate nohighlight">\(() : \kwd{unit}\)</span>, razširimo še vrednosti in tipe:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align*}
+    \text{vrednost } V &amp;::=
+        \cdots
+        \mid () \\
+    \text{tip } A &amp;::=
+        \cdots
+        \mid \kwd{unit}
+\end{align*}\end{split}\]</div>
+<p>Alternativa bi bila, da bi <span class="math notranslate nohighlight">\(\ell := V\)</span> vrednost <span class="math notranslate nohighlight">\(V\)</span> tudi vrnil, tako kot na primer v C-ju ali pri novi operaciji <code class="docutils literal notranslate"><span class="pre">:=</span></code>v Pythonu. Pravili za določanje tipov sta</p>
+<div class="math notranslate nohighlight">
+\[
+    \infer{}{
+        \Gamma \vdash_c {! \ell} : \intty
+    }
+    \qquad
+    \infer{\Gamma \vdash_v V : \intty}{
+        \Gamma \vdash_c {\ell := V} : \kwd{unit}
+    }
+\]</div>
+<p>Ker izračuni spreminjajo pomnilnik, se mora to odražati tudi v operacijski semantiki, ki je, podobno kot v IMPu, oblike <span class="math notranslate nohighlight">\(s, M \leadsto s', M'\)</span>. Pri tem moramo spremeniti vsa pravila, pri čemer je pravilo za veriženje enako:</p>
+<div class="math notranslate nohighlight">
+\[
+\infer{s, M \leadsto s', M'}{
+    s, \letin{x = M} N \leadsto s', \letin{x = M'} N
+}
+\]</div>
+<p>pri vseh ostalih pravilih, ki nimajo predpostavk, pa samo označimo, da stanje <span class="math notranslate nohighlight">\(s\)</span> ostane nespremenjeno. Za nova dva izračuna dodamo pravili:</p>
+<div class="math notranslate nohighlight">
+\[
+\infer{(\ell \mapsto n) \in s}{
+    s, {! \ell} \leadsto s, \return n
+} \qquad
+\infer{}{
+    s, \ell := \intsym{n} \leadsto s[\ell \mapsto n], \return ()
+}
+\]</div>
+<p>Spet nam drobnozrnati λ-račun prihrani veliko dodatnih pravil, ki bi jih dobili, če bi pomnilnik lahko spreminjali tudi na primer podizrazi aritmetičnih operacij.</p>
+<p>Izrek o varnosti za jezik, kot smo ga definirali, ne velja, saj nikjer ne preverjamo, ali so vse lokacije, ki jih beremo, tudi definirane. Obstajata dve možnosti. Prva je, da s pravilom</p>
+<div class="math notranslate nohighlight">
+\[
+\infer{\ell \notin s}{
+    s, {! \ell} \leadsto s, \return \intsym{0}
+}
+\]</div>
+<p>določimo, da so vse lokacije privzeto nastavljene na <span class="math notranslate nohighlight">\(0\)</span>, in dobimo običajen izrek o varnosti. Druga možnost pa je, da v pravilih za določanje tipov sledimo tudi lokacijam in podobno kot v IMPu definiramo relacijo oblike <span class="math notranslate nohighlight">\(\Gamma, L \vdash_c M : A\)</span>.</p>
 </section>
 </section>
 </section>

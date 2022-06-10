@@ -232,3 +232,67 @@ Izrek o varnosti je zaradi izjem malo bolj nevaren, še vedno pa izključuje pri
 3. obstaja izjema $E \in \mathbb{E}$, da je $M = \kwdpre{raise} E$.
 
 Če želimo, lahko pravila za določanje tipov izračunov razširimo do relacije $\Gamma \vdash_c M : A ! \mathcal{E}$, kjer množica $\mathcal{E}$ našteje vse izjeme, ki se lahko zgodijo med izvajanjem. V tem primeru tudi izrek o varnosti omeji izjeme, ki se lahko zgodijo. Konkretno, če bi veljalo $\vdash_c M : A ! \emptyset$, bi izrek o varnosti zagotavljal, da se ne bo sprožila nobena izjema.
+
+### Pomnilnik
+
+Zaradi enostavnosti predpostavimo, da imamo taka stanja pomnilnika kot v IMPu, torej množico lokacij $\ell$ s pripadajočimi celoštevilskimi vrednostmi. Za branje in pisanje potrebujemo dva izračuna:
+
+$$
+    \text{izračun } M, N ::=
+        \cdots
+        \mid {! \ell}
+        \mid \ell := V
+$$
+
+Prvi vrne število, shranjeno v lokaciji $\ell$, drugi pa v lokacijo $\ell$ zapiše število, predstavljeno z vrednostjo $V$. Ker pisanje v pomnilnik običajno vrača enotsko vrednost $() : \kwd{unit}$, razširimo še vrednosti in tipe:
+
+$$\begin{align*}
+    \text{vrednost } V &::=
+        \cdots
+        \mid () \\
+    \text{tip } A &::=
+        \cdots
+        \mid \kwd{unit}
+\end{align*}$$
+
+Alternativa bi bila, da bi $\ell := V$ vrednost $V$ tudi vrnil, tako kot na primer v C-ju ali pri novi operaciji `:=`v Pythonu. Pravili za določanje tipov sta
+
+$$
+    \infer{}{
+        \Gamma \vdash_c {! \ell} : \intty
+    }
+    \qquad
+    \infer{\Gamma \vdash_v V : \intty}{
+        \Gamma \vdash_c {\ell := V} : \kwd{unit}
+    }
+$$
+
+Ker izračuni spreminjajo pomnilnik, se mora to odražati tudi v operacijski semantiki, ki je, podobno kot v IMPu, oblike $s, M \leadsto s', M'$. Pri tem moramo spremeniti vsa pravila, pri čemer je pravilo za veriženje enako:
+
+$$
+\infer{s, M \leadsto s', M'}{
+    s, \letin{x = M} N \leadsto s', \letin{x = M'} N
+}
+$$
+
+pri vseh ostalih pravilih, ki nimajo predpostavk, pa samo označimo, da stanje $s$ ostane nespremenjeno. Za nova dva izračuna dodamo pravili:
+
+$$
+\infer{(\ell \mapsto n) \in s}{
+    s, {! \ell} \leadsto s, \return n
+} \qquad
+\infer{}{
+    s, \ell := \intsym{n} \leadsto s[\ell \mapsto n], \return ()
+}
+$$
+
+Spet nam drobnozrnati λ-račun prihrani veliko dodatnih pravil, ki bi jih dobili, če bi pomnilnik lahko spreminjali tudi na primer podizrazi aritmetičnih operacij.
+
+Izrek o varnosti za jezik, kot smo ga definirali, ne velja, saj nikjer ne preverjamo, ali so vse lokacije, ki jih beremo, tudi definirane. Obstajata dve možnosti. Prva je, da s pravilom
+
+$$
+\infer{\ell \notin s}{
+    s, {! \ell} \leadsto s, \return \intsym{0}
+}
+$$
+določimo, da so vse lokacije privzeto nastavljene na $0$, in dobimo običajen izrek o varnosti. Druga možnost pa je, da v pravilih za določanje tipov sledimo tudi lokacijam in podobno kot v IMPu definiramo relacijo oblike $\Gamma, L \vdash_c M : A$.
