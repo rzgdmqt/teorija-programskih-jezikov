@@ -181,7 +181,7 @@ $$
 } \qquad
 
 \infer{}{
-    \intsym{n_1} * \intsym{n_2}  \leadsto  \intsym{n_1 · n_2}
+    \intsym{n_1} * \intsym{n_2}  \leadsto  \intsym{n_1 \cdot n_2}
 } \\[2em]
 
 \infer{

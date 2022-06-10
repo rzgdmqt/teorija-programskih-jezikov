@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Teorija programskih jezikov &#8212; Teorija programskih jezikov</title>
+    <title>Kontekstna ekvivalenca &#8212; Teorija programskih jezikov</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -52,9 +52,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"intsym": ["\\underline{#1}", 1], "kwd": ["\\mathbf{#1}", 1], "kwdpre": ["\\kwd{#1}\\;", 1], "kwdmid": ["\\;\\kwd{#1}\\;", 1], "kwdpost": ["\\;\\kwd{#1}", 1], "true": "\\kwd{true}", "false": "\\kwd{false}", "ifthenelse": ["\\kwdpre{if} #1 \\kwdmid{then} #2 \\kwdmid{else} #3", 3], "whiledo": ["\\kwdpre{while} #1 \\kwdmid{do} #2", 2], "skip": "\\kwd{skip}", "ttt": "t\\!t", "fff": "f\\!\\!f", "infer": ["\\displaystyle{\\frac{#1}{#2}}", 2], "boolty": "\\kwd{bool}", "intty": "\\kwd{int}", "eqs": "\\mathcal{E}", "ctxt": "\\mathcal{C}", "itp": ["[\\![ #1 ]\\!]", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Praksa programskih jezikov" href="01-praksa-programskih-jezikov.html" />
+    <link rel="next" title="Denotacijska semantika" href="10-denotacijska-semantika.html" />
+    <link rel="prev" title="Izpeljava tipov" href="07-izpeljava-tipov.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -87,8 +90,8 @@ const thebe_selector_output = ".output, .cell_output"
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
- <li class="toctree-l1 current">
-  <a class="reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="00-uvod.html">
    Teorija programskih jezikov
   </a>
  </li>
@@ -115,7 +118,7 @@ const thebe_selector_output = ".output, .cell_output"
   Metateorija
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="04-metateorija-programskih-jezikov.html">
    Metateorija programskih jezikov
@@ -136,8 +139,8 @@ const thebe_selector_output = ".output, .cell_output"
    Izpeljava tipov
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="08-kontekstna-ekvivalenca.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Kontekstna ekvivalenca
   </a>
  </li>
@@ -224,12 +227,9 @@ const thebe_selector_output = ".output, .cell_output"
 
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
-        <a class="dropdown-buttons"
-            href="_sources/00-uvod.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
+        
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/00-uvod.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/08-kontekstna-ekvivalenca.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -249,28 +249,29 @@ const thebe_selector_output = ".output, .cell_output"
 
             <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/matijapretnar/teorija-programskih-jezikov/zapiski?urlpath=tree/00-uvod.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
         </div>
 
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#konteksti">
+   Konteksti
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lastnosti-kontekstne-ekvivalence">
+   Lastnosti kontekstne ekvivalence
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -278,27 +279,73 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Teorija programskih jezikov</h1>
+                <h1>Kontekstna ekvivalenca</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#konteksti">
+   Konteksti
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lastnosti-kontekstne-ekvivalence">
+   Lastnosti kontekstne ekvivalence
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
             
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="teorija-programskih-jezikov">
-<h1>Teorija programskih jezikov<a class="headerlink" href="#teorija-programskih-jezikov" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
-<div class="toctree-wrapper compound">
-</div>
+  <section class="tex2jax_ignore mathjax_ignore" id="kontekstna-ekvivalenca">
+<h1>Kontekstna ekvivalenca<a class="headerlink" href="#kontekstna-ekvivalenca" title="Permalink to this headline">¶</a></h1>
+<p>Recimo, da želimo izraz <span class="math notranslate nohighlight">\(M = \intsym{6} + \intsym{7}\)</span> poenostaviti do izraza <span class="math notranslate nohighlight">\(\intsym{42}\)</span>. Kdaj to lahko storimo? Res je, da velja <span class="math notranslate nohighlight">\(M \leadsto \intsym{42}\)</span>, vendar pa izraza <span class="math notranslate nohighlight">\(\lambda x. M * x\)</span> in <span class="math notranslate nohighlight">\(\lambda x. \intsym{42} * x\)</span> nista enaka, hkrati pa sta vrednosti, zato niti ne obstaja zaporedje korakov, ki ju pripeljal skupaj. A vseeno sta obe funkciji na nek način ekvivalentni, saj bosta uporabljeni na istih številih na koncu dali isti rezultat. Seveda se izraz <span class="math notranslate nohighlight">\(M\)</span> lahko pojavi tudi v funkcijah višjega reda in z zamenjavo z <span class="math notranslate nohighlight">\(\intsym{42}\)</span> bomo dobili drugačno funkcijo, ki pa bo na <em>ekvivalentnih</em> argumentih dala <em>ekvivalentne</em> rezultate. Ampak tudi s funkcijami višjega reda nismo izčrpali vseh možnih izrazov, v katerih se lahko pojavi <span class="math notranslate nohighlight">\(M\)</span>. Formalizacija zgornjih misli nas pripelje do pojma kontekstne ekvivalence.</p>
+<section id="konteksti">
+<h2>Konteksti<a class="headerlink" href="#konteksti" title="Permalink to this headline">¶</a></h2>
+<p><em>Konteksti</em> <span class="math notranslate nohighlight">\(\ctxt\)</span> (ki imajo žal isto ime, ampak drugačen pomen od že znanih kontekstov <span class="math notranslate nohighlight">\(\Gamma\)</span>) predstavljajo izraze, v katerih se lahko na poljubnih mestih pojavijo <em>luknje</em> <span class="math notranslate nohighlight">\([]\)</span>. Na primer, za lambda račun s preprostimi tipi jih podamo s sintakso:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \begin{align*}
+    \text{kontekst } \ctxt &amp;::=
+        [\,]
+        \mid x
+        \mid \true
+        \mid \false
+        \mid \ifthenelse{\ctxt}{\ctxt_1}{\ctxt_2} \\
+        &amp;\mid \intsym{n}
+        \mid \ctxt_1 + \ctxt_2
+        \mid \ctxt_1 * \ctxt_2
+        \mid \ctxt_1 &lt; \ctxt_2 \\
+        &amp;\mid \lambda x. \ctxt
+        \mid \ctxt_1 \, \ctxt_2
+\end{align*}
+\end{split}\]</div>
+<p>Če imamo kontekst <span class="math notranslate nohighlight">\(\ctxt\)</span>, lahko vse luknje zamenjamo z izrazom <span class="math notranslate nohighlight">\(M\)</span> in dobimo izraz, ki ga označimo z <span class="math notranslate nohighlight">\(\ctxt[M]\)</span>. Na primer, če je <span class="math notranslate nohighlight">\(\ctxt = \lambda x. \ifthenelse{x &lt; [\,]}{x}{[\,]}\)</span> in <span class="math notranslate nohighlight">\(M = \intsym{6} * \intsym{7}\)</span>, je
+$<span class="math notranslate nohighlight">\(
+  \ctxt[M] = \lambda x. \ifthenelse{x &lt; (\intsym{6} * \intsym{7})}{x}{(\intsym{6} * \intsym{7})}
+\)</span>$</p>
+</section>
+<section id="lastnosti-kontekstne-ekvivalence">
+<h2>Lastnosti kontekstne ekvivalence<a class="headerlink" href="#lastnosti-kontekstne-ekvivalence" title="Permalink to this headline">¶</a></h2>
+<p>Pravimo, da sta izraza <span class="math notranslate nohighlight">\(M\)</span> in <span class="math notranslate nohighlight">\(N\)</span> kontekstno ekvivalentna, kar pišemo kot  <span class="math notranslate nohighlight">\(M \simeq N\)</span>, kadar za poljuben kontekst <span class="math notranslate nohighlight">\(\ctxt\)</span> velja <span class="math notranslate nohighlight">\(\ctxt[M] \leadsto^* \true\)</span> natanko takrat, kadar velja <span class="math notranslate nohighlight">\(\ctxt[N] \leadsto^* \true\)</span>.</p>
+<p>Izkaže se, da zaradi poljubne izbire kontekstov <span class="math notranslate nohighlight">\(\ctxt\)</span> iz zgornje definicije sledi tudi enakost drugih rezultatov.</p>
+<p><strong>Trditev.</strong> Če velja <span class="math notranslate nohighlight">\(M \simeq N\)</span>, potem za poljuben kontekst <span class="math notranslate nohighlight">\(\ctxt\)</span> velja <span class="math notranslate nohighlight">\(\ctxt[M] \leadsto^* \false\)</span> natanko takrat, kadar velja <span class="math notranslate nohighlight">\(\ctxt[N] \leadsto^* \false\)</span>.</p>
+<p><strong>Dokaz.</strong> Naj velja <span class="math notranslate nohighlight">\(\ctxt[M] \leadsto^* \false\)</span>. Tedaj definirajmo <span class="math notranslate nohighlight">\(\ctxt' = \ifthenelse{\ctxt}{\false}{\true}\)</span>. Tedaj velja <span class="math notranslate nohighlight">\(\ctxt'[M] \leadsto^* \ifthenelse{\false}{\false}{\true} \leadsto \true\)</span>, zato iz <span class="math notranslate nohighlight">\(M \simeq N\)</span> sledi tudi <span class="math notranslate nohighlight">\(\ctxt'[N] \leadsto^* \true\)</span>, kar pa je možno le, če je <span class="math notranslate nohighlight">\(\ctxt'[N] \leadsto^* \false\)</span>. V drugo smer je dokaz enak. ■</p>
+<p><strong>Trditev.</strong> Če velja <span class="math notranslate nohighlight">\(M \simeq N\)</span>, potem za poljuben kontekst <span class="math notranslate nohighlight">\(\ctxt\)</span> velja <span class="math notranslate nohighlight">\(\ctxt[M] \leadsto^* \intsym{n}\)</span> natanko takrat, kadar velja <span class="math notranslate nohighlight">\(\ctxt[N] \leadsto^* \intsym{n}\)</span>.</p>
+<p><strong>Dokaz.</strong> Naj velja <span class="math notranslate nohighlight">\(\ctxt[M] \leadsto^* \intsym{n}\)</span>. Tedaj definirajmo <span class="math notranslate nohighlight">\(\ctxt'\)</span> kot <span class="math notranslate nohighlight">\((\ctxt = \intsym{n})\)</span>. Tedaj velja <span class="math notranslate nohighlight">\(\ctxt'[M] \leadsto^* (\intsym{n} = \intsym{n}) \leadsto \true\)</span>, zato iz <span class="math notranslate nohighlight">\(M \simeq N\)</span> sledi tudi <span class="math notranslate nohighlight">\(\ctxt'[N] \leadsto^* \true\)</span>, kar pa je možno le, če je <span class="math notranslate nohighlight">\(\ctxt'[N] \leadsto^* \intsym{n}\)</span>. V drugo smer je dokaz enak. ■</p>
+<p>Ob vsem moramo biti pozorno na dejstvo, da za veliko večino kontekstov <span class="math notranslate nohighlight">\(\ctxt\)</span> izraz <span class="math notranslate nohighlight">\(\ctxt[M]\)</span> sploh nima tipa in se pri izvajanju zatakne, vendar se tudi pri teh kontekstih popolnoma enako obnaša izraz <span class="math notranslate nohighlight">\(\ctxt[N]\)</span>.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -325,11 +372,18 @@ const thebe_selector_output = ".output, .cell_output"
               
             
                 <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='right-next' id="next-link" href="01-praksa-programskih-jezikov.html" title="next page">
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="07-izpeljava-tipov.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Izpeljava tipov</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="10-denotacijska-semantika.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Praksa programskih jezikov</p>
+        <p class="prev-next-title">Denotacijska semantika</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
