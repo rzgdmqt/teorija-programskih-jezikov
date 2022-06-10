@@ -52,11 +52,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"tex": {"macros": {"intsym": ["\\underline{#1}", 1], "kwd": ["\\mathbf{#1}", 1], "kwdpre": ["\\kwd{#1}\\;", 1], "kwdmid": ["\\;\\kwd{#1}\\;", 1], "kwdpost": ["\\;\\kwd{#1}", 1], "true": "\\kwd{true}", "false": "\\kwd{false}", "ifthenelse": ["\\kwdpre{if} #1 \\kwdmid{then} #2 \\kwdmid{else} #3", 3], "whiledo": ["\\kwdpre{while} #1 \\kwdmid{do} #2", 2], "skip": "\\kwd{skip}", "ttt": "t\\!t", "fff": "f\\!\\!f", "infer": ["\\displaystyle{\\frac{#1}{#2}}", 2], "boolty": "\\kwd{bool}", "intty": "\\kwd{int}", "eqs": "\\mathcal{E}", "ctxt": "\\mathcal{C}", "itp": ["[\\![ #1 ]\\!]", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script>window.MathJax = {"tex": {"macros": {"intsym": ["\\underline{#1}", 1], "kwd": ["\\mathbf{#1}", 1], "kwdpre": ["\\kwd{#1}\\;", 1], "kwdmid": ["\\;\\kwd{#1}\\;", 1], "kwdpost": ["\\;\\kwd{#1}", 1], "true": "\\kwd{true}", "false": "\\kwd{false}", "ifthenelse": ["\\kwdpre{if} #1 \\kwdmid{then} #2 \\kwdmid{else} #3", 3], "whiledo": ["\\kwdpre{while} #1 \\kwdmid{do} #2", 2], "skip": "\\kwd{skip}", "ttt": "t\\!t", "fff": "f\\!\\!f", "infer": ["\\displaystyle{\\frac{#1}{#2}}", 2], "boolty": "\\kwd{bool}", "intty": "\\kwd{int}", "eqs": "\\mathcal{E}", "ctxt": "\\mathcal{C}", "itp": ["[\\![ #1 ]\\!]", 1], "return": "\\kwdpre{return}", "letin": ["\\kwdpre{let} #1 \\kwdmid{in}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="*Računski učinki" href="08-racunski-ucinki.html" />
+    <link rel="next" title="Računski učinki" href="08-racunski-ucinki.html" />
     <link rel="prev" title="Denotacijska semantika" href="10-denotacijska-semantika.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -165,7 +165,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="08-racunski-ucinki.html">
-   *Računski učinki
+   Računski učinki
   </a>
  </li>
  <li class="toctree-l1">
@@ -442,7 +442,18 @@ Naj bo <span class="math notranslate nohighlight">\(g\)</span> zgornja meja veri
 \[
     m +_\bot n = m + n \qquad \bot +_\bot n = m +_\bot \bot = \bot +_ \bot \bot = \bot
 \]</div>
-<p>in podobno za <span class="math notranslate nohighlight">\(\cdot_\bot\)</span> in <span class="math notranslate nohighlight">\(&lt;_\bot\)</span>. Za vse preslikave moramo še preveriti, da so zvezne.</p>
+<p>in podobno za <span class="math notranslate nohighlight">\(\cdot_\bot\)</span> in <span class="math notranslate nohighlight">\(&lt;_\bot\)</span>. Za vse preslikave moramo še preveriti, da so zvezne. Za primer poglejmo, da je zvezna preslikava <span class="math notranslate nohighlight">\(\mathrm{fix} : [D \to D] \to D\)</span>. Poleg monotonosti moramo preveriti, da velja <span class="math notranslate nohighlight">\(\mathrm{fix} \bigvee_i f_i = \bigvee_i \mathrm{fix} f_i\)</span> za poljubno verigo preslikav <span class="math notranslate nohighlight">\((f_i)_i\)</span>. Vemo, da velja <span class="math notranslate nohighlight">\((\mathrm{fix} g) = \bigvee_j g^j(\bot)\)</span>, zato lahko izračunamo:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \begin{align*}
+    (\mathrm{fix} \bigvee_i f_i)
+    &amp;= \bigvee_j (\bigvee_i f_i)^j (\bot) \\
+    &amp;= \bigvee_j (\bigvee_i f_i^j(\bot)) \\
+    &amp;= \bigvee_i (\bigvee_j f_i^j(\bot)) \\
+    &amp;= \bigvee_i (\mathrm{fix} f_i)
+    \end{align*}
+\end{split}\]</div>
+<p>saj lahko z indukcijo na <span class="math notranslate nohighlight">\(j\)</span> lahko pokažemo, da zaradi zveznosti <span class="math notranslate nohighlight">\(f_i\)</span> velja <span class="math notranslate nohighlight">\((\bigvee_i f_i)^j(x) = \bigvee_i f_i^j(x)\)</span> za poljuben <span class="math notranslate nohighlight">\(x\)</span>.</p>
 </section>
 </section>
 
@@ -481,7 +492,7 @@ Naj bo <span class="math notranslate nohighlight">\(g\)</span> zgornja meja veri
     <a class='right-next' id="next-link" href="08-racunski-ucinki.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">*Računski učinki</p>
+        <p class="prev-next-title">Računski učinki</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

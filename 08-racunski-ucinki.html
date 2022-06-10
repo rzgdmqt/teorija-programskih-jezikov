@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>*Računski učinki &#8212; Teorija programskih jezikov</title>
+    <title>Računski učinki &#8212; Teorija programskih jezikov</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -52,6 +52,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"intsym": ["\\underline{#1}", 1], "kwd": ["\\mathbf{#1}", 1], "kwdpre": ["\\kwd{#1}\\;", 1], "kwdmid": ["\\;\\kwd{#1}\\;", 1], "kwdpost": ["\\;\\kwd{#1}", 1], "true": "\\kwd{true}", "false": "\\kwd{false}", "ifthenelse": ["\\kwdpre{if} #1 \\kwdmid{then} #2 \\kwdmid{else} #3", 3], "whiledo": ["\\kwdpre{while} #1 \\kwdmid{do} #2", 2], "skip": "\\kwd{skip}", "ttt": "t\\!t", "fff": "f\\!\\!f", "infer": ["\\displaystyle{\\frac{#1}{#2}}", 2], "boolty": "\\kwd{bool}", "intty": "\\kwd{int}", "eqs": "\\mathcal{E}", "ctxt": "\\mathcal{C}", "itp": ["[\\![ #1 ]\\!]", 1], "return": "\\kwdpre{return}", "letin": ["\\kwdpre{let} #1 \\kwdmid{in}", 1]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="*Monade" href="12-monade.html" />
@@ -163,7 +165,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   *Računski učinki
+   Računski učinki
   </a>
  </li>
  <li class="toctree-l1">
@@ -247,6 +249,53 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#drobnozrnati-neucakani-racun">
+   Drobnozrnati neučakani λ-račun
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sintaksa">
+     Sintaksa
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#operacijska-semantika">
+     Operacijska semantika
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dolocanje-tipov">
+     Določanje tipov
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#izrek-o-varnosti">
+     Izrek o varnosti
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#primeri-ucinkov">
+   Primeri učinkov
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#izjeme">
+     Izjeme
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -254,11 +303,58 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>*Računski učinki</h1>
+                <h1>Računski učinki</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#drobnozrnati-neucakani-racun">
+   Drobnozrnati neučakani λ-račun
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sintaksa">
+     Sintaksa
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#operacijska-semantika">
+     Operacijska semantika
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dolocanje-tipov">
+     Določanje tipov
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#izrek-o-varnosti">
+     Izrek o varnosti
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#primeri-ucinkov">
+   Primeri učinkov
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#izjeme">
+     Izjeme
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -266,7 +362,196 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="racunski-ucinki">
-<h1>*Računski učinki<a class="headerlink" href="#racunski-ucinki" title="Permalink to this headline">¶</a></h1>
+<h1>Računski učinki<a class="headerlink" href="#racunski-ucinki" title="Permalink to this headline">¶</a></h1>
+<p>V praksi računalniki poleg računanja vrednosti sprožajo tudi <em>stranske</em> oziroma <em>računske učinke</em>, kot so izjeme, interakcija z zunanjim svetom in drugimi računalniki, naključje in podobno. Kot bomo videli, dodatek učinkov precej zaplete teorijo.</p>
+<section id="drobnozrnati-neucakani-racun">
+<h2>Drobnozrnati neučakani λ-račun<a class="headerlink" href="#drobnozrnati-neucakani-racun" title="Permalink to this headline">¶</a></h2>
+<p>Preden uvedemo učinke, si oglejmo <em>drobnozrnati neučakani</em> (<em>fine-grain call-by-value</em>) λ-račun_, ki je različica λ-računa, v katerem je vrstni red izvajanja eksplicitno določen s sintakso. Spomnimo se, da smo aplikacijo <span class="math notranslate nohighlight">\(M \, N\)</span> računali tako, da smo najprej izračunali <span class="math notranslate nohighlight">\(M\)</span>, nato <span class="math notranslate nohighlight">\(N\)</span>, nazadnje pa naredili β-redukcijo. Alternativa bi bila, da bi najprej izračunali <span class="math notranslate nohighlight">\(N\)</span>, nato pa <span class="math notranslate nohighlight">\(M\)</span>. Če naši programi ne sprožajo učinkov, to ne bi naredilo velike razlike, ob prisotnosti učinkov pa jo. Težava je, da vrstni red iz sintakse ni natanko določen. Na primer, programi v OCamlu uporabljajo en vrstni red pri prevodu v strojno kodo, pri tolmačenju pa drugega. Tej dvoumnosti se bomo izognili tako, da bomo v aplikaciji in podobnih izrazih s sintakso zahtevali, da morajo biti nekateri podizrazi že vrednosti.</p>
+<section id="sintaksa">
+<h3>Sintaksa<a class="headerlink" href="#sintaksa" title="Permalink to this headline">¶</a></h3>
+<p>Do sedaj so vrednosti <span class="math notranslate nohighlight">\(V\)</span> tvorile podmnožico vseh izrazov <span class="math notranslate nohighlight">\(M\)</span>, pri drobnozrnatem neučakanem λ-računu pa ti dve družini ločimo:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \begin{align*}
+    \text{vrednost } V &amp;::= x
+        \mid \true
+        \mid \false
+        \mid \intsym{n}
+        \mid \lambda x. M \\
+    \text{izračun } M, N &amp;::=
+        \return V
+        \mid \letin{x = M} N
+        \mid \ifthenelse{V}{M_1}{M_2} \\
+        &amp;\mid V_1 + V_2
+        \mid V_1 * V_2
+        \mid V_1 &lt; V_2
+        \mid V_1 \, V_2
+\end{align*}
+\end{split}\]</div>
+<p>Vrednosti so podobne kot prej, pri izrazih pa vidimo, da je pogoj v logičnem izrazu vrednost, prav tako morajo biti vrednosti vsi argumenti operacij in aplikacije. Telo funkcije in veji logičnega izraza pa so <em>izračuni</em>, torej izrazi, ki se še morajo izvesti. Poleg tega dodamo še dva izračuna <span class="math notranslate nohighlight">\(\return V\)</span> predstavlja izračun, ki vrne vrednost <span class="math notranslate nohighlight">\(V\)</span>, <em>veriženje</em> <span class="math notranslate nohighlight">\(\letin{x = M} N\)</span> pa najprej izračuna <span class="math notranslate nohighlight">\(M\)</span>, dobljeno vrednost veže v <span class="math notranslate nohighlight">\(x\)</span> ter nadaljuje z izvajanjem izračuna <span class="math notranslate nohighlight">\(N\)</span>.</p>
+<p>V dobljeni sintaksi <span class="math notranslate nohighlight">\(M \, N\)</span> sploh ni veljaven izraz. Pišemo lahko kvečjemu <span class="math notranslate nohighlight">\(\letin{f = M} (\letin{x = N} f \, x)\)</span>, ali pa <span class="math notranslate nohighlight">\(\letin{x = N} (\letin{f = M} f \, x)\)</span>, pri čemer je očitno, kaj bomo izračunali najprej. Sintaksa takega jezika je sicer malo bolj nerodna, je pa zato metateorija toliko lepša.</p>
+</section>
+<section id="operacijska-semantika">
+<h3>Operacijska semantika<a class="headerlink" href="#operacijska-semantika" title="Permalink to this headline">¶</a></h3>
+<p>Ker vrednosti predstavljajo že izračunane izraze, moramo operacijsko semantiko podati le na izračunih. To storimo z relacijo <span class="math notranslate nohighlight">\(M \leadsto M'\)</span>, podano s pravili:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}
+\infer{M \leadsto M'}{
+    \letin{x = M} N \leadsto  \letin{x = M'} N
+} \qquad
+\infer{}{
+    \letin{x = \return V} N \leadsto N[V / x]
+} \\[2em]
+\infer{}{
+    \ifthenelse{\true}{M_1}{M_2}  \leadsto  M_1
+} \qquad\end{split}\\\begin{split}\infer{}{
+    \ifthenelse{\false}{M_1}{M_2}  \leadsto  M_2
+} \\[2em]\end{split}\\\infer{}{
+    \intsym{n_1} + \intsym{n_2}  \leadsto  \return \intsym{n_1 + n_2}
+} \qquad\\\begin{split}\infer{}{
+    \intsym{n_1} * \intsym{n_2}  \leadsto  \return \intsym{n_1 \cdot n_2}
+} \\[2em]\end{split}\\\infer{
+    n_1 &lt; n_2
+}{
+    \intsym{n_1} &lt; \intsym{n_2}  \leadsto  \return \true
+} \qquad\\\begin{split}\infer{
+    n_1 ≮ n_2
+}{
+    \intsym{n_1} &lt; \intsym{n_2}  \leadsto  \return \false
+} \\[2em]\end{split}\\\infer{}{
+    (\lambda x. M) \, V  \leadsto  M[V / x]
+}
+\end{aligned}\end{align} \]</div>
+<p>Če primerjamo pravila s tistimi iz običajnega λ-računa, vidimo, da jih je veliko manj, saj so vsi potrebni podizrazi že vrednosti, zato ne rabimo pravil za njihovo računanje. Edino pravilo, v katerem računamo vrednost podizraza, je pravilo za veriženje. Opazimo še, da aritmetične operacije ne vračajo števil <span class="math notranslate nohighlight">\(\intsym{n}\)</span>, ampak izračune <span class="math notranslate nohighlight">\(\return \intsym{n}\)</span>.</p>
+</section>
+<section id="dolocanje-tipov">
+<h3>Določanje tipov<a class="headerlink" href="#dolocanje-tipov" title="Permalink to this headline">¶</a></h3>
+<p>Ker imamo dve različni vrsti izrazov, potrebujemo tudi dve relaciji za določanje tipov: <span class="math notranslate nohighlight">\(\Gamma \vdash_v V : A\)</span> pravi, da ima vrednost <span class="math notranslate nohighlight">\(V\)</span> tip <span class="math notranslate nohighlight">\(A\)</span>, relacija <span class="math notranslate nohighlight">\(\Gamma \vdash_c M : A\)</span> pa pravi, da izračun <span class="math notranslate nohighlight">\(M\)</span> vrača vrednosti tipa <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}
+\infer{
+    (x : A) ∈ \Gamma
+}{
+    \Gamma \vdash_v x : A
+} \qquad\\\infer{}{
+    \Gamma \vdash_v \true : \boolty
+} \qquad\\\begin{split}\infer{}{
+    \Gamma \vdash_v \false : \boolty
+} \\[2em]\end{split}\\\begin{split}\infer{
+    \Gamma \vdash_v V : \boolty \qquad
+    \Gamma \vdash_c M_1 : A \qquad
+    \Gamma \vdash_c M_2 : A
+}{
+    \Gamma \vdash_c \ifthenelse{V}{M_1}{M_2} : A
+} \\[2em]\end{split}\\\infer{}{
+    \Gamma \vdash_v \intsym{n} : \intty
+} \qquad\\\begin{split}\infer{
+    \Gamma \vdash_v V_1 : \intty \qquad
+    \Gamma \vdash_v V_2 : \intty
+}{
+    \Gamma \vdash_c V_1 + V_2 : \intty
+} \\[2em]\end{split}\\\infer{
+    \Gamma \vdash_v V_1 : \intty \qquad
+    \Gamma \vdash_v V_2 : \intty
+}{
+    \Gamma \vdash_c V_1 * V_2 : \intty
+} \qquad\\\begin{split}\infer{
+    \Gamma \vdash_v V_1 : \intty \qquad
+    \Gamma \vdash_v V_2 : \intty
+}{
+    \Gamma \vdash_c V_1 &lt; V_2 : \boolty
+} \\[2em]\end{split}\\\infer{
+    \Gamma, x : A \vdash_c M : B
+}{
+    \Gamma \vdash_v \lambda x. M : A \to B
+} \qquad\\\begin{split}\infer{
+    \Gamma \vdash_v V_1 : A \to B \qquad
+    \Gamma \vdash_v V_2 : A
+}{
+    \Gamma \vdash_c V_1 \, V_2 : B
+} \\[2em]\end{split}\\\infer{
+    \Gamma \vdash_v V : A
+}{
+    \Gamma \vdash_c \return V : A
+} \qquad\\\infer{
+    \Gamma \vdash_c M : A \qquad
+    \Gamma, x : A \vdash_c N : B
+}{
+    \Gamma \vdash_c \letin{x = M} N : B
+}
+\end{aligned}\end{align} \]</div>
+</section>
+<section id="izrek-o-varnosti">
+<h3>Izrek o varnosti<a class="headerlink" href="#izrek-o-varnosti" title="Permalink to this headline">¶</a></h3>
+<p>Kot pričakovano velja izrek o varnosti. Spet je sestavljen iz napredka in ohranitve, skupaj pa ju lahko povzamemo takole.</p>
+<p>Če velja <span class="math notranslate nohighlight">\(\vdash_c M : A\)</span>, potem:</p>
+<ol class="simple">
+<li><p>obstaja <span class="math notranslate nohighlight">\(\vdash_c M' : A\)</span>, da velja <span class="math notranslate nohighlight">\(M \leadsto M'\)</span>, ali</p></li>
+<li><p>obstaja vrednost <span class="math notranslate nohighlight">\(\vdash_v V : A\)</span>, da je <span class="math notranslate nohighlight">\(M = \return V\)</span>.</p></li>
+</ol>
+</section>
+</section>
+<section id="primeri-ucinkov">
+<h2>Primeri učinkov<a class="headerlink" href="#primeri-ucinkov" title="Permalink to this headline">¶</a></h2>
+<p>Oglejmo si nekaj primerov, kako dodajanje učinkov spremeni naš jezik.</p>
+<section id="izjeme">
+<h3>Izjeme<a class="headerlink" href="#izjeme" title="Permalink to this headline">¶</a></h3>
+<p>Predpostavimo, da imamo vnaprej definirano množico <span class="math notranslate nohighlight">\(\mathbb{E}\)</span> izjem <span class="math notranslate nohighlight">\(E\)</span>. V jeziku običajno izjeme želimo sprožati in loviti. Za vsakega izmed teh dveh dejanj imamo ustrezen izračun:</p>
+<div class="math notranslate nohighlight">
+\[
+    \text{izračun } M, N ::=
+        \cdots
+        \mid \kwdpre{raise} E
+        \mid \kwdpre{try} M \kwdmid{with} \{ E_1 \to N_1, \dots, E_k \to N_k \}
+\]</div>
+<p>Prvi sproži izjemo <span class="math notranslate nohighlight">\(E\)</span>, ki se iz podizračunov širi navzven, drugi pa poskusi izvesti izračun <span class="math notranslate nohighlight">\(M\)</span>. Če se vmes sproži izjema <span class="math notranslate nohighlight">\(E_i\)</span>, požene nadomestni izračun <span class="math notranslate nohighlight">\(N_i\)</span>. Če nadomestnega izračuna ni, sproži izjemo. V pravilih to zapišemo kot:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \infer{}{
+    \letin{x = \kwdpre{raise} E} N \leadsto \kwdpre{raise} E
+} \\[2em]
+\infer{M \leadsto M'}{
+    \kwdpre{try} M \kwdmid{with} \{ E_1 \to N_1, \dots, E_k \to N_k \} \leadsto \kwdpre{try} M' \kwdmid{with} \{ E_1 \to N_1, \dots, E_k \to N_k \}
+} \\[2em]
+\infer{}{
+    \kwdpre{try} (\return V) \kwdmid{with} \{ E_1 \to N_1, \dots, E_k \to N_k \} \leadsto \return V
+} \\[2em]
+\infer{}{
+    \kwdpre{try} (\kwdpre{raise} E_i) \kwdmid{with} \{ E_1 \to N_1, \dots, E_k \to N_k \} \leadsto N_i
+}
+\end{split}\]</div>
+<p>Če bi namesto neučakanega drobnozrnatega λ-računa uporabili običajnega, bi morali poskrbeti še za širjenje morebitnih izjem iz vseh podizrazov, na primer za aplikacijo bi morali dodati še pravili</p>
+<div class="math notranslate nohighlight">
+\[
+    \infer{}{
+    (\kwdpre{raise} E) \, N \leadsto \kwdpre{raise} E
+} \qquad
+    \infer{}{
+    V \, (\kwdpre{raise} E) \leadsto \kwdpre{raise} E
+}\]</div>
+<p>za vsako aritmetično operacijo pa prav tako.</p>
+<p>Ker lahko izjemo sprožimo kjerkoli, ima poljuben tip, nadomestni izračuni pri lovljenju izjem pa morajo imeti enak tip kot prvotni izračun.</p>
+<div class="math notranslate nohighlight">
+\[
+    \infer{}{
+    \Gamma \vdash_c \kwdpre{raise} E : A
+} \qquad
+    \infer{
+        \Gamma \vdash_c M : A \qquad
+        (\Gamma \vdash_c N_i : A)_{i = 1}^k
+    }{
+    \Gamma \vdash_c \kwdpre{try} M \kwdmid{with} \{ E_1 \to N_1, \dots, E_k \to N_k : A\}
+}\]</div>
+<p>Izrek o varnosti je zaradi izjem malo bolj nevaren, še vedno pa izključuje primere, ko se izvajanje zatakne:</p>
+<p>Če velja <span class="math notranslate nohighlight">\(\vdash_c M : A\)</span>, potem:</p>
+<ol class="simple">
+<li><p>obstaja <span class="math notranslate nohighlight">\(\vdash_c M' : A\)</span>, da velja <span class="math notranslate nohighlight">\(M \leadsto M'\)</span>, ali</p></li>
+<li><p>obstaja vrednost <span class="math notranslate nohighlight">\(\vdash_v V : A\)</span>, da je <span class="math notranslate nohighlight">\(M = \return V\)</span>.</p></li>
+<li><p>obstaja izjema <span class="math notranslate nohighlight">\(E \in \mathbb{E}\)</span>, da je <span class="math notranslate nohighlight">\(M = \kwdpre{raise} E\)</span>.</p></li>
+</ol>
+<p>Če želimo, lahko pravila za določanje tipov izračunov razširimo do relacije <span class="math notranslate nohighlight">\(\Gamma \vdash_c M : A ! \mathcal{E}\)</span>, kjer množica <span class="math notranslate nohighlight">\(\mathcal{E}\)</span> našteje vse izjeme, ki se lahko zgodijo med izvajanjem. V tem primeru tudi izrek o varnosti omeji izjeme, ki se lahko zgodijo. Konkretno, če bi veljalo <span class="math notranslate nohighlight">\(\vdash_c M : A ! \emptyset\)</span>, bi izrek o varnosti zagotavljal, da se ne bo sprožila nobena izjema.</p>
+</section>
+</section>
 </section>
 
     <script type="text/x-thebe-config">

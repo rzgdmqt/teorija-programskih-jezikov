@@ -166,4 +166,16 @@ $$
     m +_\bot n = m + n \qquad \bot +_\bot n = m +_\bot \bot = \bot +_ \bot \bot = \bot
 $$
 
-in podobno za $\cdot_\bot$ in $<_\bot$. Za vse preslikave moramo še preveriti, da so zvezne.
+in podobno za $\cdot_\bot$ in $<_\bot$. Za vse preslikave moramo še preveriti, da so zvezne. Za primer poglejmo, da je zvezna preslikava $\mathrm{fix} : [D \to D] \to D$. Poleg monotonosti moramo preveriti, da velja $\mathrm{fix} \bigvee_i f_i = \bigvee_i \mathrm{fix} f_i$ za poljubno verigo preslikav $(f_i)_i$. Vemo, da velja $(\mathrm{fix} g) = \bigvee_j g^j(\bot)$, zato lahko izračunamo:
+
+$$
+    \begin{align*}
+    (\mathrm{fix} \bigvee_i f_i)
+    &= \bigvee_j (\bigvee_i f_i)^j (\bot) \\
+    &= \bigvee_j (\bigvee_i f_i^j(\bot)) \\
+    &= \bigvee_i (\bigvee_j f_i^j(\bot)) \\
+    &= \bigvee_i (\mathrm{fix} f_i)
+    \end{align*}
+$$
+
+saj lahko z indukcijo na $j$ lahko pokažemo, da zaradi zveznosti $f_i$ velja $(\bigvee_i f_i)^j(x) = \bigvee_i f_i^j(x)$ za poljuben $x$.
