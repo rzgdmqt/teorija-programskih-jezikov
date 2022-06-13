@@ -116,7 +116,7 @@ rename : {Γ Δ : Ctx}
   → {A : Ty} → Γ ⊢ A → Δ ⊢ A
 rename ρ (VAR x) = VAR (ρ x)
 rename ρ TRUE = TRUE
-rename ρ FALSE = TRUE
+rename ρ FALSE = FALSE
 rename ρ (IF M THEN N₁ ELSE N₂) = 
     IF (rename ρ M) THEN (rename ρ N₁) ELSE (rename ρ N₂)
 rename ρ (M ∙ N) = rename ρ M ∙ rename ρ N
