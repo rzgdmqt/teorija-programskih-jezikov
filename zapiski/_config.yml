@@ -31,3 +31,5 @@ sphinx:
           "itp": ["[\\![ #1 ]\\!]", 1]
           "return": "\\kwdpre{return}"
           "letin": ["\\kwdpre{let} #1 \\kwdmid{in}", 1]
+          "bind": "\\mathop{>\\!\\!\\!>\\!\\!\\!=}"
+

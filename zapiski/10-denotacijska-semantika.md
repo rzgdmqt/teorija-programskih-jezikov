@@ -4,7 +4,7 @@ Denotacijska semantika pomen programom daje prek obstoječih matematičnih pojmo
 
 V programskih jezikih zgodba ni tako enostavna, saj izraza $M = \intsym{6} + \intsym{7}$ in $\intsym{42}$ nista enaka, pa bi vendar radi prvega zamenjali z drugim, da na primer s tem dobimo krajši in hitrejši program. Kdaj to lahko storimo?
 
-Res je, da velja $M \leadsto \intsym{42}$, vendar pa že izraza $\lambda x. M * x$ in $\lambda x. \intsym{42} * x$ nista enaka, hkrati pa sta vrednosti, zato niti ne obstaja zaporedje korakov, ki ju pripeljal skupaj. A vseeno sta obe funkciji na nek način ekvivalentni, saj bosta uporabljeni na istih številih na koncu dali isti rezultat. Seveda se izraz $M$ lahko pojavi tudi v funkcijah višjega reda in z zamenjavo z $\intsym{42}$ bomo dobili drugačno funkcijo, ki pa bo na _ekvivalentnih_ argumentih dala _ekvivalentne_ rezultate. Ampak tudi s funkcijami višjega reda nismo izčrpali vseh možnih izrazov, v katerih se lahko pojavi $M$.
+Res je, da velja $M \leadsto \intsym{42}$, vendar pa že izraza $\lambda x. M * x$ in $\lambda x. \intsym{42} * x$ nista enaka, hkrati pa sta vrednosti, zato niti ne obstaja zaporedje korakov, ki bi ju pripeljalo skupaj. A vseeno sta obe funkciji na nek način ekvivalentni, saj bosta uporabljeni na istih številih na koncu dali isti rezultat. Seveda se izraz $M$ lahko pojavi tudi v funkcijah višjega reda in z zamenjavo z $\intsym{42}$ bomo dobili drugačno funkcijo, ki pa bo na _ekvivalentnih_ argumentih dala _ekvivalentne_ rezultate. Ampak tudi s funkcijami višjega reda nismo izčrpali vseh možnih izrazov, v katerih se lahko pojavi $M$.
 
 ## Kontekstna ekvivalenca
 
@@ -27,7 +27,7 @@ $$
 \end{align*}
 $$
 
-Če imamo kontekst $\ctxt$, lahko vse luknje zamenjamo z izrazom $M$ in dobimo izraz, ki ga označimo z $\ctxt[M]$. Na primer, če je $\ctxt = \lambda x. \ifthenelse{x < [\,]}{x}{[\,]}$ in $M = \intsym{6} * \intsym{7}$,, je
+Če imamo kontekst $\ctxt$, lahko vse luknje zamenjamo z izrazom $M$ in dobimo izraz, ki ga označimo z $\ctxt[M]$. Na primer, če je $\ctxt = \lambda x. \ifthenelse{x < [\,]}{x}{[\,]}$ in $M = \intsym{6} * \intsym{7}$, je
 $$
   \ctxt[M] = \lambda x. \ifthenelse{x < (\intsym{6} * \intsym{7})}{x}{(\intsym{6} * \intsym{7})}
 $$
@@ -46,7 +46,7 @@ Izkaže se, da zaradi poljubne izbire kontekstov $\ctxt$ iz zgornje definicije s
 
 Če imamo v jeziku na voljo rekurzijo, lahko kontekstno ekvivalenco definiramo celo tako, da izraz $\ctxt[M]$ konvergira natanko tedaj, kadar konvergira izraz $\ctxt[N]$, saj lahko kontekst ovijemo s pogojnim izrazom, ki v eni veji konvergira, v drugi pa divergira.
 
-Ob vsem moramo biti pozorno na dejstvo, da za veliko večino kontekstov $\ctxt$ izraz $\ctxt[M]$ sploh nima tipa in se pri izvajanju zatakne, vendar se tudi pri teh kontekstih popolnoma enako obnaša izraz $\ctxt[N]$. Tako se lahko omejimo samo na kontekste $\ctxt$, za katere ima  $\ctxt[M]$ veljaven tip.
+Ob vsem moramo biti pozorni na dejstvo, da za veliko večino kontekstov $\ctxt$ izraz $\ctxt[M]$ sploh nima tipa in se pri izvajanju zatakne, vendar se tudi pri teh kontekstih popolnoma enako obnaša izraz $\ctxt[N]$. Tako se lahko omejimo samo na kontekste $\ctxt$, za katere ima  $\ctxt[M]$ veljaven tip.
 
 Kontekstna ekvivalenca je tisto, kar želimo, vendar je delo z njo precej neobvladljivo, saj moramo kvantificirati čez vse kontekste, ki nimajo preveč lepih lastnosti. Namesto tega se vrnemo nazaj na začetek. Pojme iz našega jezika bomo prevedli na dobro znane matematične pojme, kot so množice in funkcije, saj lahko na njih uporabimo običajno enakost.
 
@@ -154,7 +154,7 @@ $$
 
 kar je po lemi o substituciji enako $\itp{M[V / x]}$. ■
 
-V obratno smer trditev ne velja. Na primer, $\itp{\lambda x. x + x} = \itp{\lambda x. \intsym{2} * x}$, čeprav gre za različna izraza, ki sta vrednosti, zato noben ne more narediti enega ali več korakov v drugega. A kot smo omenili že na začetku, ne zanima nas enakost, temveč samo ekvivalentnost rezultatov. Dovolj je, če obrat pokažemo že v enem konkretnem primeru.
+V obratno smer trditev ne velja. Na primer, $\itp{\lambda x. x + x} = \itp{\lambda x. \intsym{2} * x}$, sta različna izraza, ki sta vrednosti, zato noben ne more narediti enega ali več korakov v drugega. A kot smo omenili že na začetku, ne zanima nas enakost, temveč samo ekvivalentnost rezultatov. Dovolj je, če obrat pokažemo že v enem konkretnem primeru.
 
 **Trditev (zadostnost).** Če za $\vdash M : \boolty$ velja $\itp{M} = \ttt$, potem velja $M \leadsto^* \true$.
 

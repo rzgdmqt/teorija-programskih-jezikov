@@ -61,7 +61,7 @@ $$
 \begin{align*}
   x[N / x] &:= N \\
   y[N / x] &:= y \qquad (x \ne y) \\
-  (\lambda y. M)[N / x] &:= \lambda y. M[N / x] \qquad (x \ne y, y \notin fv(M)) \\
+  (\lambda y. M)[N / x] &:= \lambda y. M[N / x] \qquad (x \ne y, y \notin fv(N)) \\
   (M_1 \, M_2)[N / x] &:= (M_1[N / x]) \, (M_2[N / x])
 \end{align*}
 $$
@@ -70,7 +70,7 @@ Kot vidimo, moramo paziti, da pri substituciji abstrakcij ne bi zamenjali vezane
 
 ## Operacijska semantika
 
-Ukazi v IMPu so zaključili izvajanje, ko so prispeli do ukaza $\skip$, pri λ-račun pa v ta namen definiramo podmnožico _vrednosti_ kot
+Ukazi v IMPu so zaključili izvajanje, ko so prispeli do ukaza $\skip$, pri λ-računu pa v ta namen definiramo podmnožico _vrednosti_ kot
 
 $$
   \text{vrednost } V ::= \lambda x. M
@@ -207,7 +207,7 @@ $$
   \end{align*}
 $$
 
-Dobili smo izraz, ki intuitivno predstavlja fiksno točko $\Psi$, vendar ga ne moremo uporabiti v izračunih, saj njegov izračun divergira. Z Ker bo naša fiksna točka funkcija, vsak izraz $M$, ki predstavlja funkcijo, pa lahko zamenjamo z ekvivalentnim izrazom $\lambda x. M \, x$, ki se ne bo izvajal, dokler ga ne bomo uporabili na argumentu. To nas pripelje do končne oblike, na kateri nato le še $\Psi$ pretvorimo v parameter:
+Dobili smo izraz, ki intuitivno predstavlja fiksno točko $\Psi$, vendar ga ne moremo uporabiti v izračunih, saj njegov izračun divergira. Ker bo naša fiksna točka funkcija, vsak izraz $M$, ki predstavlja funkcijo, pa lahko zamenjamo z ekvivalentnim izrazom $\lambda x. M \, x$, ki se ne bo izvajal, dokler ga ne bomo uporabili na argumentu, nas to pripelje do končne oblike, na kateri nato le še $\Psi$ pretvorimo v parameter:
 
 $$
   Y ::= \lambda \psi. (\lambda x. \lambda y. \psi \, (x \, x) \, y) \, (\lambda x. \lambda y. \psi \, (x \, x) \, y)
@@ -247,7 +247,7 @@ Sedaj je izvajanje odvisno od vrednosti $m$, ampak vidimo lahko, da na mestu rek
 
 Dopolnite lambda račun s celimi števili <u>`n`</u> in seštevanjem `e1 + e2`.  
 
-- Dopolnite pravila za leno in neučakano izvajanje izvajanje velikih in malih korakov. Komentirajte, kje se pojavijo ključne razlike.
+- Dopolnite pravila za leno in neučakano izvajanje velikih in malih korakov. Komentirajte, kje se pojavijo ključne razlike.
 
 ### Naloga 2
 

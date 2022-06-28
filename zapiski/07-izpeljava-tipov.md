@@ -177,7 +177,7 @@ $$
   }
 $$
 
-Ker pa je v pravilih množico enačb $\eqs$ le povečujemo, jo v praksi samo napišemo na stran in tako izpeljavo bolj ekonomično napišemo kot:
+Ker pa v pravilih množico enačb $\eqs$ le povečujemo, jo v praksi samo napišemo na stran in tako izpeljavo bolj ekonomično napišemo kot:
 
 $$
   \infer{
@@ -220,7 +220,7 @@ $$
   \end{align*}
 $$
 
-Definiramo lahko tudi kompozitum $\sigma \circ \sigma'$, ki vse parametre $\alpha$, za katere obstaja $(\alpha \mapsto A) in \sigma'$, slika v $\sigma(A)$, vse preostale parametre pa tako kot $\sigma$. Hitro lahko preverimo, da velja $(\alpha \mapsto A)(B) = B[A / \alpha]$ ter $(\sigma \circ \sigma')(A) = \sigma(\sigma'(A))$.
+Definiramo lahko tudi kompozitum $\sigma \circ \sigma'$, ki vse parametre $\alpha$, za katere obstaja $(\alpha \mapsto A) \in \sigma'$, slika v $\sigma(A)$, vse preostale parametre pa tako kot $\sigma$. Hitro lahko preverimo, da velja $(\alpha \mapsto A)(B) = B[A / \alpha]$ ter $(\sigma \circ \sigma')(A) = \sigma(\sigma'(A))$.
 
 Pravimo, da substitucija $\sigma$ reši množico enačb $\eqs$, kar pišemo kot $\sigma \models \eqs$, kadar sta za vsako enačbo $(A = B) \in \eqs$ tipa $\sigma(A)$ in $\sigma(B)$ enaka.
 
@@ -356,7 +356,8 @@ Vzemimo zdaj enačbe $\eqs$ in nadaljujmo z leksikogafsko indukcijo na $(|fv(\eq
 
 Če je $\eqs = \emptyset$, velja $\eqs \searrow \emptyset$. V nasprotnem primeru imamo $\eqs = (A_1 = A_2, \eqs')$, kjer velja $\sigma \models \eqs'$ in $\sigma(A_1) = \sigma(A_2)$. Poglejmo, v kakšnih primerih se slednje lahko zgodi.
 
-Če je $A_1 = A_2$, lahko uporabimo pravilo $$
+Če je $A_1 = A_2$, lahko uporabimo pravilo 
+$$
 \infer{
   \eqs' \searrow \sigma'
 }{
@@ -393,8 +394,11 @@ Ko vemo, da rešitev obstaja, pokažemo še, da je najbolj splošna.
 
 **Trditev.** Če velja $\eqs \searrow \sigma$, tedaj za poljubno $\sigma' \models \eqs$ obstaja $\sigma''$, da velja $\sigma' = \sigma'' \circ \sigma$.
 
-**Dokaz.** Dokaz poteka z indukcijo na $\eqs \searrow \sigma$. Za primer vzemimo pravilo $$\infer{
+**Dokaz.** Dokaz poteka z indukcijo na $\eqs \searrow \sigma$. Za primer vzemimo pravilo 
+$$
+\infer{
   A_1 = B_1, A_2 = B_2, \eqs \searrow \sigma
 }{
   A_1 \to A_2 = B_1 \to B_2, \eqs \searrow \sigma
-}$$. Naj velja $\sigma' \models A_1 \to A_2 = B_1 \to B_2, \eqs$. Tedaj velja tudi $\sigma' \models A_1 = B_1, A_2 = B_2, \eqs$ zato po indukcijski predpostavki obstaja $\sigma''$, da velja $\sigma' = \sigma'' \circ \sigma$, kar je natanko to, kar smo želeli pokazati.
+}.$$
+Naj velja $\sigma' \models A_1 \to A_2 = B_1 \to B_2, \eqs$. Tedaj velja tudi $\sigma' \models A_1 = B_1, A_2 = B_2, \eqs$ zato po indukcijski predpostavki obstaja $\sigma''$, da velja $\sigma' = \sigma'' \circ \sigma$, kar je natanko to, kar smo želeli pokazati.

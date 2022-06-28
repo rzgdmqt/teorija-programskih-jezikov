@@ -220,7 +220,7 @@ $$
         \Gamma \vdash_c M : A \qquad
         (\Gamma \vdash_c N_i : A)_{i = 1}^k
     }{
-    \Gamma \vdash_c \kwdpre{try} M \kwdmid{with} \{ E_1 \to N_1, \dots, E_k \to N_k : A\}
+    \Gamma \vdash_c \kwdpre{try} M \kwdmid{with} \{ E_1 \to N_1, \dots, E_k \to N_k\} : A
 }$$
 
 Izrek o varnosti je zaradi izjem malo bolj nevaren, še vedno pa izključuje primere, ko se izvajanje zatakne:

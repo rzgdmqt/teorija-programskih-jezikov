@@ -19,6 +19,7 @@
     "\\ctxt": "\\mathcal{C}",
     "\\itp": "[\\![ #1 ]\\!]",
     "\\return": "\\kwdpre{return}",
-    "\\letin": "\\kwdpre{let} #1 \\kwdmid{in}"
+    "\\letin": "\\kwdpre{let} #1 \\kwdmid{in}",
+    "\\bind": "\\mathop{>\\!\\!\\!>\\!\\!\\!=}"
   }
 }

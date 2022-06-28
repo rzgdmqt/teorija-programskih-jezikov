@@ -138,7 +138,7 @@ $$
 
 ## Implementacija jezika
 
-Običajno bi po sintaksi jezika formalno podali še njegovo semantiko, torej pomen posameznih delov. Ker za to še nimamo ustreznih matematičnih orodij, bomo ravnali podobno kot pri večini programskih jezikov: napisali bomo implementacijo, torej program, ki prebere ukaze, zapisane v konkretni sintaksi, ter jih na nek (po vsej sreči smiselen) način izvede. Nato pa bomo proglasili, da je pomen programa v IMPu tisto, ker implementacija z njim naredi. Implementacijo bomo napisali v programskem jeziku [OCaml](https://ocaml.org), ki je eden najprikladnejših jezikov za implementacije programskih jezikov. Končnica `ML` namreč pomeni _meta-language_ oziroma metajezik, torej jezik za opis jezikov.
+Običajno bi po sintaksi jezika formalno podali še njegovo semantiko, torej pomen posameznih delov. Ker za to še nimamo ustreznih matematičnih orodij, bomo ravnali podobno kot pri večini programskih jezikov: napisali bomo implementacijo, torej program, ki prebere ukaze, zapisane v konkretni sintaksi, ter jih na nek (po vsej sreči smiselen) način izvede. Nato pa bomo proglasili, da je pomen programa v IMPu tisto, kar implementacija z njim naredi. Implementacijo bomo napisali v programskem jeziku [OCaml](https://ocaml.org), ki je eden najprikladnejših jezikov za implementacije programskih jezikov. Končnica `ML` namreč pomeni _meta-language_ oziroma metajezik, torej jezik za opis jezikov.
 
 ### Implementacija abstraktne sintakse
 

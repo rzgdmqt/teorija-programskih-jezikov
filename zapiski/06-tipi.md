@@ -35,7 +35,7 @@ Vidimo, da funkcijski tip ne pove le tega, da imamo opravka s funkcijo, temveč 
 
 ### Določanje tipov
 
-Tako kot smo pri preverjanju veljavnih izrazov v IMPu morali vedeti, katera množica lokacij $L$ je definirana, moramo v kakšne spremenljivke imamo in kakšni so njihovi tipi. S tem namenom uvedemo _kontekste_ $\Gamma = x_1 : A_1, \ldots, x_n : A_n$, ki povedo, da za spremenljivko $x_i$ predpostavimo tip $A_i$. Tedaj definiramo relacijo $\Gamma \vdash M : A$, ki pove, da ima izraz $M$ tip $A$, če predpostavimo, da imajo spremenljivke tipe, določene s kontekstom $\Gamma$. Če je kontekst prazen, pišemo kar $\vdash M : A$. Relacijo podamo s pravili:
+Tako kot smo pri preverjanju veljavnih izrazov v IMPu morali vedeti, katera množica lokacij $L$ je definirana, moramo tu vedeti, kakšne spremenljivke imamo in kakšni so njihovi tipi. S tem namenom uvedemo _kontekste_ $\Gamma = x_1 : A_1, \ldots, x_n : A_n$, ki povedo, da za spremenljivko $x_i$ predpostavimo tip $A_i$. Tedaj definiramo relacijo $\Gamma \vdash M : A$, ki pove, da ima izraz $M$ tip $A$, če predpostavimo, da imajo spremenljivke tipe, določene s kontekstom $\Gamma$. Če je kontekst prazen, pišemo kar $\vdash M : A$. Relacijo podamo s pravili:
 
 $$
 \infer{
@@ -243,11 +243,11 @@ Ker v operacijski semantiki nastopa substitucija, moramo najprej dokazati, da im
 Z indukcijo na izpeljavo $\Gamma, x : A, \Gamma' \vdash M : B$.
 Če je zaključek zadnjega uporabljenega pravila:
 
-* $\Gamma, x : A, \Gamma' \vdash x : A$, je $M = x$, zato velja $M[N / x] = N$,
+* $\Gamma, x : A, \Gamma' \vdash x : A$, ker je $M = x$, velja $M[N / x] = N$,
     torej velja $\Gamma, \Gamma' \vdash M[N / x] : B$ po drugi predpostavki.
 
-* $\Gamma, x : A, \Gamma' \vdash y : B$ za $y ≠ x$, iz prvi predpostavke sledi $(y : B) ∈ \Gamma, \Gamma'$.
-    Iz tega sledi $\Gamma, \Gamma' \vdash M[N / x] : B$, saj je $M[N / x] = y$.
+* $\Gamma, x : A, \Gamma' \vdash y : B$ za $y ≠ x$, iz prve predpostavke sledi $(y : B) ∈ \Gamma, \Gamma'$.
+    Iz tega sledi $\Gamma, \Gamma' \vdash M[N / x] : B$, saj iz $M = y$ sledi $M[N / x] = y$.
 
 * $\Gamma, x : A, \Gamma' \vdash \true : \boolty$, velja tudi $\Gamma, \Gamma' \vdash \true : \boolty$
 
@@ -276,11 +276,11 @@ Z indukcijo na izpeljavo $\Gamma, x : A, \Gamma' \vdash M : B$.
     iz česar sledi $\Gamma, \Gamma' \vdash (M_1 * M_2)[N / x] : \intty$, saj je
     $(M_1 * M_2)[N / x] = M_1[N / x] * M_2[N / x]$.
 
-* $\Gamma, x : A, \Gamma' \vdash M_1 < M_2 : \intty$, mora veljati
+* $\Gamma, x : A, \Gamma' \vdash M_1 < M_2 : \boolty$, mora veljati
     $\Gamma, x : A, \Gamma' \vdash M_1 : \intty$ in $\Gamma, x : A, \Gamma' \vdash M_2 : \intty$.
     Po indukcijski predpostavki zato velja
     $\Gamma, \Gamma' \vdash M_1[N / x] : \intty$ in $\Gamma, \Gamma' \vdash M_2[N / x] : \intty$
-    iz česar sledi $\Gamma, \Gamma' \vdash (M_1 < M_2)[N / x] : \intty$, saj je
+    iz česar sledi $\Gamma, \Gamma' \vdash (M_1 < M_2)[N / x] : \boolty$, saj je
     $(M_1 < M_2)[N / x] = M_1[N / x] < M_2[N / x]$.
 
 * $\Gamma, x : A, \Gamma' \vdash \lambda y. M' : A' \to B'$, mora veljati
@@ -294,7 +294,7 @@ Z indukcijo na izpeljavo $\Gamma, x : A, \Gamma' \vdash M : B$.
     $\Gamma, x : A, \Gamma' \vdash M_1 : A' \to B$ in $\Gamma, x : A, \Gamma' \vdash M_2 : A'$.
     Po indukcijski predpostavki zato velja
     $\Gamma, \Gamma' \vdash M_1[N / x] : A' \to B$ in $\Gamma, \Gamma' \vdash M_2[N / x] : A'$
-    iz česar sledi $\Gamma, \Gamma' \vdash (M_1 \, M_2)[N / x] : \intty$, saj je
+    iz česar sledi $\Gamma, \Gamma' \vdash (M_1 \, M_2)[N / x] : B$, saj je
     $(M_1 \, M_2)[N / x] = M_1[N / x] \, M_2[N / x]$.
 
 ### Trditev (napredek)
@@ -330,8 +330,8 @@ Z indukcijo na predpostavko o določenem tipu.
     Po indukciji za $M_1$ dobimo dva primera:
     1. $M_1$ je vrednost tipa $\intty$, torej število $\intsym{n_1}$. V tem primeru po indukciji za $M_2$ dobimo dva primera:
         1. Tudi $M_2$ je vrednost tipa $ \intty$, torej število $\intsym{n_2}$. Tedaj velja $M_1 + M_2 = \intsym{n_1} + \intsym{n_2} \leadsto \intsym{n_1 + n_2}$.
-        2. Obstaja $M_2'$, da velja $M_2 \leadsto M_2'$, zato velja tudi $M_1 \, M_2 = V_1 \, M_2 \leadsto V_1 \, M_2'$.
-    2. Obstaja $M_1'$, da velja $M_1 \leadsto M_1'$, zato velja tudi $M_1 \, M_2 \leadsto M_1' \, M_2$.
+        2. Obstaja $M_2'$, da velja $M_2 \leadsto M_2'$, zato velja tudi $M_1 + M_2 = \intsym{n_1} + M_2 \leadsto \intsym{n_1} + M_2'$.
+    2. Obstaja $M_1'$, da velja $M_1 \leadsto M_1'$, zato velja tudi $M_1 + M_2 \leadsto M_1' + M_2$.
 
     V vseh primerih izraz torej lahko naredi korak (2).
 
@@ -374,15 +374,15 @@ Z indukcijo na predpostavko o koraku.
   iz $\Gamma \vdash M_1 + M_2 : \intty$ pa sledi
   $\Gamma \vdash M_1 : \intty$ in $\Gamma \vdash M_2 : \intty$.
   Po indukcijski predpostavki velja $\Gamma \vdash M_1' : \intty$, iz česar sledi tudi
-  $\Gamma \vdash M_1' M_2 : \intty$.
+  $\Gamma \vdash M_1' + M_2 : \intty$.
 
 * $V_1 + M_2 \leadsto V_1 + M_2'$, mora veljati $M_2 \leadsto M_2'$,
   iz $\Gamma \vdash V_1 + M_2 : \intty$ pa sledi
   $\Gamma \vdash V_1 : \intty$ in $\Gamma \vdash M_2 : \intty$.
   Po indukcijski predpostavki velja $\Gamma \vdash M_2' : \intty$, iz česar sledi tudi
-  $\Gamma \vdash M_1 + M_2' : \intty$.
+  $\Gamma \vdash V_1 + M_2' : \intty$.
 
-* $\intsym{n_1} + \intsym{n_2} \leadsto \intsym{n_1 + n_2}$, kjer sta obe strani tipa $ \intty$.
+* $\intsym{n_1} + \intsym{n_2} \leadsto \intsym{n_1 + n_2}$, kjer sta obe strani tipa $\intty$.
 
 * Dokazi ohranitve za produkt in primerjavo števil so enaki kot pri vsoti.
 
@@ -396,7 +396,7 @@ Z indukcijo na predpostavko o koraku.
   iz $\Gamma \vdash V_1 \, M_2 : A$ pa sledi
   $\Gamma \vdash V_1 : B \to A$ in $\Gamma \vdash M_2 : B$ za nek $B$.
   Po indukcijski predpostavki velja $\Gamma \vdash M_2' : B$, iz česar sledi tudi
-  $\Gamma \vdash V \, M_2' : A$.
+  $\Gamma \vdash V_1 \, M_2' : A$.
 
 * $(\lambda x. M) \, V \leadsto M[V / x]$,
   iz $\Gamma \vdash (\lambda x. M) \, V : A$ sledi
@@ -459,7 +459,7 @@ Razširite jezik in sistem tipov s pari, seznami in vsotami. Za pare dodajte pro
 
 ### Naloga 5
 
-V jeziku iz naloge 3 poiščite primeren tip za spodnji izraz in ustreznost preverite z izpeljavo. V primeru sta z `fst` in `snd` označeni projekciji na prvo in drugo komponento para.
+V jeziku iz naloge 3 poiščite primeren tip za spodnji izraz in ustreznost preverite z izpeljavo, v primeru ko sta s `fst` in `snd` označeni projekciji na prvo in drugo komponento para.
 
 ``` (fun p -> (match fst p with [] -> true | x :: xs -> snd p)) (1::2::[], false) ```
 

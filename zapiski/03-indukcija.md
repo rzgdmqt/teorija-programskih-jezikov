@@ -69,8 +69,8 @@ Opazimo, da smo pri prvem pravilu $n \in \mathbb{N}$ zapisali kot stranski pogoj
 Tudi tu vse elemente $\mathbb{E}$ dobimo tako, da končno mnogokrat uporabljamo pravila.
 
 1. Najprej vidimo, da $\mathbb{E}$ vsebuje vsa števila $\dots, -2, -1, 0, 1, 2, \dots$.
-2. Sedaj iz preostalih treh pravil sledi, da mora $\mathbb{E}$ tega mora vsebovati tudi vse njihove vsote $(0 + 0), (0 + 1), (1 + 0), (-2 + 3), \dots$, njihove produkte $(0 \ast 0), (0 \ast 1), (1 \ast 0), (-2 \ast 3), \dots$ ter njihove negacije $-0, -1, -(-42), \dots$
-3. Nato vidimo, da mora $\mathbb{E}$ vsebovati tudi vse kombinacije elementov, ki smo jih obili v prejšnjih korakih, na primer $(-2 + 3) \ast (0 \ast 1)$ ali $-(-42) + (6 \ast 7)$.
+2. Sedaj iz preostalih treh pravil sledi, da mora $\mathbb{E}$ poleg tega vsebovati tudi vse njihove vsote $(0 + 0), (0 + 1), (1 + 0), (-2 + 3), \dots$, njihove produkte $(0 \ast 0), (0 \ast 1), (1 \ast 0), (-2 \ast 3), \dots$ ter njihove negacije $-0, -1, -(-42), \dots$
+3. Nato vidimo, da mora $\mathbb{E}$ vsebovati tudi vse kombinacije elementov, ki smo jih dobili v prejšnjih korakih, na primer $(-2 + 3) \ast (0 \ast 1)$ ali $-(-42) + (6 \ast 7)$.
 
 Če postopek nadaljujemo, dobimo vse elemente množice $\mathbb{E}$, vsakega v končno mnogo korakih. Vsakemu elementu $e \in \mathbb{E}$ pripada tudi natanko določeno _drevo izpeljave_, iz katerega se vidi, kako smo prišli do dejstva, da $\mathbb{E}$ vsebuje $e$. V tem drevesu je $e$ koren, pravila so vozlišča, aksiomi pa listi. Na primer, elementu $42 + (6 \ast 7)$ pripada drevo
 
@@ -222,7 +222,7 @@ Zapišite evaluacijsko drevo za naslednja ukaza v jeziku IMP:
 
 Dopolnite operacijsko semantiko jezika IMP z:
 
-  1. Logičnima operacijama `&&` in `||`. Primerjajte pravila kjer izračunamo vrednosti obeh argumentov in t.i. 'short-circuit evaluation', ki vrednost drugega argumenta izračuna zgolj če je to potrebno.
+  1. Logičnima operacijama `&&` in `||`. Primerjajte pravila, kjer izračunamo vrednosti obeh argumentov in t.i. 'short-circuit evaluation', ki vrednost drugega argumenta izračuna zgolj, če je to potrebno.
 
   2. Operacijo CAS (compare and swap), kjer `cas loc n m` preveri, ali ima lokacija `loc` vrednost `n`. V primeru ujemanja vrednost lokacije posodobi na `m`, sicer ne spremeni ničesar.
 
@@ -261,7 +261,7 @@ let rec mirror = function
 
 let rec depth = function
   | Empty -> 0
-  | Node (lt, x, rt) -> max (depth lt) (depth rt)
+  | Node (lt, x, rt) -> 1 + (max (depth lt) (depth rt))
 ```
 
 pokažite `depth tree = depth (mirror tree)`. Katero lastnost funkcije `max` je  potrebno privzeti?

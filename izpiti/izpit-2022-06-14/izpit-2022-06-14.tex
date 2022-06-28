@@ -1,0 +1,120 @@
+\documentclass[arhiv]{../izpit}
+\usepackage{amssymb}
+\usepackage{fouriernc}
+
+\begin{document}
+
+\newcommand{\bnfis}{\mathrel{{:}{:}{=}}}
+\newcommand{\bnfor}{\;\mid\;}
+\newcommand{\fun}[2]{\lambda #1. #2}
+\newcommand{\conditional}[3]{\mathtt{if}\;#1\;\mathtt{then}\;#2\;\mathtt{else}\;#3}
+\newcommand{\whileloop}[2]{\mathtt{while}\;#1\;\mathtt{do}\;#2}
+\newcommand{\recfun}[3]{\mathtt{rec}\;#1\;#2. #3}
+\newcommand{\boolty}{\mathtt{bool}}
+\newcommand{\intty}{\mathtt{int}}
+\newcommand{\funty}[2]{#1 \to #2}
+\newcommand{\tru}{\mathtt{true}}
+\newcommand{\fls}{\mathtt{false}}
+\newcommand{\tbool}{\mathtt{bool}}
+\newcommand{\tand}{\mathbin{\mathtt{and}}}
+\newcommand{\tandalso}{\mathbin{\mathtt{andalso}}}
+\newcommand{\imp}{\textsc{imp}}
+\newcommand{\skp}{\mathtt{skip}}
+\makeatletter
+\newcommand{\nadaljevanje}{\dodatek{\newpage\noindent\emph{(\@sloeng{nadaljevanje rešitve \arabic{naloga}. naloge}{continuation of the answer to question \arabic{naloga}})}}}
+\makeatother
+\izpit
+  [ucilnica=203,naloge=-1]{Teorija programskih jezikov: 1. izpit}{14.\ junij 2022}{
+}
+\dodatek{
+  \vspace{\stretch{1}}
+  \begin{itemize}
+    \item \textbf{Ne odpirajte} te pole, dokler ne dobite dovoljenja.
+    \item Zgoraj \textbf{vpišite svoje podatke} in označite \textbf{sedež}.
+    \item Na vidno mesto položite \textbf{dokument s sliko}.
+    \item Preverite, da imate \textbf{telefon izklopljen} in spravljen.
+    \item Čas pisanja je \textbf{180 minut}.
+    \item Doseči je možno \textbf{70 točk}.
+    \item Veliko uspeha!
+  \end{itemize}
+  \vspace{\stretch{3}}
+  \newpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\naloga[\tocke{15}]
+\newcommand{\ifthen}[3]{\mathbf{if} \, #1 \, \mathbf{then} \, #2 \, \mathbf{else} \, #3}
+
+V $\lambda$-računu z neučakano operacijsko semantiko definirajmo:
+\[
+  \mathit{switch} = \fun{p} \fun{f} \fun{g} \fun{x} \ifthen{p \, x}{f \, x}{g \, x}
+\]
+
+\podnaloga Zapišite vse korake v evalvaciji izraza $\mathit{switch} \, (\fun{x} x < 1337) \, (\fun{x} x + 4) \, (\fun{x} x * 11) \, 38$ v semantiki malih korakov. Izpeljav korakov ni treba pisati.
+\podnaloga Izračunajte najbolj splošen tip izraza $\mathit{switch}$.
+\nadaljevanje
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\naloga[\tocke{20}]
+\newcommand{\natty}{\mathbf{nat}}
+\newcommand{\zro}{\mathbf{O}}
+\newcommand{\suc}[1]{\mathbf{S} \, #1}
+\newcommand{\fold}[3]{\mathbf{fold} \, #1 \, #2 \, #3}
+\newcommand{\intsym}[1]{\langle #1 \rangle}
+V $\lambda$-račun dodamo naravna števila:
+\begin{align*}
+  \text{tip } A &\bnfis \cdots \mid
+    \natty \\
+  \text{izraz } M, N &\bnfis \cdots \mid
+    \zro \mid
+    \suc{N} \mid
+    \fold{M_o}{M_s}{N}
+\end{align*}
+kjer zadnji izraz vrne enako vrednost kot
+\[
+  f \, \intsym{n - 1} \, \bigg(f \, \intsym{n - 2} \, \big(\cdots (f \, \intsym{0} \, v) \cdots\big)\bigg),
+\]
+če izraz $M_o$ predstavlja vrednost $v$, izraz $M_s$ funkcijo dveh argumentov $f$, izraz $N$ pa število $\intsym{n} := \underbrace{\mathbf{S} \cdots \mathbf{S}}_n \mathbf{O}$.
+
+\podnaloga Zapišite dodatna pravila za določanje tipov in operacijsko semantiko malih korakov.
+\podnaloga V razširjenem jeziku definirajte funkcijo, ki sešteje dve naravni števili.
+\podnaloga Dokažite, da za razširjeni jezik še vedno velja izrek o varnosti.
+
+\nadaljevanje
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\naloga[\tocke{15}]
+
+Naj bodo $(D_1, \leq_1)$, $(D_2, \leq_2)$ in $(D, \leq)$ domene. Dokažite, da je preslikava
+\[
+  \mathit{curry} : [D_1 \times D_2 \to D] \to [D_1 \to [D_2 \to D]],
+\]
+podana s predpisom
+\[
+  \mathit{curry}(f) = x \mapsto (y \mapsto f(x, y)),
+\]
+dobro definirana in zvezna.
+
+\nadaljevanje
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\naloga[\tocke{20}]
+\newcommand{\orop}{\mathrm{or}}
+\newcommand{\bind}{\mathop{>\!\!\!>\!\!\!=}}
+
+Nedeterministično izbiro opišemo z dvojiško operacijo $\orop : 2$, ki zadošča enačbam:
+\[
+  \orop(x, x) = x \qquad \orop(x, y) = \orop(y, x) \qquad \orop(x, \orop(y, z)) = \orop(\orop(x, y), z)
+\]
+Naj bo $T$ monada, porojena s prostim modelom za opisano algebrajsko teorijo. Dokažite, da velja izomorfizem množic
+\[
+  T X \cong \mathcal{P}_{\text{fin}} X = \{ A \mid A \subseteq^{\text{končna}} X \}.
+\]
+
+\nadaljevanje
+
+\end{document}

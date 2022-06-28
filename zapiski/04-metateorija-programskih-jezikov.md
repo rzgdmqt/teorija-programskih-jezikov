@@ -13,7 +13,7 @@ kernelspec:
 
 # Metateorija programskih jezikov
 
-Vsak programski jezik ima svojo _teorijo_, torej pravila, ki formalno opisujejo kako se programi izvajajo ali določajo, katere programe smatramo za veljavne. Od teorije so odvisne lastnosti programskega jezika, na primer to, da se veljavni programi lahko vedno uspešno izvedejo, ali pa to, da je rezultat enolično določen. Lastnostim programskega jezika, ki sledijo iz dane teorije, pravimo _metateorija_. Za primer si oglejmo že znani programski jezik IMP.
+Vsak programski jezik ima svojo _teorijo_, torej pravila, ki formalno opisujejo, kako se programi izvajajo ali določajo, katere programe smatramo za veljavne. Od teorije so odvisne lastnosti programskega jezika, na primer to, da se veljavni programi lahko vedno uspešno izvedejo, ali pa to, da je rezultat enolično določen. Lastnostim programskega jezika, ki sledijo iz dane teorije, pravimo _metateorija_. Za primer si oglejmo že znani programski jezik IMP.
 
 ## Teorija
 
@@ -74,7 +74,7 @@ $$
   }
 $$
 
-Če aritmetični izraz $e$ vsebuje dostop do lokacije $\ell$, ki v stanju $s$ ni nastavljena, to v implementaciji sprožilo napako ob izvajanju, v matematični formulaciji pa preprosto pomeni, da za nobeno število $n$ ne velja $s, e \Downarrow n$.
+Če aritmetični izraz $e$ vsebuje dostop do lokacije $\ell$, ki v stanju $s$ ni nastavljena, bi to v implementaciji sprožilo napako ob izvajanju, v matematični formulaciji pa preprosto pomeni, da za nobeno število $n$ ne velja $s, e \Downarrow n$.
 
 Podobno podamo relacijo $s, b \Downarrow r$, ki pove, kdaj logični izraz $b$ v danem stanju $s$ predstavlja resničnostno vrednost $r \in \mathbb{B} = \{ t\!t, f\!\!f \}$:
 
@@ -107,7 +107,7 @@ S tako podanimi pravili lahko pokažemo, da je semantika ukazov deterministična
 
 ### Določanje veljavnih programov
 
-Želeli bi pokazati, da se vsak program lahko vedno naredi korak izvede, vendar to ni res, saj lahko nekateri programi dostopajo do lokacij, ki v stanju niso nastavljene. Da bi se tem primerom izognili, smo v implementaciji napisali funkcijo `check`, ki je program preverila, preden ga je začela izvajati. Matematično pa bomo to zopet podali z induktivnimi relacijami. Relacijo $L \vdash e$, ki podaja, kdaj aritmetični izraz $e$ dostopa le do lokacij iz množice $L$, podamo s sledečimi pravili:
+Želeli bi pokazati, da vsak program lahko vedno naredi korak, vendar to ni res, saj lahko nekateri programi dostopajo do lokacij, ki v stanju niso nastavljene. Da bi se tem primerom izognili, smo v implementaciji napisali funkcijo `check`, ki je program preverila, preden ga je začela izvajati. Matematično pa bomo to zopet podali z induktivnimi relacijami. Relacijo $L \vdash e$, ki podaja, kdaj aritmetični izraz $e$ dostopa le do lokacij iz množice $L$, podamo s sledečimi pravili:
 
 $$
   \infer{\ell \in L}{L \vdash \ell} \qquad

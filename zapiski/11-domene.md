@@ -94,7 +94,7 @@ Preverimo lahko, da dobimo domeno, ki jo imenujemo _domena zveznih preslikav_ in
 
 $$\bigvee_i \bigvee_j x_{ij} = \bigvee_j \bigvee_i x_{ij} = \bigvee_k x_{kk}$$
 
-**Dokaz.** Ker za poljubna $i$ in $j$ velja $x_{ij} \le x_{\max(i, j) \max(i, j)} \le \bigvee_k x_{kk}$, za poljuben $i$ velja $\bigvee_j x_{ij} \le \bigvee_k x_{kk}$ in zato tudi $\bigvee_i \bigvee_j x_{ij}$. Obratno za poljuben $k$ velja $x_{kk} \le \bigvee_j x_{kj} \le \bigvee_i \bigvee_j x_{ij}$ torej dobimo neenakost tudi v drugo smer, zato velja $\bigvee_i \bigvee_j x_{ij} = \bigvee_k x_{kk}$. Druga enakost velja zaradi simetrije. ■
+**Dokaz.** Ker za poljubna $i$ in $j$ velja $x_{ij} \le x_{\max(i, j) \max(i, j)} \le \bigvee_k x_{kk}$, za poljuben $i$ velja $\bigvee_j x_{ij} \le \bigvee_k x_{kk}$ in zato tudi $\bigvee_i \bigvee_j x_{ij} \le \bigvee_k x_{kk}$. Obratno za poljuben $k$ velja $x_{kk} \le \bigvee_j x_{kj} \le \bigvee_i \bigvee_j x_{ij}$ torej dobimo neenakost tudi v drugo smer, zato velja $\bigvee_i \bigvee_j x_{ij} = \bigvee_k x_{kk}$. Druga enakost velja zaradi simetrije. ■
 
 **Trditev.** V domeni zveznih preslikav obstajajo supremumi poljubnih verig.
 
@@ -178,4 +178,4 @@ $$
     \end{align*}
 $$
 
-saj lahko z indukcijo na $j$ lahko pokažemo, da zaradi zveznosti $f_i$ velja $(\bigvee_i f_i)^j(x) = \bigvee_i f_i^j(x)$ za poljuben $x$.
+saj lahko z indukcijo na $j$ pokažemo, da zaradi zveznosti $f_i$ velja $(\bigvee_i f_i)^j(x) = \bigvee_i f_i^j(x)$ za poljuben $x$.
