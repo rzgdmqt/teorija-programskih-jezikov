@@ -28,6 +28,7 @@ $$
 $$
 
 Če imamo kontekst $\ctxt$, lahko vse luknje zamenjamo z izrazom $M$ in dobimo izraz, ki ga označimo z $\ctxt[M]$. Na primer, če je $\ctxt = \lambda x. \ifthenelse{x < [\,]}{x}{[\,]}$ in $M = \intsym{6} * \intsym{7}$, je
+
 $$
   \ctxt[M] = \lambda x. \ifthenelse{x < (\intsym{6} * \intsym{7})}{x}{(\intsym{6} * \intsym{7})}
 $$

@@ -152,7 +152,7 @@ Naj bo $s$ stanje, definirano na vseh lokacijah iz množice $L$. Tedaj:
 
 - Za vsak aritmetični izraz $e$, za katerega velja $L \vdash e$, obstaja $n \in \mathbb{Z}$, da velja $s, e \Downarrow n$.
 - Za vsak logični izraz $b$, za katerega velja $L \vdash b$, obstaja $r \in \mathbb{B}$, da velja $s, b \Downarrow r$.
-- Za vsak ukaz $c$ in množico lokacij $L'$, za kateri velja $L \vdash c, L'$:
+- Za vsak ukaz $c$ in množico lokacij $L'$, za katera velja $L \vdash c, L'$:
     1. bodisi obstajata ukaz $c'$ in stanje $s'$, da velja $s, c \leadsto s', c'$,
     2. bodisi velja $c = \skip$.
 
@@ -179,7 +179,7 @@ Vsak del dokažemo z indukcijo.
 
   - Če smo uporabili pravilo $\infer{L \vdash c_1, L' \qquad L' \vdash c_2, L''}{L \vdash (c_1 ; c_2), L''}$, po indukcijski predpostavki za $L \vdash c_1$ velja:
 
-    1. bodisi obstajata ukaz $c_1'$ in stanje $s'$, da velja $s, c_1 \leadsto s', c_1'$, zaradi česar velja tudi $s, (c_1; c_2) \leadsto s, (c_1'; c_2)$,
+    1. bodisi obstajata ukaz $c_1'$ in stanje $s'$, da velja $s, c_1 \leadsto s', c_1'$, zaradi česar velja tudi $s, (c_1; c_2) \leadsto s', (c_1'; c_2)$,
     2. bodisi je $c_1 = \skip$, zaradi česar velja $s, (\skip; c_2) \leadsto s, c_2$.
 
     V obeh primerih torej lahko naredimo korak.
@@ -210,7 +210,7 @@ Preverite primere, izpuščene v zgornjih dokazih.
 
 ### Naloga 2
 
-Vpeljite relacijo $\leadsto^*$, ki je tranzitivna in refleksivna ovojnica relacije malih korakov $\leadsto$. Razložite, kakšen je njen intuitivni pomen relacije ter pokažite, da je res tranzitivna.
+Vpeljite relacijo $\leadsto^*$, ki je tranzitivna in refleksivna ovojnica relacije malih korakov $\leadsto$. Razložite, kakšen je njen intuitivni pomen ter pokažite, da je res tranzitivna.
 
 ### Naloga 3
 

@@ -17,8 +17,8 @@ Opazimo, da so vsi zgornji primeri kodomen oblike $T \itp{A}$, kjer je $T$ neka 
 Tako strukturo opisujejo _monade_. Monada je podana s trojico $(T, \eta, \bind)$, kjer je:
 
 - $T$ preslikava (funktor), ki vsaki množici $X$ priredi množico $T X$,
-- _enoto_ $\eta$, ki je družina preslikav (naravna transformacija) $\eta_X : X \to T X$ za poljubno množico $X$,
-- _veriženjem_ $\bind$, ki je družina preslikav (naravna transformacija) $\bind_{X, Y} : T X \to (X \to T Y) \to T Y$ za poljubni množici $X$ in $Y$,
+- $\eta$ _enota_, ki je družina preslikav (naravna transformacija) $\eta_X : X \to T X$ za poljubno množico $X$,
+- $\bind$ _veriženje_, ki je družina preslikav (naravna transformacija) $\bind_{X, Y} : T X \to (X \to T Y) \to T Y$ za poljubni množici $X$ in $Y$,
 
 ki zadoščajo zakonom:
 
@@ -90,7 +90,6 @@ $$\begin{align*}
         &= (s \mapsto m(s)) \\
         &= m \\
     (m \bind k) \bind k'
-        &= (s \mapsto k(\pi_1(m(s)))(\pi_2(m(s)))) \bind k' \\
         &= (s \mapsto k(\pi_1(m(s)))(\pi_2(m(s)))) \bind k' \\
         &= (s \mapsto k'(\pi_1(k(\pi_1(m(s)))(\pi_2(m(s)))))(\pi_2(k(\pi_1(m(s)))(\pi_2(m(s)))))) \\
         &= m \bind (x \mapsto (s \mapsto k'(\pi_1(k(x)(s)))(\pi_2(k(x)(s))))) \\

@@ -4,7 +4,7 @@ V praksi računalniki poleg računanja vrednosti sprožajo tudi _stranske_ oziro
 
 ## Drobnozrnati neučakani λ-račun
 
-Preden uvedemo učinke, si oglejmo _drobnozrnati neučakani_ (_fine-grain call-by-value_) λ-račun_, ki je različica λ-računa, v katerem je vrstni red izvajanja eksplicitno določen s sintakso. Spomnimo se, da smo aplikacijo $M \, N$ računali tako, da smo najprej izračunali $M$, nato $N$, nazadnje pa naredili β-redukcijo. Alternativa bi bila, da bi najprej izračunali $N$, nato pa $M$. Če naši programi ne sprožajo učinkov, to ne bi naredilo velike razlike, ob prisotnosti učinkov pa jo. Težava je, da vrstni red iz sintakse ni natanko določen. Na primer, programi v OCamlu uporabljajo en vrstni red pri prevodu v strojno kodo, pri tolmačenju pa drugega. Tej dvoumnosti se bomo izognili tako, da bomo v aplikaciji in podobnih izrazih s sintakso zahtevali, da morajo biti nekateri podizrazi že vrednosti.
+Preden uvedemo učinke, si oglejmo _drobnozrnati neučakani_ (_fine-grain call-by-value_) λ-račun, ki je različica λ-računa, v katerem je vrstni red izvajanja eksplicitno določen s sintakso. Spomnimo se, da smo aplikacijo $M \, N$ računali tako, da smo najprej izračunali $M$, nato $N$, nazadnje pa naredili β-redukcijo. Alternativa bi bila, da bi najprej izračunali $N$, nato pa $M$. Če naši programi ne sprožajo učinkov, to ne bi naredilo velike razlike, ob prisotnosti učinkov pa jo. Težava je, da vrstni red iz sintakse ni natanko določen. Na primer, programi v OCamlu uporabljajo en vrstni red pri prevodu v strojno kodo, pri tolmačenju pa drugega. Tej dvoumnosti se bomo izognili tako, da bomo v aplikaciji in podobnih izrazih s sintakso zahtevali, da morajo biti nekateri podizrazi že vrednosti.
 
 ### Sintaksa
 
@@ -28,7 +28,7 @@ $$
 \end{align*}
 $$
 
-Vrednosti so podobne kot prej, pri izrazih pa vidimo, da je pogoj v logičnem izrazu vrednost, prav tako morajo biti vrednosti vsi argumenti operacij in aplikacije. Telo funkcije in veji logičnega izraza pa so _izračuni_, torej izrazi, ki se še morajo izvesti. Poleg tega dodamo še dva izračuna $\return V$ predstavlja izračun, ki vrne vrednost $V$, _veriženje_ $\letin{x = M} N$ pa najprej izračuna $M$, dobljeno vrednost veže v $x$ ter nadaljuje z izvajanjem izračuna $N$.
+Vrednosti so podobne kot prej, pri izrazih pa vidimo, da je pogoj v logičnem izrazu vizračunaizračunarednost, prav tako morajo biti vrednosti vsi argumenti operacij in aplikacije. Telo funkcije in veji logičnega izraza pa so _izračuni_, torej izrazi, ki se še morajo izvesti. Poleg tega dodamo še dva izračuna; $\return V$ predstavlja izračun, ki vrne vrednost $V$, _veriženje_ $\letin{x = M} N$ pa najprej izračuna $M$, dobljeno vrednost veže v $x$ ter nadaljuje z izvajanjem izračuna $N$.
 
 V dobljeni sintaksi $M \, N$ sploh ni veljaven izraz. Pišemo lahko kvečjemu $\letin{f = M} (\letin{x = N} f \, x)$, ali pa $\letin{x = N} (\letin{f = M} f \, x)$, pri čemer je očitno, kaj bomo izračunali najprej. Sintaksa takega jezika je sicer malo bolj nerodna, je pa zato metateorija toliko lepša.
 

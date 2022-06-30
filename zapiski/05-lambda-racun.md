@@ -31,11 +31,11 @@ $$
   \text{izraz } M, N ::= x \mid \lambda x. M \mid M \, N
 $$
 
-Vsak izraz je lahko:
+Vsak izraz lahko predstavlja:
 
-- spremenljivka,
+- spremenljivko,
 - _abstrakcijo_ (oziroma _lambdo_), ki predstavlja funkcijo s _parametrom_ $x$ in _telesom_ $M$, ter
-- _aplikacijo_, ki funkcijo, predstavljeno z $M$, uporabi na _argumentu_, predstavljenem z izrazom $N$.
+- _aplikacijo_, ki funkcijo, predstavljeno z $M$, uporabi na _argumentu_, predstavljenim z izrazom $N$.
 
 Na primer:
 
@@ -161,13 +161,13 @@ $$
   fact := \lambda n. ifThenElse (isZero \, n) \, \underline{1} \, (times \, n \, (fact \, (pred \, n)))
 $$
 
-Za razliko do prejšnjih definicij se ta ne sklicuje samo na poprej definirane izraze, temveč tudi samo nase. Ciklične definicije se lahko znebimo tako, da problem prevedemo na iskanje fiksne točke. Definirajmo:
+Za razliko do prejšnjih definicij se ta ne sklicuje samo na poprej definirane izraze, temveč tudi sama nase. Ciklične definicije se lahko znebimo tako, da problem prevedemo na iskanje fiksne točke. Definirajmo:
 
 $$
   \Psi := \lambda f. \lambda n. ifThenElse (isZero \, n) \, \underline{1} \, (times \, n \, (f \, (pred \, n)))
 $$
 
-Vse je tako kot v definiciji $fact$, le da sprejmemo dodatni argument $f$, ki ga uporabimo na mestu rekurzivnega klica uporabimo argument $f$. Zdaj pa si želimo najti tako funkcijo $fact$, ki je enaka $\Psi \, fact$, torej fiksno točko funkcije (oz. funkcionala), ki jo predstavlja izraz $\Psi$.
+Vse je tako kot v definiciji $fact$, le da sprejmemo dodatni argument $f$, ki ga uporabimo na mestu rekurzivnega klica. Zdaj pa si želimo najti tako funkcijo $fact$, ki je enaka $\Psi \, fact$, torej fiksno točko funkcije (oz. funkcionala), ki jo predstavlja izraz $\Psi$.
 
 Pri izračunu fiksne točke si pomagamo z _Y-kombinatorjem_:
 

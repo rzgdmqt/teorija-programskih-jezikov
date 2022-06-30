@@ -88,7 +88,7 @@ $$
 }
 $$
 
-kjer za podizraza predpostavimo poljubna tipa $A_1$ in $A_2$ ne zahtevamo ničesar, ujemanje med njima pa zapišemo v enačbo $A_1 = A_2 \to \alpha$ v zaključku pravila. Poleg te enačbe bo morala vsaka rešitev zadostiti vsem enačbam $\eqs_1$ in $\eqs_2$, ki jih ravno tako dodamo v zaključek.
+kjer za podizraza predpostavimo poljubna tipa $A_1$ in $A_2$, ujemanje med njima pa zapišemo v enačbo $A_1 = A_2 \to \alpha$ v zaključku pravila. Poleg te enačbe bo morala vsaka rešitev zadostiti vsem enačbam $\eqs_1$ in $\eqs_2$, ki jih ravno tako dodamo v zaključek.
 
 Relacijo $\Gamma \vdash M : A \mid \eqs$ tako podamo s pravili:
 
@@ -116,7 +116,7 @@ $$
 } \\[2em]
 
 \infer{}{
-    \Gamma \vdash \intsym{n} : \intty\mid \emptyset
+    \Gamma \vdash \intsym{n} : \intty \mid \emptyset
 } \qquad
 
 \infer{
@@ -138,8 +138,7 @@ $$
     \Gamma \vdash M_2 : A_2 \mid \eqs_2
 }{
     \Gamma \vdash M_1 < M_2 : \boolty \mid A_1 = \intty, A_2 = \intty, \eqs_1, \eqs_2
-
-} \\[2em]
+}
 
 \infer{
     \Gamma, x : \alpha \vdash M : A \mid \eqs
@@ -154,6 +153,7 @@ $$
     \Gamma \vdash M_1 \, M_2 : \alpha \mid A_1 = A_2 \to \alpha, \eqs_1, \eqs_2
 }
 $$
+
 
 Pri tem upoštevamo, da morajo biti vsi parametri $\alpha$ sveži, torej da jih poprej še nismo uporabili. Drevo izpeljave za izraz $\lambda f. \lambda x. f \, (f \, x)$ od prej je natančneje torej:
 
@@ -252,6 +252,7 @@ $$
 } \\
 $$
 kjer je množica prostih parametrov $fv(A)$ definirana kot
+
 $$
 fv(\alpha) = \{ \alpha \} \qquad fv(\boolty) = fv(\intty) = \emptyset \qquad fv(A \to B) = fv(A) \cup fv(B)
 $$
@@ -306,13 +307,17 @@ $$
 Najprej se spomnimo, da velja $(\alpha \mapsto A)(\eqs) = \eqs[A / \alpha]$. Ker v množici enačb $\eqs[A / \alpha]$ parameter $\alpha$ ne nastopa, lahko pokažemo, da tudi v $\sigma$ ni omenjen, zato velja $\sigma(\alpha) = \alpha$.
 
 Tako v prvi enačbi na levi strani dobimo
+
 $$
   ((\alpha \mapsto \sigma(A)) \circ \sigma)(\alpha) = (\alpha \mapsto \sigma(A))(\sigma(\alpha)) = (\alpha \mapsto \sigma(A))(\alpha) = \sigma(A)
 $$
+
 na desni strani pa
+
 $$
   ((\alpha \mapsto \sigma(A)) \circ \sigma)(A) = (\alpha \mapsto \sigma(A))(\sigma(A)) = \sigma(A)
 $$
+
 saj $\alpha \notin fv(\sigma(A))$, ker $\alpha \notin fv(A)$, v substituciji $\alpha$ pa se prav tako ne pojavi.
 
 Dokazati moramo še $(\alpha \mapsto \sigma(A)) \circ \sigma \models \eqs$. Vzemimo torej poljubno enačbo $A_1 = A_2 \in \eqs$ in pokažimo, da velja $(\alpha \mapsto \sigma(A))(\sigma(A_1)) = (\alpha \mapsto \sigma(A))(\sigma(A_2))$ oziroma $\sigma(A_1)[\sigma(A) / \alpha] = \sigma(A_2)[\sigma(A) / \alpha]$. Po indukcijski predpostavki velja $\sigma \models (\alpha \mapsto A)(\eqs)$, iz česar sledi $\sigma(A_1[A / \alpha]) = \sigma(A_2[A / \alpha])$, kar je natanko to, kar moramo pokazati, saj velja $\sigma(A_1)[\sigma(A) / \alpha] = \sigma(A_1[A / \alpha])$ in podobno za $A_2$. ■
@@ -323,11 +328,11 @@ Pokazati moramo še, da so nastavljene enačbe najbolj splošne, torej da lahko 
 
 **Trditev.** Naj bo $\Gamma \vdash M : A$ Tedaj obstaja $A'$ in $\eqs$, da velja $\Gamma \vdash M : A' \mid \eqs$.
 
-**Dokaz.** Dokaz je rutinska indukcija, saj so pravila za $\Gamma \vdash M : A' \mid \eqs$ tako splošna, da jih lahko uporabimo na poljubnem izrazu. Paziti moramo le na to, da v katerem se vse proste spremenljivke pojavijo v $\Gamma$, kar pa nam zagotavlja predpostavka $\Gamma \vdash M : A$. ■
+**Dokaz.** Dokaz je rutinska indukcija, saj so pravila za $\Gamma \vdash M : A' \mid \eqs$ tako splošna, da jih lahko uporabimo na poljubnem izrazu. Paziti moramo le na to, da se vse proste spremenljivke pojavijo v $\Gamma$, kar pa nam zagotavlja predpostavka $\Gamma \vdash M : A$. ■
 
 Ko vemo, da enačbe lahko vedno nastavimo, pa lahko povemo tudi, da so najbolj splošne:
 
-**Trditev.** Naj bo $\Gamma \vdash M : A \mid \eqs$. Tedaj za poljuben tip $A'$, za katerega velja in $\Gamma \vdash M : A$, obstaja $\sigma \models \eqs$, da velja $\sigma(A) = A'$.
+**Trditev.** Naj bo $\Gamma \vdash M : A \mid \eqs$. Tedaj za poljuben tip $A'$, za katerega velja $\Gamma \vdash M : A'$, obstaja $\sigma \models \eqs$, da velja $\sigma(A) = A'$.
 
 Dokaza ne bomo navajali, ker je bolj tehničen, najdete pa ga lahko v razdelku 22.5 učbenika [Types and programming languages](https://www.cis.upenn.edu/~bcpierce/tapl/).
 
@@ -340,11 +345,14 @@ Tudi v drugi fazi moramo pokazati, da je najdena rešitev res najbolj splošna. 
 **Dokaz.** Dokaz poteka z malo bolj zapleteno indukcijo, saj ni očitno, katera stvar se v predpostavkah manjša. Na primer, včasih se enačb znebimo, včasih zamenjamo eno enačbo z več novimi, vendar z manjšimi tipi, včasih pa tipe povečamo, vendar se znebimo parametrov. Vse to zajamemo z leksikografsko urejenostjo med sistemi enačb.
 
 Definirajmo velikost $|A|$ tipa $A$ kot
+
 $$
   |\alpha| = |\boolty| = |\intty| = 1 \qquad
   |A \to B| = 1 + |A| + |B|
 $$
+
 Velikost in proste parametre enačb $\eqs$ pa lahko definiramo kot
+
 $$
 \begin{align*}
   |\eqs| &= \sum_{(A_1 = A_2) \in \eqs} (|A_1| + |A_2|) \\
@@ -357,12 +365,14 @@ Vzemimo zdaj enačbe $\eqs$ in nadaljujmo z leksikogafsko indukcijo na $(|fv(\eq
 Če je $\eqs = \emptyset$, velja $\eqs \searrow \emptyset$. V nasprotnem primeru imamo $\eqs = (A_1 = A_2, \eqs')$, kjer velja $\sigma \models \eqs'$ in $\sigma(A_1) = \sigma(A_2)$. Poglejmo, v kakšnih primerih se slednje lahko zgodi.
 
 Če je $A_1 = A_2$, lahko uporabimo pravilo 
+
 $$
 \infer{
   \eqs' \searrow \sigma'
 }{
   A_1 = A_1, \eqs' \searrow \sigma'
 }$$
+
 saj po indukciji obstaja $\eqs' \searrow \sigma'$.
 
 Če pa je $A_1 \ne A_2$, hkrati pa $\sigma(A_1) = \sigma(A_2)$, pa morata biti $A_1$ in $A_2$ vsaj kompatibilne oblike. Torej sta oba funkcijska tipa, ali pa je eden od njiju parameter.
@@ -394,11 +404,14 @@ Ko vemo, da rešitev obstaja, pokažemo še, da je najbolj splošna.
 
 **Trditev.** Če velja $\eqs \searrow \sigma$, tedaj za poljubno $\sigma' \models \eqs$ obstaja $\sigma''$, da velja $\sigma' = \sigma'' \circ \sigma$.
 
-**Dokaz.** Dokaz poteka z indukcijo na $\eqs \searrow \sigma$. Za primer vzemimo pravilo 
+**Dokaz.** Dokaz poteka z indukcijo na $\eqs \searrow \sigma$. Za primer vzemimo pravilo
+
 $$
 \infer{
   A_1 = B_1, A_2 = B_2, \eqs \searrow \sigma
 }{
   A_1 \to A_2 = B_1 \to B_2, \eqs \searrow \sigma
-}.$$
+}.
+$$
+
 Naj velja $\sigma' \models A_1 \to A_2 = B_1 \to B_2, \eqs$. Tedaj velja tudi $\sigma' \models A_1 = B_1, A_2 = B_2, \eqs$ zato po indukcijski predpostavki obstaja $\sigma''$, da velja $\sigma' = \sigma'' \circ \sigma$, kar je natanko to, kar smo želeli pokazati.

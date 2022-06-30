@@ -120,7 +120,7 @@ $$
 Oglejmo si vse veljavne dele jezika, pri čemer bomo za vsakega neformalno povedali, kaj predstavlja. Aritmetični izrazi so sestavljeni iz branja vrednosti pomnilniških lokacij, celoštevilskih konstant (ki jih podčrtamo, da jih ločimo od celih števil) ter aritmetičnih operacij, logični izrazi pa so sestavljeni iz logičnih konstant ter primerjav. Ukazi so bolj zanimivi:
 
 - pogojni ukaz, ki izvede $c_1$, kadar $b$ predstavlja resnično logično vrednost, oziroma $c_2$, kadar $b$ predstavlja neresnično logično vrednost;
-- zanka while` izvaja ukaz $c$, dokler $b$ predstavlja resnično logično vrednost;
+- zanka `while` izvaja ukaz $c$, dokler $b$ predstavlja resnično logično vrednost;
 - zaporedno izvajanje najprej izvede $c_1$ - ko (če) se ta konča, izvede še $c_2$;
 - prirejanje izračuna aritmetični izraz $e$ ter njegovo vrednost zapiše v pomnilniško lokacijo $\ell$;
 - zadnji ukaz ne naredi ničesar, uporabimo pa ga na primer takrat, kadar v pogojnem stavku želimo nekaj storiti le v eni izmed vej.
