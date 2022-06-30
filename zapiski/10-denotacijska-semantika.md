@@ -39,11 +39,11 @@ Izkaže se, da zaradi poljubne izbire kontekstov $\ctxt$ iz zgornje definicije s
 
 **Trditev.** Če velja $M \simeq N$, potem za poljuben kontekst $\ctxt$ velja $\ctxt[M] \leadsto^* \false$ natanko takrat, kadar velja $\ctxt[N] \leadsto^* \false$.
 
-**Dokaz.** Naj velja $\ctxt[M] \leadsto^* \false$. Tedaj definirajmo $\ctxt' = \ifthenelse{\ctxt}{\false}{\true}$, zato velja $\ctxt'[M] \leadsto^* \ifthenelse{\false}{\false}{\true} \leadsto \true$, zato iz $M \simeq N$ sledi tudi $\ctxt'[N] \leadsto^* \true$, kar pa je možno le, če je $\ctxt'[N] \leadsto^* \false$. V drugo smer je dokaz enak. ■
+**Dokaz.** Naj velja $\ctxt[M] \leadsto^* \false$. Tedaj definirajmo $\ctxt' = \ifthenelse{\ctxt}{\false}{\true}$, zato velja $\ctxt'[M] \leadsto^* \ifthenelse{\false}{\false}{\true} \leadsto \true$, zato iz $M \simeq N$ sledi tudi $\ctxt'[N] \leadsto^* \true$, kar pa je možno le, če je $\ctxt[N] \leadsto^* \false$. V drugo smer je dokaz enak. ■
 
 **Trditev.** Če velja $M \simeq N$, potem za poljuben kontekst $\ctxt$ velja $\ctxt[M] \leadsto^* \intsym{n}$ natanko takrat, kadar velja $\ctxt[N] \leadsto^* \intsym{n}$.
 
-**Dokaz.** Naj velja $\ctxt[M] \leadsto^* \intsym{n}$. Tedaj definirajmo $\ctxt'$ kot $(\ctxt = \intsym{n})$. Tedaj velja $\ctxt'[M] \leadsto^* (\intsym{n} = \intsym{n}) \leadsto \true$, zato iz $M \simeq N$ sledi tudi $\ctxt'[N] \leadsto^* \true$, kar pa je možno le, če je $\ctxt'[N] \leadsto^* \intsym{n}$. V drugo smer je dokaz enak. ■
+**Dokaz.** Naj velja $\ctxt[M] \leadsto^* \intsym{n}$. Tedaj definirajmo $\ctxt'$ kot $(\ctxt = \intsym{n})$. Tedaj velja $\ctxt'[M] \leadsto^* (\intsym{n} = \intsym{n}) \leadsto \true$, zato iz $M \simeq N$ sledi tudi $\ctxt'[N] \leadsto^* \true$, kar pa je možno le, če je $\ctxt[N] \leadsto^* \intsym{n}$. V drugo smer je dokaz enak. ■
 
 Če imamo v jeziku na voljo rekurzijo, lahko kontekstno ekvivalenco definiramo celo tako, da izraz $\ctxt[M]$ konvergira natanko tedaj, kadar konvergira izraz $\ctxt[N]$, saj lahko kontekst ovijemo s pogojnim izrazom, ki v eni veji konvergira, v drugi pa divergira.
 
