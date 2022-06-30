@@ -28,7 +28,7 @@ $$
 \end{align*}
 $$
 
-Vrednosti so podobne kot prej, pri izrazih pa vidimo, da je pogoj v logičnem izrazu vizračunaizračunarednost, prav tako morajo biti vrednosti vsi argumenti operacij in aplikacije. Telo funkcije in veji logičnega izraza pa so _izračuni_, torej izrazi, ki se še morajo izvesti. Poleg tega dodamo še dva izračuna; $\return V$ predstavlja izračun, ki vrne vrednost $V$, _veriženje_ $\letin{x = M} N$ pa najprej izračuna $M$, dobljeno vrednost veže v $x$ ter nadaljuje z izvajanjem izračuna $N$.
+Vrednosti so podobne kot prej, pri izrazih pa vidimo, da je pogoj v logičnem izrazu vrednost, prav tako morajo biti vrednosti vsi argumenti operacij in aplikacije. Telo funkcije in veji logičnega izraza pa so _izračuni_, torej izrazi, ki se še morajo izvesti. Poleg tega dodamo še dva izračuna; $\return V$ predstavlja izračun, ki vrne vrednost $V$, _veriženje_ $\letin{x = M} N$ pa najprej izračuna $M$, dobljeno vrednost veže v $x$ ter nadaljuje z izvajanjem izračuna $N$.
 
 V dobljeni sintaksi $M \, N$ sploh ni veljaven izraz. Pišemo lahko kvečjemu $\letin{f = M} (\letin{x = N} f \, x)$, ali pa $\letin{x = N} (\letin{f = M} f \, x)$, pri čemer je očitno, kaj bomo izračunali najprej. Sintaksa takega jezika je sicer malo bolj nerodna, je pa zato metateorija toliko lepša.
 
